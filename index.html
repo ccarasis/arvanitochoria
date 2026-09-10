@@ -3,34 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mt. Arachnaio Arvanite Oral Histories</title>
+  <title>Arvanitochoria: Arvanite Cartographies of Mt. Arachnaio</title>
   
   <!-- Mapbox GL JS CSS & JavaScript -->
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
 
   <style>
-    body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; display: flex; flex-direction: column; height: 100vh; }
+    body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; display: flex; flex-direction: column; height: 100vh; color: #3d2b1f; }
     
-    /* Top Bar Header */
-    #top-bar { height: 50px; background-color: #2c3e50; color: white; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 10; }
-    #top-bar h1 { font-size: 1.1rem; margin: 0; }
-    .lang-btn { background: #34495e; color: white; border: 1px solid #7f8c8d; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-    .lang-btn:hover { background: #1abc9c; }
+    /* Top Bar Header: Earthy Dark Brown & Cream Text */
+    #top-bar { height: 50px; background-color: #3d2b1f; color: #fdfbf7; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.3); z-index: 10; }
+    #top-bar h1 { font-size: 1.1rem; margin: 0; font-weight: 600; letter-spacing: 0.5px; }
+    .lang-btn { background: #5a402d; color: #fdfbf7; border: 1px solid #8c6d53; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+    .lang-btn:hover { background: #73533a; }
 
     /* Main Container Layout */
     #container { display: flex; flex: 1; position: relative; overflow: hidden; }
     
-    /* Theme Sidebar */
-    #sidebar { width: 320px; background: #f8f9fa; border-right: 1px solid #dee2e6; overflow-y: auto; padding: 15px; box-sizing: border-box; z-index: 2; }
-    .theme-btn { width: 100%; text-align: left; background: white; border: 1px solid #ced4da; padding: 12px; margin-bottom: 8px; border-radius: 6px; font-size: 0.95rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
-    .theme-btn:hover { background: #e9ecef; border-color: #adb5bd; transform: translateY(-1px); }
+    /* Theme Sidebar: Earthy Tan Background */
+    #sidebar { width: 320px; background: #e8ded1; border-right: 1px solid #c9b8a3; overflow-y: auto; padding: 15px; box-sizing: border-box; z-index: 2; color: #3d2b1f; }
+    #sidebar-heading { color: #2c1e15; border-bottom: 2px solid #c9b8a3; padding-bottom: 6px; }
+
+    /* Theme Buttons: Warm Cream with Dark Brown Border/Text */
+    .theme-btn { width: 100%; text-align: left; background: #fdfbf7; color: #3d2b1f; border: 1px solid #b39b82; padding: 12px; margin-bottom: 8px; border-radius: 6px; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .theme-btn:hover { background: #f4ece1; border-color: #73533a; transform: translateY(-1px); }
 
     /* 3D Map Area */
     #map { flex: 1; height: 100%; }
 
     /* Video Popup Styling */
-    .mapboxgl-popup-content { max-width: 320px; padding: 15px; border-radius: 8px; }
+    .mapboxgl-popup-content { max-width: 320px; padding: 15px; border-radius: 8px; background: #fdfbf7; color: #3d2b1f; border: 1px solid #c9b8a3; }
     .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 10px; border-radius: 4px; }
     .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
@@ -44,9 +47,9 @@
 </head>
 <body>
 
-  <!-- Top Navigation & Language Toggle -->
+  <!-- Top Navigation Header -->
   <div id="top-bar">
-    <h1 id="title-text">Mt. Arachnaio Arvanite Oral Histories</h1>
+    <h1 id="title-text">Arvanitochoria: Arvanite Cartographies of Mt. Arachnaio</h1>
     <button class="lang-btn" onclick="toggleLanguage()">Language: <span id="lang-label">EN</span></button>
   </div>
 
@@ -55,7 +58,7 @@
     <div id="sidebar">
       <h3 style="margin-top:0;" id="sidebar-heading">Themes</h3>
       
-      <!-- Real Fieldwork Theme Point 1: Limnes Church -->
+      <!-- Theme Point 1: Limnes Church -->
       <button class="theme-btn" onclick="flyToLocation(22.8828, 37.7126, 16, 68, -15, 'St. Nicholas Church, Limnes', 'Traditional Songs & Oral History', '_My7FpdZFWo')">
         🎵 <span class="theme-label" data-en="Traditional Songs" data-el="Παραδοσιακά Τραγούδια">Traditional Songs</span>
       </button>
@@ -139,7 +142,7 @@
     function toggleLanguage() {
       currentLang = currentLang === 'EN' ? 'EL' : 'EN';
       document.getElementById('lang-label').innerText = currentLang;
-      document.getElementById('title-text').innerText = currentLang === 'EN' ? 'Mt. Arachnaio Arvanite Oral Histories' : 'Προφορικές Ιστορίες Αρβανιτών Αραχναίου';
+      document.getElementById('title-text').innerText = currentLang === 'EN' ? 'Arvanitochoria: Arvanite Cartographies of Mt. Arachnaio' : 'Αρβανιτοχώρια: Αρβανίτικες Χαρτογραφήσεις του Αραχναίου';
       document.getElementById('sidebar-heading').innerText = currentLang === 'EN' ? 'Themes' : 'Θεματικές';
 
       document.querySelectorAll('.theme-label').forEach(el => {
