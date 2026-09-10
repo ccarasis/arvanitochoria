@@ -63,7 +63,6 @@
       <button class="theme-btn" onclick="flyToLocation(22.955, 37.638, 15, 65, 30, 'Kephalovryso Spring', 'Mountain Water & Gathering')">
         💧 <span class="theme-label" data-en="Mountain Water & Springs" data-el="Νερό & Πηγές Βουνού">Mountain Water & Springs</span>
       </button>
-      <!-- Additional themes can be added here -->
     </div>
 
     <!-- 3D Mapbox Map -->
@@ -71,8 +70,8 @@
   </div>
 
   <script>
-    // Public Mapbox Access Token
-    mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA';
+    // Personal Mapbox Access Token
+    mapboxgl.accessToken = 'pk.eyJ1IjoiY2NhcmFzaXMiLCJhIjoiY210dnp4dHBlMDRsNDJ5b2FzbzMwYzd0NCJ9.jjPwOMlmB3aCwKp8JpKS_Q';
 
     // Initialize 3D Map over Mt. Arachnaio
     const map = new mapboxgl.Map({
@@ -84,7 +83,7 @@
       bearing: -15
     });
 
-    // Add 3D Terrain Terrain Dem on load
+    // Add 3D Terrain Dem on load
     map.on('load', () => {
       map.addSource('mapbox-dem', {
         'type': 'raster-dem',
@@ -125,7 +124,7 @@
         .addTo(map);
     }
 
-    // Basic Language Toggle Logic
+    // Language Toggle Logic
     let currentLang = 'EN';
     function toggleLanguage() {
       currentLang = currentLang === 'EN' ? 'EL' : 'EN';
