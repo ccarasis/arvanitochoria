@@ -12,36 +12,109 @@
   <style>
     body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; display: flex; flex-direction: column; height: 100vh; color: #3d2b1f; }
     
-    /* Top Bar Header: Earthy Dark Brown & Cream Text */
+    /* Top Bar Header */
     #top-bar { height: 50px; background-color: #3d2b1f; color: #fdfbf7; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.3); z-index: 10; }
     #top-bar h1 { font-size: 1.1rem; margin: 0; font-weight: 600; letter-spacing: 0.5px; }
-    .lang-btn { background: #5a402d; color: #fdfbf7; border: 1px solid #8c6d53; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-    .lang-btn:hover { background: #73533a; }
+    
+    .header-controls { display: flex; gap: 10px; }
+    .control-btn { background: #5a402d; color: #fdfbf7; border: 1px solid #8c6d53; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.85rem; }
+    .control-btn:hover { background: #73533a; }
 
     /* Main Container Layout */
     #container { display: flex; flex: 1; position: relative; overflow: hidden; }
     
-    /* Theme Sidebar: Earthy Tan Background */
+    /* Theme Sidebar */
     #sidebar { width: 320px; background: #e8ded1; border-right: 1px solid #c9b8a3; overflow-y: auto; padding: 15px; box-sizing: border-box; z-index: 2; color: #3d2b1f; }
     #sidebar-heading { color: #2c1e15; border-bottom: 2px solid #c9b8a3; padding-bottom: 6px; }
 
-    /* Theme Buttons: Warm Cream with Dark Brown Border/Text */
+    /* Theme Buttons */
     .theme-btn { width: 100%; text-align: left; background: #fdfbf7; color: #3d2b1f; border: 1px solid #b39b82; padding: 12px; margin-bottom: 8px; border-radius: 6px; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
     .theme-btn:hover { background: #f4ece1; border-color: #73533a; transform: translateY(-1px); }
 
     /* 3D Map Area */
     #map { flex: 1; height: 100%; }
 
-    /* Video Popup Styling */
-    .mapboxgl-popup-content { max-width: 320px; padding: 15px; border-radius: 8px; background: #fdfbf7; color: #3d2b1f; border: 1px solid #c9b8a3; }
-    .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 10px; border-radius: 4px; }
+    /* Custom Elevation Marker Styling */
+    .elevation-marker {
+      background-color: #3d2b1f;
+      color: #fdfbf7;
+      border: 2px solid #8c6d53;
+      border-radius: 12px;
+      padding: 3px 8px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    }
+
+    /* ENLARGED POPUP STYLING */
+    .mapboxgl-popup { max-width: 480px !important; }
+    .mapboxgl-popup-content { padding: 18px; border-radius: 10px; background: #fdfbf7; color: #3d2b1f; border: 1px solid #c9b8a3; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+    .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 10px; border-radius: 6px; }
     .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
+    /* Expand Video Button */
+    .expand-btn {
+      margin-top: 10px;
+      width: 100%;
+      background-color: #3d2b1f;
+      color: #fdfbf7;
+      border: none;
+      padding: 8px 0;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 0.85rem;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .expand-btn:hover { background-color: #5a402d; }
+
+    /* FULL-SCREEN VIDEO MODAL OVERLAY */
+    #video-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 999;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      position: relative;
+      width: 80%;
+      max-width: 900px;
+      background: #3d2b1f;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+    }
+    .close-modal {
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      background: #fdfbf7;
+      color: #3d2b1f;
+      border: 2px solid #8c6d53;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
     /* Mobile Responsive Layout */
     @media (max-width: 768px) {
       #container { flex-direction: column-reverse; }
       #sidebar { width: 100%; height: 180px; }
       #map { height: calc(100% - 180px); }
+      .mapboxgl-popup { max-width: 300px !important; }
+      .modal-content { width: 95%; padding: 10px; }
     }
   </style>
 </head>
@@ -50,7 +123,10 @@
   <!-- Top Navigation Header -->
   <div id="top-bar">
     <h1 id="title-text">Arvanitochoria: Arvanite Cartographies of Mt. Arachnaio</h1>
-    <button class="lang-btn" onclick="toggleLanguage()">Language: <span id="lang-label">EN</span></button>
+    <div class="header-controls">
+      <button class="control-btn" onclick="toggleStyle()">Map Style: <span id="style-label">Satellite</span></button>
+      <button class="control-btn" onclick="toggleLanguage()">Language: <span id="lang-label">EN</span></button>
+    </div>
   </div>
 
   <div id="container">
@@ -58,10 +134,9 @@
     <div id="sidebar">
       <h3 style="margin-top:0;" id="sidebar-heading">Themes</h3>
       
-      <!-- Theme Point 1: Limnes Church -->
-      <button class="theme-btn" onclick="flyToLocation(22.8804, 37.7128, 17, 65, -10, 'Church of the Holy Trinity (Agia Triada), Limnes', 'Traditional Songs & Oral History: Ra Kampana', '_My7FpdZFWo')">
-  🎵 <span class="theme-label" data-en="Traditional Songs" data-el="Παραδοσιακά Τραγούδια">Traditional Songs</span>
-</button>
+      <!-- Theme Point 1: Limnes Holy Trinity Church -->
+      <button class="theme-btn" onclick="flyToLocation(22.8804, 37.7128, 17.2, 68, -10, 'Church of the Holy Trinity (Agia Triada), Limnes', 'Traditional Songs & Oral History: Ra Kampana', '_My7FpdZFWo')">
+        🎵 <span class="theme-label" data-en="Traditional Songs" data-el="Παραδοσιακά Τραγούδια">Traditional Songs</span>
       </button>
 
     </div>
@@ -70,34 +145,43 @@
     <div id="map"></div>
   </div>
 
+  <!-- Full-Screen Video Modal -->
+  <div id="video-modal" onclick="closeVideoModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="close-modal" onclick="closeVideoModal()">&times;</button>
+      <div class="video-box" style="margin-top:0;">
+        <iframe id="modal-iframe" src="" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // Personal Mapbox Access Token
     mapboxgl.accessToken = 'pk.eyJ1IjoiY2NhcmFzaXMiLCJhIjoiY210dnp4dHBlMDRsNDJ5b2FzbzMwYzd0NCJ9.jjPwOMlmB3aCwKp8JpKS_Q';
 
-    // Initialize 3D Map over Mt. Arachnaio
+    let currentStyle = 'custom';
+
+    // INITIALIZED WITH YOUR SPECIFIC STYLE URL HERE:
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/ccarasis/cmtw0jo3h000f01ra88t4fvvs',
-      center: [22.968, 37.638], // Mt. Arachnaio center overview
+      center: [22.968, 37.638],
       zoom: 11.5,
       pitch: 55,
       bearing: -15
     });
 
-    // Add Navigation and Zoom Controls
     map.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
-    // Enable 3D Terrain Elevation and Atmosphere
-    map.on('style.load', () => {
-      map.addSource('mapbox-dem', {
-        'type': 'raster-dem',
-        'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
-        'tileSize': 512,
-        'maxzoom': 14
-      });
-
+    function setupTerrain() {
+      if (!map.getSource('mapbox-dem')) {
+        map.addSource('mapbox-dem', {
+          'type': 'raster-dem',
+          'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+          'tileSize': 512,
+          'maxzoom': 14
+        });
+      }
       map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.8 });
-
       map.setFog({
         'range': [0.8, 8],
         'color': '#dc9c180',
@@ -106,11 +190,32 @@
         'space-color': '#000000',
         'star-intensity': 0.15
       });
-    });
+      addElevationMarkers();
+    }
+
+    map.on('style.load', setupTerrain);
+
+    const elevationPoints = [
+      { name: "Mt. Arachnaio Peak", elev: "1,199m", lng: 22.9731, lat: 37.6328 },
+      { name: "Limnes Village Square", elev: "480m", lng: 22.8804, lat: 37.7128 },
+      { name: "Arachnaio (Cheli)", elev: "600m", lng: 22.9642, lat: 37.6321 }
+    ];
+
+    function addElevationMarkers() {
+      elevationPoints.forEach(pt => {
+        const el = document.createElement('div');
+        el.className = 'elevation-marker';
+        el.innerText = `⛰️ ${pt.name} (${pt.elev})`;
+
+        new mapboxgl.Marker(el)
+          .setLngLat([pt.lng, pt.lat])
+          .setPopup(new mapboxgl.Popup({ offset: 15 }).setHTML(`<b>${pt.name}</b><br>Elevation: ${pt.elev}`))
+          .addTo(map);
+      });
+    }
 
     let currentPopup = null;
 
-    // Fly Map to Specific Theme Location & Open Embedded Video Popup
     function flyToLocation(lng, lat, zoom, pitch, bearing, title, desc, videoId) {
       if (currentPopup) currentPopup.remove();
 
@@ -123,13 +228,13 @@
         essential: true
       });
 
-      // Embed YouTube Video Player using standard embed URL format
       const popupHTML = `
-        <h4 style="margin:0 0 5px 0;">${title}</h4>
-        <p style="margin:0 0 8px 0; font-size:0.85rem; color:#555;">${desc}</p>
+        <h3 style="margin:0 0 6px 0; font-size:1.1rem; color:#3d2b1f;">${title}</h3>
+        <p style="margin:0 0 10px 0; font-size:0.9rem; color:#5a402d; line-height:1.3;">${desc}</p>
         <div class="video-box">
           <iframe src="https://www.youtube-nocookie.com/embed/${videoId}" allowfullscreen></iframe>
         </div>
+        <button class="expand-btn" onclick="openVideoModal('${videoId}')">🔍 Expand Video Fullscreen</button>
       `;
 
       currentPopup = new mapboxgl.Popup({ offset: 25 })
@@ -138,7 +243,33 @@
         .addTo(map);
     }
 
-    // Language Toggle Logic
+    function openVideoModal(videoId) {
+      const modal = document.getElementById('video-modal');
+      const iframe = document.getElementById('modal-iframe');
+      iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`;
+      modal.style.display = 'flex';
+    }
+
+    function closeVideoModal() {
+      const modal = document.getElementById('video-modal');
+      const iframe = document.getElementById('modal-iframe');
+      iframe.src = '';
+      modal.style.display = 'none';
+    }
+
+    function toggleStyle() {
+      if (currentStyle === 'custom') {
+        map.setStyle('mapbox://styles/mapbox/outdoors-v12');
+        currentStyle = 'outdoors';
+        document.getElementById('style-label').innerText = 'Topographic';
+      } else {
+        // UPDATED CUSTOM TOGGLE TO YOUR EXACT STYLE URL:
+        map.setStyle('mapbox://styles/ccarasis/cmtw0jo3h000f01ra88t4fvvs');
+        currentStyle = 'custom';
+        document.getElementById('style-label').innerText = 'Satellite';
+      }
+    }
+
     let currentLang = 'EN';
     function toggleLanguage() {
       currentLang = currentLang === 'EN' ? 'EL' : 'EN';
