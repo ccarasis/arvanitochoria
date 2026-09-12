@@ -100,20 +100,7 @@
     /* 3D Map Area */
     #map { flex: 1; height: 100%; }
 
-    /* Custom Elevation Marker Styling */
-    .elevation-marker {
-      background-color: #3d2b1f;
-      color: #fdfbf7;
-      border: 2px solid #8c6d53;
-      border-radius: 12px;
-      padding: 3px 8px;
-      font-size: 0.75rem;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.4);
-    }
-
-    /* ENLARGED POPUP STYLING (Increased from 320px to 480px) */
+    /* ENLARGED POPUP STYLING */
     .mapboxgl-popup { max-width: 480px !important; }
     .mapboxgl-popup-content { 
       padding: 18px; 
@@ -211,7 +198,6 @@
   <div id="top-bar">
     <h1 id="title-text">Arvanitochoria: Arvanite Cartographies of Mt. Arachnaio</h1>
     <div class="header-controls">
-      <button class="control-btn" onclick="toggleStyle()">Map Style: <span id="style-label">Satellite</span></button>
       <button class="control-btn" onclick="toggleLanguage()">Language: <span id="lang-label">EN</span></button>
     </div>
   </div>
@@ -221,8 +207,8 @@
     <div id="sidebar">
       <h3 style="margin-top:0;" id="sidebar-heading">Themes</h3>
       
-      <!-- Limnes Holy Trinity Church (Agia Triada) Button -->
-      <button class="theme-btn" onclick="flyToLocation(22.8804, 37.7128, 17.2, 68, -10, 'Church of the Holy Trinity (Agia Triada), Limnes', 'Traditional Songs & Oral History: Ra Kampana', '_My7FpdZFWo')">
+      <!-- Limnes Church Button (Adjusted Village Square Coordinates) -->
+      <button class="theme-btn" onclick="flyToLocation(22.8792, 37.7122, 17.5, 68, -10, 'Church of the Holy Trinity (Agia Triada), Limnes', 'Traditional Songs & Oral History: Ra Kampana', '_My7FpdZFWo')">
         🎵 <span class="theme-label" data-en="Traditional Songs" data-el="Παραδοσιακά Τραγούδια">Traditional Songs</span>
       </button>
     </div>
@@ -244,9 +230,6 @@
   <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiY2NhcmFzaXMiLCJhIjoiY210dnp4dHBlMDRsNDJ5b2FzbzMwYzd0NCJ9.jjPwOMlmB3aCwKp8JpKS_Q';
 
-    let currentStyle = 'satellite';
-
-    // USING STANDARD SATELLITE STREETS TO PREVENT WHITE MAP ISSUE:
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/satellite-streets-v12',
@@ -276,29 +259,9 @@
         'space-color': '#000000',
         'star-intensity': 0.15
       });
-      addElevationMarkers();
     }
 
     map.on('style.load', setupTerrain);
-
-    const elevationPoints = [
-      { name: "Mt. Arachnaio Peak", elev: "1,199m", lng: 22.9731, lat: 37.6328 },
-      { name: "Limnes Village Square", elev: "480m", lng: 22.8804, lat: 37.7128 },
-      { name: "Arachnaio (Cheli)", elev: "600m", lng: 22.9642, lat: 37.6321 }
-    ];
-
-    function addElevationMarkers() {
-      elevationPoints.forEach(pt => {
-        const el = document.createElement('div');
-        el.className = 'elevation-marker';
-        el.innerText = `⛰️ ${pt.name} (${pt.elev})`;
-
-        new mapboxgl.Marker(el)
-          .setLngLat([pt.lng, pt.lat])
-          .setPopup(new mapboxgl.Popup({ offset: 15 }).setHTML(`<b>${pt.name}</b><br>Elevation: ${pt.elev}`))
-          .addTo(map);
-      });
-    }
 
     let currentPopup = null;
 
@@ -341,18 +304,6 @@
       const iframe = document.getElementById('modal-iframe');
       iframe.src = '';
       modal.style.display = 'none';
-    }
-
-    function toggleStyle() {
-      if (currentStyle === 'satellite') {
-        map.setStyle('mapbox://styles/mapbox/outdoors-v12');
-        currentStyle = 'outdoors';
-        document.getElementById('style-label').innerText = 'Topographic';
-      } else {
-        map.setStyle('mapbox://styles/mapbox/satellite-streets-v12');
-        currentStyle = 'satellite';
-        document.getElementById('style-label').innerText = 'Satellite';
-      }
     }
 
     let currentLang = 'EN';
