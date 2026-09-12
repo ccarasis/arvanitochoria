@@ -163,7 +163,7 @@
     // INITIALIZED WITH YOUR SPECIFIC STYLE URL HERE:
     const map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/ccarasis/cmtw0jo3h000f01ra88t4fvvs',
+      style: 'mapbox://styles/mapbox/satellite-streets-v12',
       center: [22.968, 37.638],
       zoom: 11.5,
       pitch: 55,
@@ -194,18 +194,6 @@
     }
 
     map.on('style.load', setupTerrain);
-
-    const elevationPoints = [
-      { name: "Mt. Arachnaio Peak", elev: "1,199m", lng: 22.9731, lat: 37.6328 },
-      { name: "Limnes Village Square", elev: "480m", lng: 22.8804, lat: 37.7128 },
-      { name: "Arachnaio (Cheli)", elev: "600m", lng: 22.9642, lat: 37.6321 }
-    ];
-
-    function addElevationMarkers() {
-      elevationPoints.forEach(pt => {
-        const el = document.createElement('div');
-        el.className = 'elevation-marker';
-        el.innerText = `⛰️ ${pt.name} (${pt.elev})`;
 
         new mapboxgl.Marker(el)
           .setLngLat([pt.lng, pt.lat])
