@@ -4,117 +4,319 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Arvanitochoria: Arvanite Cartographies of Mt. Arachnaio</title>
-  
-  <!-- Mapbox GL JS CSS & JavaScript -->
+
+  <!-- Mapbox GL JS CSS & JS -->
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
 
+  <!-- Scrollama JS for Scroll-Driven Storytelling -->
+  <script src="https://unpkg.com/intersection-observer@0.12.0/intersection-observer.js"></script>
+  <script src="https://unpkg.com/scrollama"></script>
+
   <style>
-    body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; display: flex; flex-direction: column; height: 100vh; color: #3d2b1f; }
-    
-    /* Top Bar Header */
-    #top-bar { height: 50px; background-color: #3d2b1f; color: #fdfbf7; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.3); z-index: 10; }
-    #top-bar h1 { font-size: 1.1rem; margin: 0; font-weight: 600; letter-spacing: 0.5px; }
-    
-    .header-controls { display: flex; gap: 10px; }
-    .control-btn { background: #5a402d; color: #fdfbf7; border: 1px solid #8c6d53; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.85rem; }
-    .control-btn:hover { background: #73533a; }
-
-    /* Main Container Layout */
-    #container { display: flex; flex: 1; position: relative; overflow: hidden; }
-    
-    /* Theme Sidebar */
-    #sidebar { width: 320px; background: #e8ded1; border-right: 1px solid #c9b8a3; overflow-y: auto; padding: 15px; box-sizing: border-box; z-index: 2; color: #3d2b1f; }
-    #sidebar-heading { color: #2c1e15; border-bottom: 2px solid #c9b8a3; padding-bottom: 6px; }
-
-    /* Theme Buttons */
-    .theme-btn { width: 100%; text-align: left; background: #fdfbf7; color: #3d2b1f; border: 1px solid #b39b82; padding: 12px; margin-bottom: 8px; border-radius: 6px; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-    .theme-btn:hover { background: #f4ece1; border-color: #73533a; transform: translateY(-1px); }
-
-    /* 3D Map Area */
-    #map { flex: 1; height: 100%; }
-
-    /* Custom Elevation Marker Styling */
-    .elevation-marker {
-      background-color: #3d2b1f;
-      color: #fdfbf7;
-      border: 2px solid #8c6d53;
-      border-radius: 12px;
-      padding: 3px 8px;
-      font-size: 0.75rem;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    /* ==========================================================================
+       DESIGN TOKENS & COLOR PALETTE (Digital Humanities Theme)
+       ========================================================================== */
+    :root {
+      --bg-dark: #3d2b1f;            /* Deep Earthy Brown */
+      --text-cream: #fdfbf7;         /* Soft Warm Cream */
+      --card-bg: rgba(253, 251, 247, 0.93); /* Semi-transparent Parchment */
+      --card-border: #8c6d53;       /* Terracotta Border */
+      --card-active: #d4af37;       /* Gold Active Accent */
+      --text-dark: #2c1d13;         /* Dark Wood Text */
+      --text-muted: #5a402d;        /* Muted Brown Text */
+      --accent-btn: #5a402d;         /* Button Background */
+      --accent-hover: #73533a;       /* Button Hover */
     }
 
-    /* ENLARGED POPUP STYLING */
-    .mapboxgl-popup { max-width: 480px !important; }
-    .mapboxgl-popup-content { padding: 18px; border-radius: 10px; background: #fdfbf7; color: #3d2b1f; border: 1px solid #c9b8a3; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-    .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 10px; border-radius: 6px; }
-    .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    /* Expand Video Button */
-    .expand-btn {
-      margin-top: 10px;
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* Top Navigation Header */
+    #top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 54px;
+      background-color: var(--bg-dark);
+      color: var(--text-cream);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+      z-index: 100;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    #top-bar h1 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .header-controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .control-btn {
+      background: var(--accent-btn);
+      color: var(--text-cream);
+      border: 1px solid var(--card-border);
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .control-btn:hover {
+      background: var(--accent-hover);
+      border-color: var(--card-active);
+    }
+
+    .control-btn.active {
+      background: var(--card-active);
+      color: #000;
+      border-color: #fff;
+    }
+
+    /* Main Container & Fullscreen 3D Map */
+    #scrolly-container {
+      position: relative;
+      width: 100vw;
+      margin-top: 54px;
+    }
+
+    #map {
+      position: fixed;
+      top: 54px;
+      right: 0;
+      width: 100vw;
+      height: calc(100vh - 54px);
+      z-index: 1;
+    }
+
+    /* Floating Story Sidebar Overlay */
+    #story {
+      position: relative;
+      z-index: 2;
+      width: 42%;
+      max-width: 500px;
+      min-width: 320px;
+      margin-left: 30px;
+      padding-top: 5vh;
+      padding-bottom: 30vh;
+      pointer-events: none; /* Allows click-through to map */
+    }
+
+    /* Narrative Chapter Cards */
+    .step {
+      pointer-events: auto; /* Re-enables clicking inside cards */
+      margin-bottom: 80vh;  /* Vertical spacing between chapters */
+      background: var(--card-bg);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 2px solid var(--card-border);
+      border-radius: 10px;
+      padding: 24px;
+      color: var(--text-dark);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0.45;
+      transform: translateY(20px) scale(0.98);
+    }
+
+    /* Active Highlighted Chapter */
+    .step.is-active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      border-color: var(--card-active);
+      box-shadow: 0 12px 35px rgba(212, 175, 55, 0.25), 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .step-number {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .step-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--bg-dark);
+      line-height: 1.3;
+      border-bottom: 2px solid rgba(140, 109, 83, 0.25);
+      padding-bottom: 6px;
+    }
+
+    .step-description {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    /* Embedded Video Frame Placeholder */
+    .video-box {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      margin: 12px 0;
+      border-radius: 6px;
+      border: 1px solid var(--card-border);
+      background: #000;
+    }
+
+    .video-box iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      background-color: #3d2b1f;
-      color: #fdfbf7;
-      border: none;
-      padding: 8px 0;
-      border-radius: 4px;
-      font-weight: bold;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Action Buttons Inside Cards */
+    .action-btn {
+      width: 100%;
+      background-color: var(--bg-dark);
+      color: var(--text-cream);
+      border: 1px solid var(--card-border);
+      padding: 9px 12px;
+      border-radius: 6px;
+      font-weight: 600;
       font-size: 0.85rem;
       cursor: pointer;
       text-align: center;
       transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 8px;
     }
-    .expand-btn:hover { background-color: #5a402d; }
 
-    /* FULL-SCREEN VIDEO MODAL OVERLAY */
+    .action-btn:hover {
+      background-color: var(--accent-hover);
+    }
+
+    /* Historical Overlay Slider Box */
+    .slider-box {
+      background: rgba(253, 251, 247, 0.8);
+      border: 1px solid var(--card-border);
+      padding: 12px;
+      border-radius: 6px;
+      margin-top: 10px;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      font-size: 0.82rem;
+      margin-bottom: 6px;
+      color: var(--bg-dark);
+    }
+
+    .opacity-slider-input {
+      width: 100%;
+      accent-color: var(--bg-dark);
+      cursor: pointer;
+    }
+
+    /* Map Elevation Marker Styles */
+    .elevation-marker {
+      background-color: var(--bg-dark);
+      color: var(--text-cream);
+      border: 2px solid var(--card-border);
+      border-radius: 12px;
+      padding: 4px 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    }
+
+    /* Fullscreen Video Modal */
     #video-modal {
       display: none;
       position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       background: rgba(0, 0, 0, 0.85);
-      z-index: 999;
+      z-index: 9999;
       justify-content: center;
       align-items: center;
+      backdrop-filter: blur(4px);
     }
+
     .modal-content {
       position: relative;
       width: 80%;
       max-width: 900px;
-      background: #3d2b1f;
-      padding: 20px;
+      background: var(--bg-dark);
+      padding: 16px;
       border-radius: 8px;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+      border: 1px solid var(--card-border);
     }
+
     .close-modal {
       position: absolute;
-      top: -15px;
-      right: -15px;
-      background: #fdfbf7;
-      color: #3d2b1f;
-      border: 2px solid #8c6d53;
+      top: -14px;
+      right: -14px;
+      background: var(--text-cream);
+      color: var(--bg-dark);
+      border: 2px solid var(--card-border);
       border-radius: 50%;
       width: 32px;
       height: 32px;
-      font-size: 1.2rem;
       font-weight: bold;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
-    /* Mobile Responsive Layout */
+    /* Mobile Responsive Formatting */
     @media (max-width: 768px) {
-      #container { flex-direction: column-reverse; }
-      #sidebar { width: 100%; height: 180px; }
-      #map { height: calc(100% - 180px); }
-      .mapboxgl-popup { max-width: 300px !important; }
-      .modal-content { width: 95%; padding: 10px; }
+      #story {
+        width: 90%;
+        max-width: 100%;
+        margin: 0 auto;
+        padding-top: 2vh;
+      }
+      .step {
+        margin-bottom: 60vh;
+      }
+      .control-btn span {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -122,57 +324,179 @@
 
   <!-- Top Navigation Header -->
   <div id="top-bar">
-    <h1 id="title-text">Arvanitochoria: Arvanite Cartographies of Mt. Arachnaio</h1>
+    <h1 id="title-text">TITLE HERE</h1>
     <div class="header-controls">
-      <button class="control-btn" onclick="toggleStyle()">Map Style: <span id="style-label">Satellite</span></button>
-      <button class="control-btn" onclick="toggleLanguage()">Language: <span id="lang-label">EN</span></button>
-    </div>
-  </div>
-
-  <div id="container">
-    <!-- Thematic Navigation Sidebar -->
-    <div id="sidebar">
-      <h3 style="margin-top:0;" id="sidebar-heading">Themes</h3>
-      
-      <!-- Theme Point 1: Limnes Holy Trinity Church -->
-      <button class="theme-btn" onclick="flyToLocation(22.8804, 37.7128, 17.2, 68, -10, 'Church of the Holy Trinity (Agia Triada), Limnes', 'Traditional Songs & Oral History: Ra Kampana', '_My7FpdZFWo')">
-        🎵 <span class="theme-label" data-en="Traditional Songs" data-el="Παραδοσιακά Τραγούδια">Traditional Songs</span>
+      <button class="control-btn" id="mode-btn" onclick="toggleExploreMode()">
+        📍 <span id="mode-label" data-en="Free Explore" data-el="Ελεύθερη Περιήγηση">Free Explore</span>
       </button>
-
+      <button class="control-btn" onclick="toggleStyle()">
+        🗺️ <span id="style-label">Satellite</span>
+      </button>
+      <button class="control-btn" onclick="toggleLanguage()">
+        🌐 <span id="lang-label">EN</span>
+      </button>
     </div>
-
-    <!-- 3D Mapbox Map -->
-    <div id="map"></div>
   </div>
 
-  <!-- Full-Screen Video Modal -->
+  <!-- Main Container -->
+  <div id="scrolly-container">
+    <!-- Fixed Background 3D Map -->
+    <div id="map"></div>
+
+    <!-- Scrolling Story Chapters Container -->
+    <div id="story">
+      
+      <!-- Title 1 -->
+      <article class="step" id="chapter-0" data-chapter="0">
+        <div class="step-number" data-en="Chapter 01" data-el="Κεφάλαιο 01">Chapter 01</div>
+        <h2 class="step-title" data-en="Chapter 1 Title" data-el="Τίτλος Κεφαλαίου 1">Chapter 1 Title</h2>
+        <p class="step-description" data-en="[Placeholder text]" data-el="[ΕΙΣΑΓΕΤΕ ΚΕΙΜΕΝΟ ΚΕΦΑΛΑΙΟΥ 1 ΕΔΩ]">
+          [Placeholder text]
+        </p>
+        <button class="action-btn" onclick="flyToChapter(0)">
+          👁️ <span data-en="Recenter View" data-el="Επαναφορά">Recenter View</span>
+        </button>
+      </article>
+
+      <!-- Title 2 placeholder -->
+      <article class="step" id="chapter-1" data-chapter="1">
+        <div class="step-number" data-en="Chapter 02" data-el="Κεφάλαιο 02">Chapter 02</div>
+        <h2 class="step-title" data-en="Title 2 placeholder" data-el="Τίτλος Κεφαλαίου 2">Chapter 2 Title</h2>
+        <p class="step-description" data-en="[placeholder for text]" data-el="[ΕΙΣΑΓΕΤΕ ΚΕΙΜΕΝΟ ΚΕΦΑΛΑΙΟΥ 2 ΕΔΩ]">
+          [Placeholder text 2]
+        </p>
+
+        <!-- Optional Video Box Container -->
+        <div class="video-box">
+          <!-- Replace '_My7FpdZFWo' with your YouTube Video ID -->
+          <iframe src="https://www.youtube-nocookie.com/embed/_My7FpdZFWo" allowfullscreen></iframe>
+        </div>
+        <button class="action-btn" onclick="openVideoModal('_My7FpdZFWo')">
+          🔍 <span data-en="Fullscreen Video" data-el="Πλήρης Οθόνη">Fullscreen Video</span>
+        </button>
+      </article>
+
+      <!-- Title 3 placeholder -->
+      <article class="step" id="chapter-2" data-chapter="2">
+        <div class="step-number" data-en="Chapter 03" data-el="Κεφάλαιο 03">Chapter 03</div>
+        <h2 class="step-title" data-en="Chapter 3 Title" data-el="Τίτλος Κεφαλαίου 3">Chapter 3 Title</h2>
+        <p class="step-description" data-en="[title 3 placeholder text]" data-el="[ΕΙΣΑΓΕΤΕ ΚΕΙΜΕΝΟ ΚΕΦΑΛΑΙΟΥ 3 ΕΔΩ]">
+          [title 3 text placeholder]
+        </p>
+        <button class="action-btn" onclick="flyToChapter(2)">
+          ⛰️ <span data-en="Inspect Terrain" data-el="Εστίαση">Inspect Terrain</span>
+        </button>
+      </article>
+
+      <!-- Title 4 placeholder -->
+      <article class="step" id="chapter-3" data-chapter="3">
+        <div class="step-number" data-en="Chapter 04" data-el="Κεφάλαιο 04">Chapter 04</div>
+        <h2 class="step-title" data-en="Historical Aerial Comparison" data-el="Σύγκριση Ιστορικού Τοπίου">Historical Aerial Comparison</h2>
+        <p class="step-description" data-en="[placeholder text 4]" data-el="[ΕΙΣΑΓΕΤΕ ΚΕΙΜΕΝΟ ΚΕΦΑΛΑΙΟΥ 4 ΕΔΩ]">
+          [Placeholder text 4]
+        </p>
+
+        <!-- Interactive Opacity Slider Control -->
+        <div class="slider-box">
+          <div class="slider-header">
+            <span data-en="1945 Aerial Opacity:" data-el="Διαφάνεια Αεροφωτογραφίας:">1945 Aerial Opacity:</span>
+            <span id="opacity-val">70%</span>
+          </div>
+          <input type="range" id="historical-slider" class="opacity-slider-input" min="0" max="100" value="70" oninput="updateHistoricalOpacity(this.value)">
+        </div>
+      </article>
+
+    </div>
+  </div>
+
+  <!-- Video Modal Container -->
   <div id="video-modal" onclick="closeVideoModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
       <button class="close-modal" onclick="closeVideoModal()">&times;</button>
-      <div class="video-box" style="margin-top:0;">
+      <div class="video-box" style="margin: 0;">
         <iframe id="modal-iframe" src="" allowfullscreen></iframe>
       </div>
     </div>
   </div>
 
   <script>
+    /* ==========================================================================
+       1. CONFIGURATION & DATA DATASETS (EDIT DATA HERE)
+       ========================================================================== */
+
+    // Mapbox Access Token
     mapboxgl.accessToken = 'pk.eyJ1IjoiY2NhcmFzaXMiLCJhIjoiY210dnp4dHBlMDRsNDJ5b2FzbzMwYzd0NCJ9.jjPwOMlmB3aCwKp8JpKS_Q';
 
-    let currentStyle = 'custom';
+    // Style Configuration URLs
+    const MAP_STYLES = {
+      custom: 'mapbox://styles/ccarasis/cmtw0jo3h000f01ra88t4fvvs',
+      outdoors: 'mapbox://styles/mapbox/outdoors-v12'
+    };
 
-    // INITIALIZED WITH YOUR SPECIFIC STYLE URL HERE:
+    // Scrollytelling Camera Angles per Chapter
+    // Format: [Longitude, Latitude]
+    const CHAPTERS = [
+      {
+        id: 'chapter-0',
+        center: [22.968, 37.638], // [INSERT LNG, LAT]
+        zoom: 11.5,
+        pitch: 55,
+        bearing: -15
+      },
+      {
+        id: 'chapter-1',
+        center: [22.8804, 37.7128], // [INSERT LNG, LAT]
+        zoom: 17.0,
+        pitch: 65,
+        bearing: -10
+      },
+      {
+        id: 'chapter-2',
+        center: [22.9642, 37.6321], // [INSERT LNG, LAT]
+        zoom: 15.2,
+        pitch: 60,
+        bearing: 20
+      },
+      {
+        id: 'chapter-3',
+        center: [22.9100, 37.6700], // [INSERT LNG, LAT]
+        zoom: 13.5,
+        pitch: 45,
+        bearing: 0
+      }
+    ];
+
+    // Optional Elevation Markers to Place on 3D Map
+    const ELEVATION_POINTS = [
+      { name: "[POINT 1 NAME]", elev: "1,199m", lng: 22.9731, lat: 37.6328 },
+      { name: "[POINT 2 NAME]", elev: "480m",  lng: 22.8804, lat: 37.7128 }
+    ];
+
+    /* ==========================================================================
+       2. MAP INITIALIZATION & LAYERS
+       ========================================================================== */
+
+    let currentStyleKey = 'custom';
+    let currentLang = 'EN';
+    let isFreeExploreMode = false;
+    let activeChapterIndex = 0;
+
+    // Create Mapbox Instance
     const map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/satellite-streets-v12',
-      center: [22.968, 37.638],
-      zoom: 11.5,
-      pitch: 55,
-      bearing: -15
+      style: MAP_STYLES.custom,
+      center: CHAPTERS[0].center,
+      zoom: CHAPTERS[0].zoom,
+      pitch: CHAPTERS[0].pitch,
+      bearing: CHAPTERS[0].bearing,
+      interactive: false // Lock interaction for scroll navigation by default
     });
 
+    // Add Top-Right Navigation Controls
     map.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
-    function setupTerrain() {
+    function setupMapLayers() {
+      // Add 3D Terrain DEM Elevation
       if (!map.getSource('mapbox-dem')) {
         map.addSource('mapbox-dem', {
           'type': 'raster-dem',
@@ -182,93 +506,141 @@
         });
       }
       map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.8 });
-      map.setFog({
-        'range': [0.8, 8],
-        'color': '#dc9c180',
-        'horizon-blend': 0.2,
-        'high-color': '#245b78',
-        'space-color': '#000000',
-        'star-intensity': 0.15
-      });
+
+      // Add 1945 Historical Orthophoto WMS Source (Ktimanet)
+      if (!map.getSource('ktimanet-1945')) {
+        map.addSource('ktimanet-1945', {
+          'type': 'raster',
+          'tiles': [
+            'https://gis.ktimanet.gr/wms/wmsopen/wmsserver.aspx?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=KT_1945&STYLES=&SRS=EPSG:3857&BBOX={bbox-epsg-3857}&WIDTH=256&HEIGHT=256&FORMAT=image/jpeg'
+          ],
+          'tileSize': 256
+        });
+      }
+
+      // Add Raster Layer
+      if (!map.getLayer('ktimanet-1945-layer')) {
+        map.addLayer({
+          'id': 'ktimanet-1945-layer',
+          'type': 'raster',
+          'source': 'ktimanet-1945',
+          'paint': {
+            'raster-opacity': 0.7
+          }
+        });
+      }
+
       addElevationMarkers();
     }
 
-    map.on('style.load', setupTerrain);
+    map.on('style.load', setupMapLayers);
+
+    function addElevationMarkers() {
+      ELEVATION_POINTS.forEach(pt => {
+        const el = document.createElement('div');
+        el.className = 'elevation-marker';
+        el.innerText = `⛰️ ${pt.name} (${pt.elev})`;
 
         new mapboxgl.Marker(el)
           .setLngLat([pt.lng, pt.lat])
-          .setPopup(new mapboxgl.Popup({ offset: 15 }).setHTML(`<b>${pt.name}</b><br>Elevation: ${pt.elev}`))
+          .setPopup(new mapboxgl.Popup({ offset: 12 }).setHTML(`<b>${pt.name}</b><br>Elevation: ${pt.elev}`))
           .addTo(map);
       });
     }
 
-    let currentPopup = null;
+    /* ==========================================================================
+       3. SCROLLAMA & INTERACTIVE CONTROLS
+       ========================================================================== */
 
-    function flyToLocation(lng, lat, zoom, pitch, bearing, title, desc, videoId) {
-      if (currentPopup) currentPopup.remove();
+    const scroller = scrollama();
 
-      map.flyTo({
-        center: [lng, lat],
-        zoom: zoom,
-        pitch: pitch,
-        bearing: bearing,
-        duration: 3000,
-        essential: true
-      });
+    function initScrollytelling() {
+      scroller
+        .setup({
+          step: '.step',
+          offset: 0.5,
+          debug: false
+        })
+        .onStepEnter(response => {
+          if (isFreeExploreMode) return;
 
-      const popupHTML = `
-        <h3 style="margin:0 0 6px 0; font-size:1.1rem; color:#3d2b1f;">${title}</h3>
-        <p style="margin:0 0 10px 0; font-size:0.9rem; color:#5a402d; line-height:1.3;">${desc}</p>
-        <div class="video-box">
-          <iframe src="https://www.youtube-nocookie.com/embed/${videoId}" allowfullscreen></iframe>
-        </div>
-        <button class="expand-btn" onclick="openVideoModal('${videoId}')">🔍 Expand Video Fullscreen</button>
-      `;
+          const chapterIdx = parseInt(response.element.getAttribute('data-chapter'), 10);
+          activeChapterIndex = chapterIdx;
+          const targetConfig = CHAPTERS[chapterIdx];
 
-      currentPopup = new mapboxgl.Popup({ offset: 25 })
-        .setLngLat([lng, lat])
-        .setHTML(popupHTML)
-        .addTo(map);
+          // Update Active Chapter Card UI
+          document.querySelectorAll('.step').forEach((el, idx) => {
+            if (idx === chapterIdx) {
+              el.classList.add('is-active');
+            } else {
+              el.classList.remove('is-active');
+            }
+          });
+
+          // Fly Map Camera to Chapter Coordinates
+          map.flyTo({
+            center: targetConfig.center,
+            zoom: targetConfig.zoom,
+            pitch: targetConfig.pitch,
+            bearing: targetConfig.bearing,
+            duration: 2200,
+            essential: true
+          });
+        });
     }
 
-    function openVideoModal(videoId) {
-      const modal = document.getElementById('video-modal');
-      const iframe = document.getElementById('modal-iframe');
-      iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`;
-      modal.style.display = 'flex';
+    window.addEventListener('load', initScrollytelling);
+
+    // Scroll to specific chapter programmatically
+    function flyToChapter(idx) {
+      const stepEl = document.querySelectorAll('.step')[idx];
+      if (stepEl) stepEl.scrollIntoView({ behavior: 'smooth' });
     }
 
-    function closeVideoModal() {
-      const modal = document.getElementById('video-modal');
-      const iframe = document.getElementById('modal-iframe');
-      iframe.src = '';
-      modal.style.display = 'none';
-    }
-
-    function toggleStyle() {
-      if (currentStyle === 'custom') {
-        map.setStyle('mapbox://styles/mapbox/outdoors-v12');
-        currentStyle = 'outdoors';
-        document.getElementById('style-label').innerText = 'Topographic';
-      } else {
-        // UPDATED CUSTOM TOGGLE TO YOUR EXACT STYLE URL:
-        map.setStyle('mapbox://styles/ccarasis/cmtw0jo3h000f01ra88t4fvvs');
-        currentStyle = 'custom';
-        document.getElementById('style-label').innerText = 'Satellite';
+    // Toggle 1945 Aerial Opacity
+    function updateHistoricalOpacity(val) {
+      const opacity = parseInt(val, 10) / 100;
+      document.getElementById('opacity-val').innerText = `${val}%`;
+      if (map.getLayer('ktimanet-1945-layer')) {
+        map.setPaintProperty('ktimanet-1945-layer', 'raster-opacity', opacity);
       }
     }
 
-    let currentLang = 'EN';
-    function toggleLanguage() {
-      currentLang = currentLang === 'EN' ? 'EL' : 'EN';
-      document.getElementById('lang-label').innerText = currentLang;
-      document.getElementById('title-text').innerText = currentLang === 'EN' ? 'Arvanitochoria: Arvanite Cartographies of Mt. Arachnaio' : 'Αρβανιτοχώρια: Αρβανίτικες Χαρτογραφήσεις του Αραχναίου';
-      document.getElementById('sidebar-heading').innerText = currentLang === 'EN' ? 'Themes' : 'Θεματικές';
+    // Free Explore Mode Toggle
+    function toggleExploreMode() {
+      isFreeExploreMode = !isFreeExploreMode;
+      const modeBtn = document.getElementById('mode-btn');
 
-      document.querySelectorAll('.theme-label').forEach(el => {
-        el.innerText = el.getAttribute(`data-${currentLang.toLowerCase()}`);
-      });
+      if (isFreeExploreMode) {
+        map.boxZoom.enable();
+        map.scrollZoom.enable();
+        map.dragPan.enable();
+        map.dragRotate.enable();
+        map.keyboard.enable();
+        map.doubleClickZoom.enable();
+        map.touchZoomRotate.enable();
+        modeBtn.classList.add('active');
+      } else {
+        map.boxZoom.disable();
+        map.scrollZoom.disable();
+        map.dragPan.disable();
+        map.dragRotate.disable();
+        map.keyboard.disable();
+        map.doubleClickZoom.disable();
+        map.touchZoomRotate.disable();
+        modeBtn.classList.remove('active');
+        flyToChapter(activeChapterIndex);
+      }
     }
-  </script>
-</body>
-</html>
+
+    // Style Switcher (Custom Satellite vs Topographic)
+    function toggleStyle() {
+      if (currentStyleKey === 'custom') {
+        map.setStyle(MAP_STYLES.outdoors);
+        currentStyleKey = 'outdoors';
+        document.getElementById('style-label').innerText = 'Topographic';
+      } else {
+        map.setStyle(MAP_STYLES.custom);
+        currentStyleKey = 'custom';
+        document.getElementById('style-label').innerText = 'Satellite';
+      }
