@@ -1,418 +1,549 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
+
     <title>Arvanitochoria</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-```
-<script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-<link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
-<script src="https://unpkg.com/scrollama"></script>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    >
 
-<style>
-    * {
-        box-sizing: border-box;
-    }
+    <!-- Mapbox GL JS -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <link
+        href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
+        rel="stylesheet"
+    >
 
-    html,
-    body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        min-height: 100%;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        background: #000;
-        color: #fff;
-        overflow-x: hidden;
-    }
-
-    /* =====================================================
-       MAP
-       ===================================================== */
-
-    #map {
-        position: fixed;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-    }
-
-    /*
-     * IMPORTANT:
-     * Do NOT set width/height on .mapboxgl-canvas.
-     * Mapbox GL controls the canvas dimensions itself.
-     */
+    <!-- Scrollama -->
+    <script src="https://unpkg.com/scrollama"></script>
 
 
-    /* =====================================================
-       STORY
-       ===================================================== */
+    <style>
 
-    #story {
-        position: relative;
-        z-index: 2;
-        width: 100%;
-        pointer-events: none;
-    }
+        /* =====================================================
+           BASIC PAGE SETUP
+           ===================================================== */
 
-
-    /* =====================================================
-       HEADER
-       ===================================================== */
-
-    #header {
-        width: 100%;
-        margin: 0 0 40vh 0;
-        padding: 0 0 30px 0;
-        text-align: center;
-
-        background: rgba(20, 15, 10, 0.95);
-        border-bottom: 2px solid #5a402d;
-
-        pointer-events: auto;
-    }
-
-    #header img {
-        display: block;
-        width: 100%;
-        height: 300px;
-        object-fit: cover;
-        margin: 0 0 20px 0;
-        border-radius: 0;
-    }
-
-    #header h1 {
-        margin: 10px 0;
-        padding: 0 20px;
-        font-size: 2.2rem;
-    }
-
-    #header h2 {
-        margin: 5px 0 15px 0;
-        padding: 0 20px;
-        font-size: 1.1rem;
-        font-weight: 300;
-        opacity: 0.9;
-    }
-
-    #header p {
-        margin: 0;
-        padding: 0 20px;
-        font-size: 0.95rem;
-        line-height: 1.5;
-        opacity: 0.85;
-    }
-
-
-    /* =====================================================
-       CHAPTER CARDS
-       ===================================================== */
-
-    .step {
-        width: 100%;
-        max-width: 500px;
-        margin: 0 auto;
-        padding: 25vh 20px;
-
-        pointer-events: auto;
-    }
-
-    .step div {
-        padding: 25px;
-
-        background: rgba(15, 15, 15, 0.9);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: 8px;
-
-        font-size: 1rem;
-        line-height: 1.6;
-    }
-
-
-    /* =====================================================
-       FOOTER
-       ===================================================== */
-
-    #footer {
-        width: 100%;
-        padding: 30px 20px;
-
-        text-align: center;
-        font-size: 0.85rem;
-
-        background: rgba(0, 0, 0, 0.9);
-
-        pointer-events: auto;
-    }
-
-
-    /* =====================================================
-       MOBILE
-       ===================================================== */
-
-    @media (max-width: 600px) {
-        #header h1 {
-            font-size: 1.8rem;
+        * {
+            box-sizing: border-box;
         }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+            background: #000;
+            color: #fff;
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
+
+            overflow-x: hidden;
+        }
+
+
+        /* =====================================================
+           MAP
+
+           IMPORTANT:
+           We deliberately do NOT style .mapboxgl-canvas.
+           Mapbox needs to control its own canvas dimensions.
+           ===================================================== */
+
+        #map {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            z-index: 1;
+        }
+
+
+        /* =====================================================
+           STORY CONTAINER
+           ===================================================== */
+
+        #story {
+            position: relative;
+
+            width: 100%;
+
+            z-index: 2;
+
+            pointer-events: none;
+        }
+
+
+        /* =====================================================
+           HEADER
+           ===================================================== */
+
+        #header {
+            width: 100%;
+
+            margin: 0 0 40vh 0;
+            padding: 0 0 30px 0;
+
+            text-align: center;
+
+            background: rgba(20, 15, 10, 0.95);
+
+            border-bottom: 2px solid #5a402d;
+
+            pointer-events: auto;
+        }
+
+
+        #header img {
+            display: block;
+
+            width: 100%;
+            max-width: 100%;
+
+            height: 300px;
+
+            margin: 0 0 20px 0;
+
+            object-fit: cover;
+
+            border-radius: 0;
+        }
+
+
+        #header h1 {
+            margin: 10px 0;
+
+            padding: 0 20px;
+
+            font-size: 2.2rem;
+            line-height: 1.2;
+        }
+
 
         #header h2 {
-            font-size: 1rem;
+            margin: 5px 0 15px 0;
+
+            padding: 0 20px;
+
+            font-size: 1.1rem;
+            font-weight: 300;
+
+            opacity: 0.9;
         }
+
+
+        #header p {
+            margin: 0;
+
+            padding: 0 20px;
+
+            font-size: 0.95rem;
+            line-height: 1.5;
+
+            opacity: 0.85;
+        }
+
+
+        /* =====================================================
+           STORY CHAPTERS
+           ===================================================== */
+
+        #sections {
+            width: 100%;
+        }
+
 
         .step {
-            padding: 20vh 15px;
+            width: 100%;
+            max-width: 500px;
+
+            margin: 0 auto;
+
+            padding: 25vh 20px;
+
+            pointer-events: auto;
         }
+
 
         .step div {
-            padding: 20px;
-        }
-    }
-</style>
-```
+            padding: 25px;
 
+            background: rgba(15, 15, 15, 0.90);
+
+            border: 1px solid rgba(255, 255, 255, 0.15);
+
+            border-radius: 8px;
+
+            font-size: 1rem;
+            line-height: 1.6;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        }
+
+
+        .step h3 {
+            margin-top: 0;
+        }
+
+
+        .step p {
+            margin-bottom: 0;
+        }
+
+
+        /* =====================================================
+           FOOTER
+           ===================================================== */
+
+        #footer {
+            width: 100%;
+
+            padding: 30px 20px;
+
+            text-align: center;
+
+            font-size: 0.85rem;
+
+            background: rgba(0, 0, 0, 0.90);
+
+            pointer-events: auto;
+        }
+
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        @media (max-width: 600px) {
+
+            #header h1 {
+                font-size: 1.8rem;
+            }
+
+            #header h2 {
+                font-size: 1rem;
+            }
+
+            .step {
+                padding: 20vh 15px;
+            }
+
+            .step div {
+                padding: 20px;
+            }
+        }
+
+    </style>
 </head>
+
 
 <body>
 
-```
-<div id="map"></div>
 
-<div id="story">
+    <!-- =====================================================
+         MAP
+         ===================================================== -->
 
-    <div id="header"></div>
-
-    <div id="sections"></div>
-
-    <div id="footer"></div>
-
-</div>
+    <div id="map"></div>
 
 
-<script src="./config.js"></script>
+    <!-- =====================================================
+         STORY
+         ===================================================== -->
 
-<script>
+    <div id="story">
 
-    mapboxgl.accessToken = config.accessToken;
+        <div id="header"></div>
 
+        <div id="sections"></div>
 
-    /* =====================================================
-       CREATE MAP
-       ===================================================== */
+        <div id="footer"></div>
 
-    var firstChapter = config.chapters[0];
-
-    var map = new mapboxgl.Map({
-        container: "map",
-        style: config.style,
-
-        center: firstChapter.location.center,
-        zoom: firstChapter.location.zoom,
-
-        pitch: firstChapter.location.pitch || 0,
-        bearing: firstChapter.location.bearing || 0,
-
-        interactive: false,
-
-        // Helps prevent unnecessary rendering issues
-        antialias: true
-    });
+    </div>
 
 
-    /* =====================================================
-       MAP LOAD
-       ===================================================== */
+    <!-- =====================================================
+         YOUR CONFIGURATION FILE
+         ===================================================== -->
 
-    map.on("load", function () {
-
-        /*
-         * Let Mapbox establish the correct canvas size.
-         */
-        map.resize();
+    <script src="./config.js"></script>
 
 
-        /* -------------------------------------------------
-           TERRAIN
-           ------------------------------------------------- */
+    <script>
 
-        if (config.use3dTerrain) {
+        /* =====================================================
+           MAPBOX ACCESS TOKEN
+           ===================================================== */
 
-            map.addSource("mapbox-dem", {
-                type: "raster-dem",
-                url: "mapbox://mapbox.mapbox-terrain-dem-v1",
-                tileSize: 512,
-                maxzoom: 14
-            });
-
-            map.setTerrain({
-                source: "mapbox-dem",
-                exaggeration: 1.0
-            });
-        }
+        mapboxgl.accessToken = config.accessToken;
 
 
-        /*
-         * One more resize after the browser has completed
-         * layout. This is safe; unlike forcing the canvas
-         * dimensions with CSS, Mapbox handles the resize.
-         */
-        requestAnimationFrame(function () {
-            map.resize();
+        /* =====================================================
+           FIRST CHAPTER
+           ===================================================== */
+
+        var firstChapter = config.chapters[0];
+
+
+        /* =====================================================
+           CREATE MAP
+           ===================================================== */
+
+        var map = new mapboxgl.Map({
+
+            container: "map",
+
+            style: config.style,
+
+            center: firstChapter.location.center,
+
+            zoom: firstChapter.location.zoom,
+
+            /*
+             * Start completely flat.
+             *
+             * This is intentional while we eliminate the
+             * terrain-rendering problem.
+             */
+            pitch: 0,
+
+            bearing: 0,
+
+            /*
+             * The map is controlled by scrolling rather
+             * than mouse interaction.
+             */
+            interactive: false
+
         });
-    });
 
 
-    /* =====================================================
-       HEADER CONTENT
-       ===================================================== */
+        /* =====================================================
+           MAP LOADED
+           ===================================================== */
 
-    var header = document.getElementById("header");
+        map.on("load", function () {
 
-    if (config.title) {
-
-        var title = document.createElement("h1");
-        title.innerHTML = config.title;
-
-        header.appendChild(title);
-    }
-
-    if (config.subtitle) {
-
-        var subtitle = document.createElement("h2");
-        subtitle.innerText = config.subtitle;
-
-        header.appendChild(subtitle);
-    }
-
-    if (config.byline) {
-
-        var byline = document.createElement("p");
-        byline.innerHTML = config.byline;
-
-        header.appendChild(byline);
-    }
-
-
-    /* =====================================================
-       STORY CHAPTERS
-       ===================================================== */
-
-    var sections = document.getElementById("sections");
-
-    config.chapters.forEach(function (record) {
-
-        var container = document.createElement("div");
-
-        container.className = "step";
-        container.id = record.id;
-
-
-        var chapterCard = document.createElement("div");
-
-
-        if (record.title) {
-
-            var title = document.createElement("h3");
-
-            title.innerText = record.title;
-
-            chapterCard.appendChild(title);
-        }
-
-
-        if (record.description) {
-
-            var description = document.createElement("p");
-
-            description.innerHTML = record.description;
-
-            chapterCard.appendChild(description);
-        }
-
-
-        container.appendChild(chapterCard);
-
-        sections.appendChild(container);
-    });
-
-
-    /* =====================================================
-       FOOTER
-       ===================================================== */
-
-    document.getElementById("footer").innerText =
-        config.footer || "";
-
-
-    /* =====================================================
-       SCROLLAMA
-       ===================================================== */
-
-    var scroller = scrollama();
-
-    scroller
-        .setup({
-            step: ".step",
-            offset: 0.5,
-            debug: false
-        })
-        .onStepEnter(function (response) {
-
-            var chapter = config.chapters.find(function (chap) {
-
-                return chap.id === response.element.id;
-
-            });
-
-
-            if (!chapter) {
-                return;
+            /*
+             * IMPORTANT:
+             *
+             * Explicitly remove any terrain that might be
+             * contained inside the Mapbox Studio style.
+             *
+             * We are NOT adding a DEM source.
+             * We are NOT calling setTerrain() with a source.
+             */
+            if (map.getTerrain()) {
+                map.setTerrain(null);
             }
 
 
             /*
-             * Use the chapter's camera settings directly.
-             * Mapbox handles the transition and terrain.
+             * Make sure the map knows its actual container
+             * dimensions.
              */
-            map.flyTo({
-                center: chapter.location.center,
-                zoom: chapter.location.zoom,
-                bearing: chapter.location.bearing || 0,
-                pitch: chapter.location.pitch || 0,
-
-                essential: true,
-
-                duration: chapter.location.duration || 2000
-            });
+            map.resize();
 
         });
 
 
-    /* =====================================================
-       RESIZE
-       ===================================================== */
+        /* =====================================================
+           HEADER CONTENT
+           ===================================================== */
 
-    function handleResize() {
-
-        map.resize();
-
-        scroller.resize();
-    }
+        var header = document.getElementById("header");
 
 
-    window.addEventListener("resize", handleResize);
+        if (config.title) {
 
-    window.addEventListener("orientationchange", function () {
+            var title = document.createElement("h1");
 
-        setTimeout(handleResize, 250);
+            title.innerHTML = config.title;
 
-    });
+            header.appendChild(title);
+        }
 
-</script>
-```
+
+        if (config.subtitle) {
+
+            var subtitle = document.createElement("h2");
+
+            subtitle.innerText = config.subtitle;
+
+            header.appendChild(subtitle);
+        }
+
+
+        if (config.byline) {
+
+            var byline = document.createElement("p");
+
+            byline.innerHTML = config.byline;
+
+            header.appendChild(byline);
+        }
+
+
+        /* =====================================================
+           STORY CHAPTERS
+           ===================================================== */
+
+        var sections = document.getElementById("sections");
+
+
+        config.chapters.forEach(function (record) {
+
+            var container = document.createElement("div");
+
+            container.className = "step";
+
+            container.id = record.id;
+
+
+            var chapterCard = document.createElement("div");
+
+
+            if (record.title) {
+
+                var title = document.createElement("h3");
+
+                title.innerText = record.title;
+
+                chapterCard.appendChild(title);
+            }
+
+
+            if (record.description) {
+
+                var description = document.createElement("p");
+
+                description.innerHTML = record.description;
+
+                chapterCard.appendChild(description);
+            }
+
+
+            container.appendChild(chapterCard);
+
+            sections.appendChild(container);
+
+        });
+
+
+        /* =====================================================
+           FOOTER
+           ===================================================== */
+
+        document.getElementById("footer").innerText =
+            config.footer || "";
+
+
+        /* =====================================================
+           SCROLLAMA
+           ===================================================== */
+
+        var scroller = scrollama();
+
+
+        scroller
+            .setup({
+
+                step: ".step",
+
+                offset: 0.5,
+
+                debug: false
+
+            })
+
+
+            .onStepEnter(function (response) {
+
+                var chapter = config.chapters.find(function (chap) {
+
+                    return chap.id === response.element.id;
+
+                });
+
+
+                if (!chapter) {
+                    return;
+                }
+
+
+                /*
+                 * Move to the chapter's location.
+                 *
+                 * Terrain is NOT involved.
+                 */
+                map.flyTo({
+
+                    center: chapter.location.center,
+
+                    zoom: chapter.location.zoom,
+
+                    pitch: chapter.location.pitch || 0,
+
+                    bearing: chapter.location.bearing || 0,
+
+                    duration: chapter.location.duration || 2000,
+
+                    essential: true
+
+                });
+
+            });
+
+
+        /* =====================================================
+           RESIZE HANDLING
+           ===================================================== */
+
+        function handleResize() {
+
+            map.resize();
+
+            scroller.resize();
+
+        }
+
+
+        window.addEventListener(
+            "resize",
+            handleResize
+        );
+
+
+        window.addEventListener(
+            "orientationchange",
+            function () {
+
+                setTimeout(
+                    handleResize,
+                    250
+                );
+
+            }
+        );
+
+
+    </script>
 
 </body>
 </html>
-
