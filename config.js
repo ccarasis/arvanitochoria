@@ -11,12 +11,12 @@ var config = {
     footer: 'Sources: Department of Geography, UC Berkeley',
     chapters: [
         {
-            id: 'introduction',
+            id: 'what-are-arvanitochoria',
             alignment: 'left',
             hidden: false,
             title: 'What are the Arvanitochoria?',
             image: '',
-            description: 'The first chapter contains an introduction to Arvanite cultural sites around Mt. Arachnaio.',
+            description: 'Introduction to the Arvanite settlements surrounding Mt. Arachnaio and the historical cartographies of the region.',
             location: {
                 center: [22.9562, 37.6793],
                 zoom: 11,
@@ -30,12 +30,12 @@ var config = {
             onChapterExit: []
         },
         {
-            id: 'agia-triada',
+            id: 'agia-triada-limnes',
             alignment: 'right',
             hidden: false,
             title: 'Church of Agia Triada (Limnes)',
             image: '',
-            description: 'Holy Trinity Church in Limnes village square.',
+            description: 'Holy Trinity Church in the village square of Limnes.',
             location: {
                 center: [22.8804, 37.7128],
                 zoom: 16.5,
