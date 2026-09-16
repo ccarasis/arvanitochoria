@@ -2,19 +2,48 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Mapbox Scrollytelling Engine</title>
+    <title>Arvanitochoria Scrollytelling</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://unpkg.com/scrollama"></script>
     <style>
-        body { margin: 0; padding: 0; font-family: sans-serif; background: #000; color: #fff; }
-        #map { position: fixed; top: 0; bottom: 0; left: 0; right: 0; width: 100vw; height: 100vh; }
-        #story { position: relative; z-index: 1; pointer-events: none; }
-        #header { padding: 30px 20px; max-width: 650px; margin: 0 auto 40vh auto; text-align: center; background: rgba(30, 20, 15, 0.9); border-radius: 8px; border: 1px solid #5a402d; pointer-events: auto; }
-        .step { padding: 20vh 0; max-width: 500px; margin: 0 auto; pointer-events: auto; }
-        .step div { padding: 25px; background: rgba(20, 20, 20, 0.85); border-radius: 8px; font-size: 1rem; line-height: 1.6; }
-        #footer { padding: 40px 20px; text-align: center; font-size: 0.9rem; background: rgba(0,0,0,0.8); }
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #000; color: #fff; }
+        
+        /* Map positioning fixes */
+        #map { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; }
+        
+        /* Story Container */
+        #story { position: relative; z-index: 2; pointer-events: none; }
+        
+        /* FULL SCREEN WIDTH HEADER */
+        #header { 
+            width: 100vw; 
+            max-width: 100%;
+            padding: 40px 20px; 
+            margin: 0 0 50vh 0; 
+            text-align: center; 
+            background: rgba(20, 15, 10, 0.92); 
+            border-bottom: 2px solid #5a402d; 
+            pointer-events: auto; 
+        }
+        #header img { 
+            width: 100%; 
+            max-width: 900px; 
+            height: 250px; 
+            object-fit: cover; 
+            border-radius: 8px; 
+            margin-bottom: 20px; 
+        }
+        #header h1 { margin: 10px 0; font-size: 2.5rem; }
+        #header h2 { margin: 5px 0 15px 0; font-size: 1.2rem; font-weight: 300; opacity: 0.9; }
+        #header p { margin: 0; font-size: 0.95rem; opacity: 0.8; line-height: 1.5; }
+
+        /* Chapter cards */
+        .step { padding: 25vh 20px; max-width: 480px; margin: 0 auto; pointer-events: auto; }
+        .step div { padding: 25px; background: rgba(15, 15, 15, 0.88); border-radius: 8px; font-size: 1rem; line-height: 1.6; border: 1px solid rgba(255,255,255,0.1); }
+        #footer { padding: 40px 20px; text-align: center; font-size: 0.9rem; background: rgba(0,0,0,0.85); pointer-events: auto; }
     </style>
 </head>
 <body>
@@ -30,6 +59,7 @@
 <script>
     mapboxgl.accessToken = config.accessToken;
 
+    // Initialize Map flat first to eliminate WebGL camera distortion
     var map = new mapboxgl.Map({
         container: 'map',
         style: config.style,
@@ -37,11 +67,19 @@
         zoom: config.chapters[0].location.zoom,
         bearing: 0,
         pitch: 0,
-        interactive: false
+        interactive: false,
+        preserveDrawingBuffer: true
+    });
+
+    // Resize map immediately when window loads
+    window.addEventListener('load', function() {
+        map.resize();
     });
 
     map.on('load', function() {
         map.resize();
+        
+        // Add 3D Terrain safely
         if (config.use3dTerrain) {
             map.addSource('mapbox-dem', {
                 'type': 'raster-dem',
@@ -51,21 +89,23 @@
             });
             map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
         }
+
+        // Apply pitch/tilt smoothly after engine stabilizes
         setTimeout(function() {
             map.resize();
             map.easeTo({
                 pitch: config.chapters[0].location.pitch || 60,
                 bearing: config.chapters[0].location.bearing || 0,
-                duration: 1200
+                duration: 1000
             });
-        }, 300);
+        }, 500);
     });
 
-    // Render Header with HTML support
+    // Render Full-Width Header
     var header = document.getElementById('header');
     if (config.title) {
         var title = document.createElement('h1');
-        title.innerHTML = config.title; // ALLOWS IMAGES IN TITLE
+        title.innerHTML = config.title;
         header.appendChild(title);
     }
     if (config.subtitle) {
@@ -81,7 +121,7 @@
 
     // Render Chapters
     var sections = document.getElementById('sections');
-    config.chapters.forEach(function(record, index) {
+    config.chapters.forEach(function(record) {
         var container = document.createElement('div');
         container.className = 'step';
         container.id = record.id;
@@ -112,7 +152,10 @@
         }
     });
 
-    window.addEventListener('resize', scroller.resize);
+    window.addEventListener('resize', function() {
+        map.resize();
+        scroller.resize();
+    });
 </script>
 </body>
 </html>
