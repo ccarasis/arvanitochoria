@@ -4,7 +4,7 @@ var config = {
     showMarkers: true,
     markerColor: '#8db855',
     theme: 'dark',
-    use3dTerrain: true,
+    use3dTerrain: false,
     title: '<img src="./assets/IMG_3358.jpeg"><br>Arvanitochoria',
     subtitle: 'Arvanite Cartographies of Mt. Arachnaio',
     byline: 'By Christina Maria Carasis <br> University of California, Berkeley <br> Department of Geography',
