@@ -101,17 +101,19 @@ if (typeof config === 'undefined') {
 
     mapboxgl.accessToken = config.accessToken;
     
-    var map = new mapboxgl.Map({
+   var map = new mapboxgl.Map({
         container: 'map',
-        style: config.style || 'mapbox://styles/mapbox/satellite-streets-v12',
+        style: config.style,
         center: config.chapters[0].location.center,
         zoom: config.chapters[0].location.zoom,
         bearing: config.chapters[0].location.bearing || 0,
-        pitch: config.chapters[0].location.pitch || 0,
+        pitch: 0, // START AT 0 TO PREVENT STRETCHING
         interactive: false
     });
-
-    map.on('style.load', function() {
+// FORCE MAP RESIZE & LOAD TERRAIN CLEANLY
+    map.on('load', function() {
+        map.resize();
+        
         if (config.use3dTerrain) {
             map.addSource('mapbox-dem', {
                 'type': 'raster-dem',
@@ -121,6 +123,12 @@ if (typeof config === 'undefined') {
             });
             map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
         }
+        
+        // EASE TO CAMERA ANGLE AFTER TILES LOAD
+        map.easeTo({
+            pitch: config.chapters[0].location.pitch || 60,
+            duration: 1000
+        });
     });
 
     var scroller = scrollama();
