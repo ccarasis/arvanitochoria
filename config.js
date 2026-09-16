@@ -7,7 +7,7 @@ var config = {
     use3dTerrain: true,
     title: 'Arvanitochoria',
     subtitle: 'Arvanite Cartographies of Mt. Arachnaio',
-    byline: `<img src="./assets/IMG_3358.jpeg" style="width:100%; border-radius:6px; margin:15px 0;"><br>By Christina Maria Carasis <br> University of California, Berkeley <br> Department of Geography`,
+    byline: '<img src="./assets/IMG_3358.jpeg" style="width:100%; border-radius:6px; margin:15px 0;"><br>By Christina Maria Carasis <br> University of California, Berkeley <br> Department of Geography',
     footer: 'Sources: Department of Geography, UC Berkeley',
     chapters: [
         {
@@ -18,7 +18,7 @@ var config = {
             image: '',
             description: 'Introduction to Arvanite settlements near Mt. Arachnaio.',
             location: {
-                center: [22.9562, 37.6793],  /* [LONGITUDE, LATITUDE] FIXED ORDER */
+                center: [22.9562, 37.6793],
                 zoom: 11,
                 pitch: 60,
                 bearing: 0
