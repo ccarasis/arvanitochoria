@@ -7,7 +7,7 @@ var config = {
     use3dTerrain: true,
     title: 'Arvanitochoria',
     subtitle: 'Arvanite Cartographies of Mt. Arachnaio',
-    byline: byline: '<img src="./assets/header.jpeg" style="width:100%; border-radius:6px; margin:15px 0;"><br>'By Christina Maria Carasis <br> University of California, Berkeley <br> Department of Geography',
+    byline: byline: '<img src="./assets/IMG_3358.jpeg" style="width:100%; border-radius:6px; margin:15px 0;"><br>'By Christina Maria Carasis <br> University of California, Berkeley <br> Department of Geography',
     footer: 'Sources: Department of Geography, UC Berkeley',
     chapters: [
         {
