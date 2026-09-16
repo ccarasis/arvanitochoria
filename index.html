@@ -1,160 +1,418 @@
 <!DOCTYPE html>
+
 <html>
 <head>
     <meta charset="utf-8">
     <title>Arvanitochoria</title>
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
-    <script src="https://unpkg.com/scrollama"></script>
-    <style>
-        * { box-sizing: border-box; }
-        html, body { margin: 0; padding: 0; width: 100%; height: 100%; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #000; color: #fff; overflow-x: hidden; }
-        
-        /* FIX MAP CANVAS STRETCHING */
-        #map { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; }
-        .mapboxgl-canvas { width: 100% !important; height: 100% !important; }
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-        /* STORY LAYOUT */
-        #story { position: relative; z-index: 2; pointer-events: none; width: 100%; }
-        
-        /* EDGE-TO-EDGE FULL SCREEN HEADER BANNER */
-        #header { 
-            width: 100vw !important; 
-            max-width: 100vw !important;
-            margin: 0 0 40vh 0 !important; 
-            padding: 0 0 30px 0 !important;
-            text-align: center; 
-            background: rgba(20, 15, 10, 0.95); 
-            border-bottom: 2px solid #5a402d; 
-            pointer-events: auto; 
-        }
-        
-        /* BANNER IMAGE STRETCH */
-        #header img { 
-            width: 100vw !important; 
-            max-width: 100vw !important; 
-            height: 300px !important; 
-            object-fit: cover !important; 
-            border-radius: 0 !important; 
-            margin: 0 0 20px 0 !important; 
-            display: block;
-        }
-        
-        #header h1 { margin: 10px 0; font-size: 2.2rem; padding: 0 20px; }
-        #header h2 { margin: 5px 0 15px 0; font-size: 1.1rem; font-weight: 300; opacity: 0.9; padding: 0 20px; }
-        #header p { margin: 0; font-size: 0.95rem; opacity: 0.85; line-height: 1.5; padding: 0 20px; }
+```
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://unpkg.com/scrollama"></script>
 
-        /* CHAPTER CARDS */
-        .step { padding: 25vh 20px; max-width: 500px; margin: 0 auto; pointer-events: auto; }
-        .step div { padding: 25px; background: rgba(15, 15, 15, 0.9); border-radius: 8px; font-size: 1rem; line-height: 1.6; border: 1px solid rgba(255,255,255,0.15); }
-        #footer { padding: 30px 20px; text-align: center; font-size: 0.85rem; background: rgba(0,0,0,0.9); pointer-events: auto; }
-    </style>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        min-height: 100%;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: #000;
+        color: #fff;
+        overflow-x: hidden;
+    }
+
+    /* =====================================================
+       MAP
+       ===================================================== */
+
+    #map {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+    /*
+     * IMPORTANT:
+     * Do NOT set width/height on .mapboxgl-canvas.
+     * Mapbox GL controls the canvas dimensions itself.
+     */
+
+
+    /* =====================================================
+       STORY
+       ===================================================== */
+
+    #story {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        pointer-events: none;
+    }
+
+
+    /* =====================================================
+       HEADER
+       ===================================================== */
+
+    #header {
+        width: 100%;
+        margin: 0 0 40vh 0;
+        padding: 0 0 30px 0;
+        text-align: center;
+
+        background: rgba(20, 15, 10, 0.95);
+        border-bottom: 2px solid #5a402d;
+
+        pointer-events: auto;
+    }
+
+    #header img {
+        display: block;
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        margin: 0 0 20px 0;
+        border-radius: 0;
+    }
+
+    #header h1 {
+        margin: 10px 0;
+        padding: 0 20px;
+        font-size: 2.2rem;
+    }
+
+    #header h2 {
+        margin: 5px 0 15px 0;
+        padding: 0 20px;
+        font-size: 1.1rem;
+        font-weight: 300;
+        opacity: 0.9;
+    }
+
+    #header p {
+        margin: 0;
+        padding: 0 20px;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        opacity: 0.85;
+    }
+
+
+    /* =====================================================
+       CHAPTER CARDS
+       ===================================================== */
+
+    .step {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 25vh 20px;
+
+        pointer-events: auto;
+    }
+
+    .step div {
+        padding: 25px;
+
+        background: rgba(15, 15, 15, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 8px;
+
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+
+    /* =====================================================
+       FOOTER
+       ===================================================== */
+
+    #footer {
+        width: 100%;
+        padding: 30px 20px;
+
+        text-align: center;
+        font-size: 0.85rem;
+
+        background: rgba(0, 0, 0, 0.9);
+
+        pointer-events: auto;
+    }
+
+
+    /* =====================================================
+       MOBILE
+       ===================================================== */
+
+    @media (max-width: 600px) {
+        #header h1 {
+            font-size: 1.8rem;
+        }
+
+        #header h2 {
+            font-size: 1rem;
+        }
+
+        .step {
+            padding: 20vh 15px;
+        }
+
+        .step div {
+            padding: 20px;
+        }
+    }
+</style>
+```
+
 </head>
+
 <body>
 
+```
 <div id="map"></div>
+
 <div id="story">
+
     <div id="header"></div>
+
     <div id="sections"></div>
+
     <div id="footer"></div>
+
 </div>
 
+
 <script src="./config.js"></script>
+
 <script>
+
     mapboxgl.accessToken = config.accessToken;
 
-    // Load Map completely flat first to guarantee zero WebGL distortion
+
+    /* =====================================================
+       CREATE MAP
+       ===================================================== */
+
+    var firstChapter = config.chapters[0];
+
     var map = new mapboxgl.Map({
-        container: 'map',
+        container: "map",
         style: config.style,
-        center: config.chapters[0].location.center,
-        zoom: config.chapters[0].location.zoom,
-        bearing: 0,
-        pitch: 0,
-        interactive: false
+
+        center: firstChapter.location.center,
+        zoom: firstChapter.location.zoom,
+
+        pitch: firstChapter.location.pitch || 0,
+        bearing: firstChapter.location.bearing || 0,
+
+        interactive: false,
+
+        // Helps prevent unnecessary rendering issues
+        antialias: true
     });
 
-    map.on('load', function() {
+
+    /* =====================================================
+       MAP LOAD
+       ===================================================== */
+
+    map.on("load", function () {
+
+        /*
+         * Let Mapbox establish the correct canvas size.
+         */
         map.resize();
-        
-        // Add 3D Terrain without exaggerated height (1.0 height eliminates rendering glitch)
+
+
+        /* -------------------------------------------------
+           TERRAIN
+           ------------------------------------------------- */
+
         if (config.use3dTerrain) {
-            map.addSource('mapbox-dem', {
-                'type': 'raster-dem',
-                'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
-                'tileSize': 512,
-                'maxzoom': 14
+
+            map.addSource("mapbox-dem", {
+                type: "raster-dem",
+                url: "mapbox://mapbox.mapbox-terrain-dem-v1",
+                tileSize: 512,
+                maxzoom: 14
             });
-            map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.0 });
+
+            map.setTerrain({
+                source: "mapbox-dem",
+                exaggeration: 1.0
+            });
         }
 
-        // Tilt camera only after engine is stable
-        setTimeout(function() {
+
+        /*
+         * One more resize after the browser has completed
+         * layout. This is safe; unlike forcing the canvas
+         * dimensions with CSS, Mapbox handles the resize.
+         */
+        requestAnimationFrame(function () {
             map.resize();
-            map.easeTo({
-                pitch: config.chapters[0].location.pitch || 45,
-                bearing: config.chapters[0].location.bearing || 0,
-                duration: 800
-            });
-        }, 400);
+        });
     });
 
-    // Render Full-Width Banner Header
-    var header = document.getElementById('header');
+
+    /* =====================================================
+       HEADER CONTENT
+       ===================================================== */
+
+    var header = document.getElementById("header");
+
     if (config.title) {
-        var title = document.createElement('h1');
+
+        var title = document.createElement("h1");
         title.innerHTML = config.title;
+
         header.appendChild(title);
     }
+
     if (config.subtitle) {
-        var subtitle = document.createElement('h2');
+
+        var subtitle = document.createElement("h2");
         subtitle.innerText = config.subtitle;
+
         header.appendChild(subtitle);
     }
+
     if (config.byline) {
-        var byline = document.createElement('p');
+
+        var byline = document.createElement("p");
         byline.innerHTML = config.byline;
+
         header.appendChild(byline);
     }
 
-    // Render Story Chapters
-    var sections = document.getElementById('sections');
-    config.chapters.forEach(function(record) {
-        var container = document.createElement('div');
-        container.className = 'step';
+
+    /* =====================================================
+       STORY CHAPTERS
+       ===================================================== */
+
+    var sections = document.getElementById("sections");
+
+    config.chapters.forEach(function (record) {
+
+        var container = document.createElement("div");
+
+        container.className = "step";
         container.id = record.id;
-        
-        var chapterCard = document.createElement('div');
+
+
+        var chapterCard = document.createElement("div");
+
+
         if (record.title) {
-            var title = document.createElement('h3');
+
+            var title = document.createElement("h3");
+
             title.innerText = record.title;
+
             chapterCard.appendChild(title);
         }
+
+
         if (record.description) {
-            var desc = document.createElement('p');
-            desc.innerHTML = record.description;
-            chapterCard.appendChild(desc);
+
+            var description = document.createElement("p");
+
+            description.innerHTML = record.description;
+
+            chapterCard.appendChild(description);
         }
+
+
         container.appendChild(chapterCard);
+
         sections.appendChild(container);
     });
 
-    document.getElementById('footer').innerText = config.footer || '';
 
-    // Scrollama Trigger
+    /* =====================================================
+       FOOTER
+       ===================================================== */
+
+    document.getElementById("footer").innerText =
+        config.footer || "";
+
+
+    /* =====================================================
+       SCROLLAMA
+       ===================================================== */
+
     var scroller = scrollama();
-    scroller.setup({ step: '.step', offset: 0.5 }).onStepEnter(function(response) {
-        var chapter = config.chapters.find(function(chap) { return chap.id === response.element.id; });
-        if (chapter) {
-            map.flyTo(chapter.location);
-        }
+
+    scroller
+        .setup({
+            step: ".step",
+            offset: 0.5,
+            debug: false
+        })
+        .onStepEnter(function (response) {
+
+            var chapter = config.chapters.find(function (chap) {
+
+                return chap.id === response.element.id;
+
+            });
+
+
+            if (!chapter) {
+                return;
+            }
+
+
+            /*
+             * Use the chapter's camera settings directly.
+             * Mapbox handles the transition and terrain.
+             */
+            map.flyTo({
+                center: chapter.location.center,
+                zoom: chapter.location.zoom,
+                bearing: chapter.location.bearing || 0,
+                pitch: chapter.location.pitch || 0,
+
+                essential: true,
+
+                duration: chapter.location.duration || 2000
+            });
+
+        });
+
+
+    /* =====================================================
+       RESIZE
+       ===================================================== */
+
+    function handleResize() {
+
+        map.resize();
+
+        scroller.resize();
+    }
+
+
+    window.addEventListener("resize", handleResize);
+
+    window.addEventListener("orientationchange", function () {
+
+        setTimeout(handleResize, 250);
+
     });
 
-    window.addEventListener('resize', function() {
-        map.resize();
-        scroller.resize();
-    });
 </script>
+```
+
 </body>
 </html>
+
