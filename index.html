@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="utf-8">
 
     <title>Arvanitochoria</title>
@@ -10,21 +12,29 @@
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
     >
 
-    <!-- Mapbox GL JS -->
+    <!-- =====================================================
+         MAPBOX
+         ===================================================== -->
+
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+
     <link
         href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
         rel="stylesheet"
     >
 
-    <!-- Scrollama -->
+
+    <!-- =====================================================
+         SCROLLAMA
+         ===================================================== -->
+
     <script src="https://unpkg.com/scrollama"></script>
 
 
     <style>
 
         /* =====================================================
-           BASIC PAGE SETUP
+           GLOBAL
            ===================================================== */
 
         * {
@@ -33,10 +43,13 @@
 
         html,
         body {
+
             margin: 0;
             padding: 0;
+
             width: 100%;
             min-height: 100%;
+
             background: #000;
             color: #fff;
 
@@ -55,14 +68,12 @@
 
         /* =====================================================
            MAP
-
-           IMPORTANT:
-           We deliberately do NOT style .mapboxgl-canvas.
-           Mapbox needs to control its own canvas dimensions.
            ===================================================== */
 
         #map {
+
             position: fixed;
+
             top: 0;
             right: 0;
             bottom: 0;
@@ -74,12 +85,20 @@
             z-index: 1;
         }
 
+        /*
+         * IMPORTANT:
+         *
+         * Do NOT set dimensions on .mapboxgl-canvas.
+         * Mapbox controls its own WebGL canvas.
+         */
+
 
         /* =====================================================
-           STORY CONTAINER
+           STORY
            ===================================================== */
 
         #story {
+
             position: relative;
 
             width: 100%;
@@ -91,86 +110,197 @@
 
 
         /* =====================================================
-           HEADER
+           HEADER / HERO
            ===================================================== */
 
         #header {
+
+            position: relative;
+
             width: 100%;
+            height: 430px;
 
             margin: 0 0 40vh 0;
-            padding: 0 0 30px 0;
+            padding: 0;
+
+            overflow: hidden;
 
             text-align: center;
 
-            background: rgba(20, 15, 10, 0.95);
+            background: #2d1d13;
 
-            border-bottom: 2px solid #5a402d;
+            border-bottom: 2px solid #6b4932;
 
             pointer-events: auto;
         }
 
 
+        /*
+         * PHOTO
+         *
+         * The image is contained inside config.title,
+         * so we style the image that JavaScript inserts.
+         */
+
         #header img {
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
             display: block;
 
             width: 100%;
-            max-width: 100%;
+            height: 430px;
 
-            height: 300px;
-
-            margin: 0 0 20px 0;
+            margin: 0;
 
             object-fit: cover;
 
+            object-position: center;
+
             border-radius: 0;
+
+            z-index: 0;
         }
 
+
+        /*
+         * DARK GRADIENT
+         *
+         * This sits over the photograph and underneath
+         * the title text.
+         *
+         * It makes the text readable without putting
+         * a solid black box over the image.
+         */
+
+        #header::after {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    rgba(20, 12, 7, 0.70) 0%,
+                    rgba(20, 12, 7, 0.25) 38%,
+                    rgba(20, 12, 7, 0.35) 58%,
+                    rgba(20, 12, 7, 0.88) 100%
+                );
+
+            z-index: 1;
+
+            pointer-events: none;
+        }
+
+
+        /*
+         * TITLE
+         */
 
         #header h1 {
-            margin: 10px 0;
 
-            padding: 0 20px;
+            position: relative;
 
-            font-size: 2.2rem;
-            line-height: 1.2;
-        }
+            z-index: 2;
 
-
-        #header h2 {
-            margin: 5px 0 15px 0;
-
-            padding: 0 20px;
-
-            font-size: 1.1rem;
-            font-weight: 300;
-
-            opacity: 0.9;
-        }
-
-
-        #header p {
             margin: 0;
 
-            padding: 0 20px;
+            padding: 270px 20px 0 20px;
 
-            font-size: 0.95rem;
-            line-height: 1.5;
+            font-size: 3.2rem;
 
-            opacity: 0.85;
+            line-height: 1.05;
+
+            font-weight: 700;
+
+            letter-spacing: 0.01em;
+
+            text-shadow:
+                0 2px 5px rgba(0, 0, 0, 0.95),
+                0 4px 18px rgba(0, 0, 0, 0.85);
+        }
+
+
+        /*
+         * SUBTITLE
+         */
+
+        #header h2 {
+
+            position: relative;
+
+            z-index: 2;
+
+            margin: 10px 0 0 0;
+
+            padding: 0 25px;
+
+            font-size: 1.25rem;
+
+            line-height: 1.4;
+
+            font-weight: 400;
+
+            opacity: 0.98;
+
+            text-shadow:
+                0 2px 5px rgba(0, 0, 0, 0.95),
+                0 3px 12px rgba(0, 0, 0, 0.8);
+        }
+
+
+        /*
+         * BYLINE
+         */
+
+        #header p {
+
+            position: relative;
+
+            z-index: 2;
+
+            margin: 12px 0 0 0;
+
+            padding: 0 25px;
+
+            font-size: 0.9rem;
+
+            line-height: 1.55;
+
+            font-weight: 400;
+
+            opacity: 0.92;
+
+            text-shadow:
+                0 2px 5px rgba(0, 0, 0, 0.95),
+                0 3px 12px rgba(0, 0, 0, 0.8);
         }
 
 
         /* =====================================================
-           STORY CHAPTERS
+           CHAPTER SECTIONS
            ===================================================== */
 
         #sections {
+
             width: 100%;
         }
 
 
         .step {
+
             width: 100%;
+
             max-width: 500px;
 
             margin: 0 auto;
@@ -181,28 +311,50 @@
         }
 
 
+        /*
+         * BROWN STORY CARD
+         */
+
         .step div {
+
             padding: 25px;
 
-            background: rgba(15, 15, 15, 0.90);
+            background: rgba(70, 45, 29, 0.95);
 
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border:
+                1px solid
+                rgba(196, 155, 108, 0.45);
 
             border-radius: 8px;
 
             font-size: 1rem;
+
             line-height: 1.6;
 
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            color: #fff;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0, 0, 0, 0.45);
         }
 
 
         .step h3 {
+
             margin-top: 0;
+            margin-bottom: 12px;
+
+            font-size: 1.35rem;
+
+            line-height: 1.25;
+
+            font-weight: 600;
         }
 
 
         .step p {
+
+            margin-top: 0;
             margin-bottom: 0;
         }
 
@@ -212,15 +364,24 @@
            ===================================================== */
 
         #footer {
+
             width: 100%;
 
-            padding: 30px 20px;
+            padding: 40px 20px;
 
             text-align: center;
 
             font-size: 0.85rem;
 
-            background: rgba(0, 0, 0, 0.90);
+            line-height: 1.5;
+
+            color: rgba(255, 255, 255, 0.8);
+
+            background: rgba(35, 23, 16, 0.95);
+
+            border-top:
+                1px solid
+                rgba(196, 155, 108, 0.3);
 
             pointer-events: auto;
         }
@@ -232,24 +393,54 @@
 
         @media (max-width: 600px) {
 
-            #header h1 {
-                font-size: 1.8rem;
+            #header {
+
+                height: 380px;
+
+                margin-bottom: 30vh;
             }
+
+
+            #header img {
+
+                height: 380px;
+            }
+
+
+            #header h1 {
+
+                padding-top: 220px;
+
+                font-size: 2.25rem;
+            }
+
 
             #header h2 {
-                font-size: 1rem;
+
+                font-size: 1.05rem;
             }
 
+
+            #header p {
+
+                font-size: 0.82rem;
+            }
+
+
             .step {
+
                 padding: 20vh 15px;
             }
 
+
             .step div {
+
                 padding: 20px;
             }
         }
 
     </style>
+
 </head>
 
 
@@ -279,7 +470,7 @@
 
 
     <!-- =====================================================
-         YOUR CONFIGURATION FILE
+         CONFIG
          ===================================================== -->
 
     <script src="./config.js"></script>
@@ -316,132 +507,239 @@
             zoom: firstChapter.location.zoom,
 
             /*
-             * Start completely flat.
+             * Start flat.
              *
-             * This is intentional while we eliminate the
-             * terrain-rendering problem.
+             * Scrollama will move the map to each chapter's
+             * pitch when that chapter is reached.
              */
+
             pitch: 0,
 
             bearing: 0,
 
-            /*
-             * The map is controlled by scrolling rather
-             * than mouse interaction.
-             */
             interactive: false
 
         });
 
 
         /* =====================================================
-           MAP LOADED
+           MAP LOAD
            ===================================================== */
 
         map.on("load", function () {
 
             /*
-             * IMPORTANT:
+             * Make absolutely sure terrain is disabled.
              *
-             * Explicitly remove any terrain that might be
-             * contained inside the Mapbox Studio style.
-             *
-             * We are NOT adding a DEM source.
-             * We are NOT calling setTerrain() with a source.
+             * This protects against terrain being present
+             * in the Mapbox Studio style itself.
              */
+
             if (map.getTerrain()) {
+
                 map.setTerrain(null);
+
             }
 
 
             /*
-             * Make sure the map knows its actual container
-             * dimensions.
+             * Make sure Mapbox knows the actual dimensions
+             * of its container.
              */
+
             map.resize();
 
         });
 
 
         /* =====================================================
-           HEADER CONTENT
+           HEADER
            ===================================================== */
 
-        var header = document.getElementById("header");
+        var header =
+            document.getElementById("header");
 
+
+        /*
+         * Your config.title contains:
+         *
+         * <img src="./assets/IMG_3358.jpeg">
+         * <br>
+         * Arvanitochoria
+         *
+         * We need to extract the image and create the
+         * title separately so the layout works correctly.
+         */
 
         if (config.title) {
 
-            var title = document.createElement("h1");
+            var titleHTML = config.title;
 
-            title.innerHTML = config.title;
+
+            /*
+             * Find an image inside the title.
+             */
+
+            var imageMatch =
+                titleHTML.match(/<img[^>]+src=["']([^"']+)["'][^>]*>/i);
+
+
+            if (imageMatch) {
+
+                var image =
+                    document.createElement("img");
+
+                image.src =
+                    imageMatch[1];
+
+                image.alt =
+                    "Arvanitochoria";
+
+                header.appendChild(image);
+
+
+                /*
+                 * Remove the image from the title text.
+                 */
+
+                titleHTML =
+                    titleHTML.replace(
+                        imageMatch[0],
+                        ""
+                    );
+            }
+
+
+            /*
+             * Remove the <br> that was originally between
+             * the image and title.
+             */
+
+            titleHTML =
+                titleHTML.replace(
+                    /<br\s*\/?>/gi,
+                    ""
+                );
+
+
+            /*
+             * Create title.
+             */
+
+            var title =
+                document.createElement("h1");
+
+            title.innerHTML =
+                titleHTML.trim();
 
             header.appendChild(title);
         }
 
 
+        /* =====================================================
+           SUBTITLE
+           ===================================================== */
+
         if (config.subtitle) {
 
-            var subtitle = document.createElement("h2");
+            var subtitle =
+                document.createElement("h2");
 
-            subtitle.innerText = config.subtitle;
+            subtitle.innerText =
+                config.subtitle;
 
             header.appendChild(subtitle);
         }
 
 
+        /* =====================================================
+           BYLINE
+           ===================================================== */
+
         if (config.byline) {
 
-            var byline = document.createElement("p");
+            var byline =
+                document.createElement("p");
 
-            byline.innerHTML = config.byline;
+            byline.innerHTML =
+                config.byline;
 
             header.appendChild(byline);
         }
 
 
         /* =====================================================
-           STORY CHAPTERS
+           CHAPTERS
            ===================================================== */
 
-        var sections = document.getElementById("sections");
+        var sections =
+            document.getElementById("sections");
 
 
         config.chapters.forEach(function (record) {
 
-            var container = document.createElement("div");
+            /*
+             * Chapter wrapper
+             */
 
-            container.className = "step";
+            var container =
+                document.createElement("div");
 
-            container.id = record.id;
+            container.className =
+                "step";
+
+            container.id =
+                record.id;
 
 
-            var chapterCard = document.createElement("div");
+            /*
+             * Chapter card
+             */
 
+            var chapterCard =
+                document.createElement("div");
+
+
+            /*
+             * Chapter title
+             */
 
             if (record.title) {
 
-                var title = document.createElement("h3");
+                var title =
+                    document.createElement("h3");
 
-                title.innerText = record.title;
+                title.innerText =
+                    record.title;
 
                 chapterCard.appendChild(title);
             }
 
 
+            /*
+             * Chapter description
+             */
+
             if (record.description) {
 
-                var description = document.createElement("p");
+                var description =
+                    document.createElement("p");
 
-                description.innerHTML = record.description;
+                description.innerHTML =
+                    record.description;
 
                 chapterCard.appendChild(description);
             }
 
 
-            container.appendChild(chapterCard);
+            container.appendChild(
+                chapterCard
+            );
 
-            sections.appendChild(container);
+
+            sections.appendChild(
+                container
+            );
 
         });
 
@@ -458,10 +756,12 @@
            SCROLLAMA
            ===================================================== */
 
-        var scroller = scrollama();
+        var scroller =
+            scrollama();
 
 
         scroller
+
             .setup({
 
                 step: ".step",
@@ -475,34 +775,47 @@
 
             .onStepEnter(function (response) {
 
-                var chapter = config.chapters.find(function (chap) {
+                /*
+                 * Find the chapter corresponding to the
+                 * section currently entering the viewport.
+                 */
 
-                    return chap.id === response.element.id;
+                var chapter =
+                    config.chapters.find(function (chap) {
 
-                });
+                        return chap.id ===
+                            response.element.id;
+
+                    });
 
 
                 if (!chapter) {
+
                     return;
+
                 }
 
 
                 /*
-                 * Move to the chapter's location.
-                 *
-                 * Terrain is NOT involved.
+                 * Move the camera to the chapter.
                  */
+
                 map.flyTo({
 
-                    center: chapter.location.center,
+                    center:
+                        chapter.location.center,
 
-                    zoom: chapter.location.zoom,
+                    zoom:
+                        chapter.location.zoom,
 
-                    pitch: chapter.location.pitch || 0,
+                    pitch:
+                        chapter.location.pitch || 0,
 
-                    bearing: chapter.location.bearing || 0,
+                    bearing:
+                        chapter.location.bearing || 0,
 
-                    duration: chapter.location.duration || 2000,
+                    duration:
+                        chapter.location.duration || 2000,
 
                     essential: true
 
@@ -512,7 +825,7 @@
 
 
         /* =====================================================
-           RESIZE HANDLING
+           RESIZE
            ===================================================== */
 
         function handleResize() {
@@ -542,8 +855,8 @@
             }
         );
 
-
     </script>
 
 </body>
+
 </html>
