@@ -5,10 +5,9 @@ var config = {
     markerColor: '#8db855',
     theme: 'dark',
     use3dTerrain: true,
-    title: 'Arvanitochoria',
+    title: '<img src="./assets/IMG_3358.jpeg" style="width:100%; height:180px; object-fit:cover; border-radius:6px; margin-bottom:15px;"><br>Arvanitochoria',
     subtitle: 'Arvanite Cartographies of Mt. Arachnaio',
-   byline: '<img src="./assets/IMG_3358.jpeg" style="width:100%; height:180px; object-fit:cover; border-radius:6px; margin:15px 0;"><br>By Christina Maria Carasis <br> University of California, Berkeley <br> Department of Geography',
-    footer: 'Sources: Department of Geography, UC Berkeley',
+    byline: 'By Christina Maria Carasis <br> University of California, Berkeley <br> Department of Geography',
     chapters: [
         {
             id: 'slug-style-id',
