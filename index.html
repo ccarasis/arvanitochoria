@@ -1,119 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset='utf-8' />
-    <title>Arvanitochoria</title>
-    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    
-    <!-- Mapbox GL JS Library -->
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
-    
-    <!-- Scrollama JS -->
+    <meta charset="utf-8">
+    <title>Mapbox Scrollytelling Engine</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://unpkg.com/scrollama"></script>
-
     <style>
-        html, body { margin: 0; padding: 0; width: 100%; height: 100%; font-family: sans-serif; background-color: #111; color: #fff; }
-        
-        /* Map takes full screen behind text */
-        #map { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; }
-        
-        /* Story wrapper */
-        #story { position: relative; z-index: 2; pointer-events: none; }
-        
-        /* Title Header */
-        #header { padding: 80px 20px 60px 20px; max-width: 600px; margin: 0 auto 40vh auto; text-align: center; background: rgba(30, 20, 15, 0.9); border-radius: 8px; border: 1px solid #5a402d; pointer-events: auto; }
-        #header h1 { margin: 0 0 10px 0; font-size: 2rem; color: #fdfbf7; }
-        #header h2 { margin: 0 0 15px 0; font-size: 1.1rem; color: #c9b8a3; font-weight: normal; }
-        #header p { margin: 0; font-size: 0.9rem; color: #a8947d; }
-        
-        /* Scrolling Chapter Cards */
-        .step { padding: 30vh 0; max-width: 500px; margin: 0 auto; pointer-events: auto; }
-        .step-content { background: rgba(30, 20, 15, 0.9); padding: 25px; border-radius: 8px; border: 1px solid #5a402d; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        .step-content h3 { margin-top: 0; color: #fdfbf7; border-bottom: 1px solid #5a402d; padding-bottom: 8px; }
-        .step-content p { color: #e8ded1; line-height: 1.6; font-size: 0.95rem; }
-        .step-content img { width: 100%; border-radius: 4px; margin-bottom: 10px; }
-        
-        #footer { padding: 40px 20px; text-align: center; font-size: 0.85rem; color: #8c6d53; background: #1a100a; position: relative; z-index: 2; pointer-events: auto; }
-        
-        .left { margin-left: 8vw; }
-        .right { margin-left: auto; margin-right: 8vw; }
-        .centered { margin: 0 auto; }
-
-        @media (max-width: 768px) {
-            .left, .right { margin: 0 auto; padding: 10vh 15px; }
-        }
+        body { margin: 0; padding: 0; font-family: sans-serif; background: #000; color: #fff; }
+        #map { position: fixed; top: 0; bottom: 0; left: 0; right: 0; width: 100vw; height: 100vh; }
+        #story { position: relative; z-index: 1; pointer-events: none; }
+        #header { padding: 30px 20px; max-width: 650px; margin: 0 auto 40vh auto; text-align: center; background: rgba(30, 20, 15, 0.9); border-radius: 8px; border: 1px solid #5a402d; pointer-events: auto; }
+        .step { padding: 20vh 0; max-width: 500px; margin: 0 auto; pointer-events: auto; }
+        .step div { padding: 25px; background: rgba(20, 20, 20, 0.85); border-radius: 8px; font-size: 1rem; line-height: 1.6; }
+        #footer { padding: 40px 20px; text-align: center; font-size: 0.9rem; background: rgba(0,0,0,0.8); }
     </style>
 </head>
 <body>
 
 <div id="map"></div>
-
 <div id="story">
-    <div id="header">
-        <h1 id="title"></h1>
-        <h2 id="subtitle"></h2>
-        <p id="byline"></p>
-    </div>
-    <div id="features"></div>
+    <div id="header"></div>
+    <div id="sections"></div>
     <div id="footer"></div>
 </div>
 
-<!-- MUST MATCH YOUR FILENAME EXACTLY IN GITHUB -->
 <script src="./config.js"></script>
-
 <script>
-if (typeof config === 'undefined') {
-    alert("Error: config.js failed to load. Make sure config.js is in the exact same GitHub folder as index.html!");
-} else {
-    document.getElementById('title').innerText = config.title || '';
-    document.getElementById('subtitle').innerText = config.subtitle || '';
-    document.getElementById('byline').innerHTML = config.byline || '';
-    document.getElementById('footer').innerText = config.footer || '';
-
-    var features = document.getElementById('features');
-    config.chapters.forEach((record) => {
-        var div = document.createElement('div');
-        div.className = 'step ' + (record.alignment || 'centered');
-        div.id = record.id;
-        
-        var content = document.createElement('div');
-        content.className = 'step-content';
-        
-        if (record.title) {
-            var title = document.createElement('h3');
-            title.innerText = record.title;
-            content.appendChild(title);
-        }
-        if (record.image) {
-            var img = document.createElement('img');
-            img.src = record.image;
-            content.appendChild(img);
-        }
-        if (record.description) {
-            var p = document.createElement('p');
-            p.innerHTML = record.description;
-            content.appendChild(p);
-        }
-        div.appendChild(content);
-        features.appendChild(div);
-    });
-
     mapboxgl.accessToken = config.accessToken;
-    
-   var map = new mapboxgl.Map({
+
+    var map = new mapboxgl.Map({
         container: 'map',
         style: config.style,
         center: config.chapters[0].location.center,
         zoom: config.chapters[0].location.zoom,
-        bearing: config.chapters[0].location.bearing || 0,
-        pitch: 0, // START AT 0 TO PREVENT STRETCHING
+        bearing: 0,
+        pitch: 0,
         interactive: false
     });
-// FORCE MAP RESIZE & LOAD TERRAIN CLEANLY
+
     map.on('load', function() {
         map.resize();
-        
         if (config.use3dTerrain) {
             map.addSource('mapbox-dem', {
                 'type': 'raster-dem',
@@ -123,31 +51,68 @@ if (typeof config === 'undefined') {
             });
             map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
         }
-        
-        // EASE TO CAMERA ANGLE AFTER TILES LOAD
-        map.easeTo({
-            pitch: config.chapters[0].location.pitch || 60,
-            duration: 1000
-        });
+        setTimeout(function() {
+            map.resize();
+            map.easeTo({
+                pitch: config.chapters[0].location.pitch || 60,
+                bearing: config.chapters[0].location.bearing || 0,
+                duration: 1200
+            });
+        }, 300);
     });
 
+    // Render Header with HTML support
+    var header = document.getElementById('header');
+    if (config.title) {
+        var title = document.createElement('h1');
+        title.innerHTML = config.title; // ALLOWS IMAGES IN TITLE
+        header.appendChild(title);
+    }
+    if (config.subtitle) {
+        var subtitle = document.createElement('h2');
+        subtitle.innerText = config.subtitle;
+        header.appendChild(subtitle);
+    }
+    if (config.byline) {
+        var byline = document.createElement('p');
+        byline.innerHTML = config.byline;
+        header.appendChild(byline);
+    }
+
+    // Render Chapters
+    var sections = document.getElementById('sections');
+    config.chapters.forEach(function(record, index) {
+        var container = document.createElement('div');
+        container.className = 'step';
+        container.id = record.id;
+        
+        var chapterCard = document.createElement('div');
+        if (record.title) {
+            var title = document.createElement('h3');
+            title.innerText = record.title;
+            chapterCard.appendChild(title);
+        }
+        if (record.description) {
+            var desc = document.createElement('p');
+            desc.innerHTML = record.description;
+            chapterCard.appendChild(desc);
+        }
+        container.appendChild(chapterCard);
+        sections.appendChild(container);
+    });
+
+    document.getElementById('footer').innerText = config.footer || '';
+
+    // Scrollama Setup
     var scroller = scrollama();
-    scroller
-        .setup({
-            step: '.step',
-            offset: 0.5,
-            progress: true
-        })
-        .onStepEnter(response => {
-            var chapter = config.chapters.find(chap => chap.id === response.element.id);
-            if (chapter) {
-                map[chapter.mapAnimation || 'flyTo'](chapter.location);
-            }
-        });
+    scroller.setup({ step: '.step', offset: 0.5 }).onStepEnter(function(response) {
+        var chapter = config.chapters.find(function(chap) { return chap.id === response.element.id; });
+        if (chapter) {
+            map.flyTo(chapter.location);
+        }
+    });
 
     window.addEventListener('resize', scroller.resize);
-}
 </script>
-
 </body>
 </html>
