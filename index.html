@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="utf-8">
 
     <title>Arvanitochoria</title>
@@ -9,28 +10,57 @@
     <meta name="viewport"
           content="initial-scale=1,maximum-scale=1,user-scalable=no">
 
-    <!-- Mapbox -->
+
+    <!-- ==================================================
+         MAPBOX
+    ================================================== -->
+
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
 
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
-          rel="stylesheet">
+    <link
+        href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
+        rel="stylesheet"
+    >
 
-    <!-- Scrollama -->
+
+    <!-- ==================================================
+         SCROLLAMA
+    ================================================== -->
+
     <script src="https://unpkg.com/scrollama"></script>
 
 
+    <!-- ==================================================
+         FONTS
+    ================================================== -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
     <style>
+
+        /* ==================================================
+           GENERAL
+        ================================================== */
 
         * {
             box-sizing: border-box;
         }
 
+
         html,
         body {
+
             margin: 0;
             padding: 0;
 
-            font-family: Arial, Helvetica, sans-serif;
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
 
             background: #000;
         }
@@ -41,6 +71,7 @@
         ================================================== */
 
         #map {
+
             position: fixed;
 
             top: 0;
@@ -54,9 +85,13 @@
             z-index: 1;
         }
 
+
         /*
-         Do not add custom width or height rules to
-         .mapboxgl-canvas. Mapbox controls that canvas.
+         IMPORTANT:
+         Do not set width or height on
+         .mapboxgl-canvas.
+
+         Mapbox needs to control the WebGL canvas itself.
         */
 
 
@@ -65,6 +100,7 @@
         ================================================== */
 
         #header {
+
             position: relative;
 
             height: 480px;
@@ -78,6 +114,7 @@
 
 
         #header-image {
+
             position: absolute;
 
             inset: 0;
@@ -86,13 +123,21 @@
             height: 100%;
 
             object-fit: cover;
+
             object-position: center center;
 
             z-index: 0;
         }
 
 
+        /*
+         Dark gradient over the photograph.
+         It is lighter near the top and darker
+         behind the text.
+        */
+
         #header-overlay {
+
             position: absolute;
 
             inset: 0;
@@ -100,25 +145,38 @@
             z-index: 1;
 
             background:
+
                 linear-gradient(
                     to bottom,
+
                     rgba(0, 0, 0, 0.18) 0%,
+
                     rgba(0, 0, 0, 0.28) 35%,
+
                     rgba(0, 0, 0, 0.62) 72%,
+
                     rgba(0, 0, 0, 0.80) 100%
                 );
         }
 
 
+        /* ==================================================
+           HEADER TEXT
+        ================================================== */
+
         .header-content {
+
             position: absolute;
 
             left: 50%;
+
             top: 225px;
 
-            transform: translateX(-50%);
+            transform:
+                translateX(-50%);
 
             width: 90%;
+
             max-width: 1000px;
 
             text-align: center;
@@ -128,50 +186,83 @@
 
 
         .header-title {
+
             margin: 0 0 10px 0;
 
-            font-size: 58px;
-            line-height: 1.05;
+            font-family:
+                "Cormorant Garamond",
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 72px;
+
+            line-height: 0.95;
 
             font-weight: 700;
 
+            letter-spacing: 0.01em;
+
             text-shadow:
-                0 2px 5px rgba(0, 0, 0, 0.85),
-                0 4px 15px rgba(0, 0, 0, 0.65);
+
+                0 2px 5px
+                rgba(0, 0, 0, 0.90),
+
+                0 4px 15px
+                rgba(0, 0, 0, 0.70);
         }
 
 
         .header-subtitle {
-            margin: 0 0 22px 0;
 
-            font-size: 26px;
-            line-height: 1.25;
+            margin: 0 0 20px 0;
 
-            font-weight: 400;
+            font-family:
+                "Cormorant Garamond",
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 29px;
+
+            line-height: 1.2;
+
+            font-weight: 500;
 
             text-shadow:
-                0 2px 5px rgba(0, 0, 0, 0.90),
-                0 3px 10px rgba(0, 0, 0, 0.65);
+
+                0 2px 5px
+                rgba(0, 0, 0, 0.90),
+
+                0 3px 10px
+                rgba(0, 0, 0, 0.65);
         }
 
 
         .header-byline {
-            font-size: 18px;
+
+            font-size: 17px;
+
             line-height: 1.45;
 
             font-weight: 400;
 
             text-shadow:
-                0 2px 5px rgba(0, 0, 0, 0.90),
-                0 3px 10px rgba(0, 0, 0, 0.65);
+
+                0 2px 5px
+                rgba(0, 0, 0, 0.90),
+
+                0 3px 10px
+                rgba(0, 0, 0, 0.65);
         }
 
 
         /* ==================================================
-           STORY / SCROLLING CHAPTERS
+           STORY / SCROLLING
         ================================================== */
 
         #story {
+
             position: relative;
 
             z-index: 5;
@@ -179,11 +270,13 @@
 
 
         #features {
+
             padding-bottom: 50vh;
         }
 
 
         .step {
+
             position: relative;
 
             min-height: 100vh;
@@ -192,133 +285,76 @@
         }
 
 
+        /* ==================================================
+           BROWN STORY BOXES
+        ================================================== */
+
         .step > div {
+
             width: 420px;
+
             max-width: 85vw;
 
-            margin: 0 5vw;
+            margin:
+                0
+                5vw;
 
-            padding: 24px 28px;
+            padding:
+                24px
+                28px;
 
-            background: rgba(70, 45, 29, 0.95);
+            background:
+                rgba(70, 45, 29, 0.95);
 
             color: white;
 
             border-radius: 3px;
 
             box-shadow:
-                0 5px 25px rgba(0, 0, 0, 0.35);
+                0 5px 25px
+                rgba(0, 0, 0, 0.35);
 
             text-shadow:
-                0 1px 2px rgba(0, 0, 0, 0.35);
+                0 1px 2px
+                rgba(0, 0, 0, 0.35);
         }
 
 
         .step.right > div {
+
             margin-left: auto;
+
             margin-right: 5vw;
         }
 
 
         .step h3 {
+
             margin-top: 0;
+
             margin-bottom: 14px;
 
-            font-size: 25px;
-            line-height: 1.2;
+            font-family:
+                "Cormorant Garamond",
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 31px;
+
+            line-height: 1.05;
+
+            font-weight: 700;
         }
 
 
         .step p {
+
             margin: 0;
 
             font-size: 17px;
+
             line-height: 1.6;
-        }
-
-
-        /* ==================================================
-           ELEVATION MARKERS
-        ================================================== */
-
-        .elevation-marker {
-            position: relative;
-
-            padding: 6px 9px 7px 9px;
-
-            min-width: 75px;
-
-            background: rgba(48, 34, 24, 0.86);
-
-            color: white;
-
-            border: 1px solid rgba(255, 255, 255, 0.55);
-
-            border-radius: 3px;
-
-            font-family: Arial, Helvetica, sans-serif;
-
-            text-align: center;
-
-            white-space: nowrap;
-
-            box-shadow:
-                0 2px 8px rgba(0, 0, 0, 0.35);
-
-            pointer-events: none;
-        }
-
-
-        .elevation-marker-old {
-            font-size: 13px;
-
-            font-weight: 600;
-
-            line-height: 1.15;
-        }
-
-
-        .elevation-marker-new {
-            margin-top: 3px;
-
-            font-size: 11px;
-
-            font-style: italic;
-
-            line-height: 1.15;
-
-            opacity: 0.82;
-        }
-
-
-        .elevation-marker-height {
-            margin-top: 3px;
-
-            font-size: 11px;
-
-            line-height: 1.15;
-
-            opacity: 0.90;
-        }
-
-
-        /*
-         Small stem connecting each label visually
-         to the village location.
-        */
-
-        .elevation-marker::after {
-            content: "";
-
-            position: absolute;
-
-            left: 50%;
-            bottom: -9px;
-
-            width: 1px;
-            height: 8px;
-
-            background: rgba(255, 255, 255, 0.65);
         }
 
 
@@ -329,69 +365,64 @@
         @media (max-width: 700px) {
 
             #header {
+
                 height: 430px;
             }
 
 
             .header-content {
-                top: 175px;
+
+                top: 170px;
 
                 width: 92%;
             }
 
 
             .header-title {
-                font-size: 40px;
+
+                font-size: 52px;
             }
 
 
             .header-subtitle {
-                font-size: 20px;
+
+                font-size: 23px;
             }
 
 
             .header-byline {
+
                 font-size: 15px;
             }
 
 
             .step {
+
                 padding: 25vh 0;
             }
 
 
             .step > div {
+
                 width: 85vw;
 
                 margin-left: 7.5vw;
+
                 margin-right: 7.5vw;
             }
 
 
             .step.right > div {
+
                 margin-left: 7.5vw;
+
                 margin-right: 7.5vw;
-            }
-
-
-            .elevation-marker {
-                padding: 5px 7px 6px 7px;
-            }
-
-
-            .elevation-marker-old {
-                font-size: 12px;
-            }
-
-
-            .elevation-marker-new,
-            .elevation-marker-height {
-                font-size: 10px;
             }
 
         }
 
     </style>
+
 </head>
 
 
@@ -404,16 +435,19 @@
 
     <header id="header">
 
+
         <img
             id="header-image"
             src="./assets/IMG_3358.jpeg"
             alt="Landscape of the Arvanitochoria region"
         >
 
+
         <div id="header-overlay"></div>
 
 
         <div class="header-content">
+
 
             <h1 class="header-title">
                 Arvanitochoria
@@ -426,10 +460,15 @@
 
 
             <div class="header-byline">
+
                 By Christina Maria Carasis<br>
+
                 University of California, Berkeley<br>
+
                 Department of Geography
+
             </div>
+
 
         </div>
 
@@ -449,8 +488,13 @@
 
     <div id="story">
 
+
         <div id="features">
 
+
+            <!-- ==================================================
+                 CHAPTER 1
+            ================================================== -->
 
             <section
                 class="step"
@@ -471,6 +515,10 @@
 
             </section>
 
+
+            <!-- ==================================================
+                 CHAPTER 2
+            ================================================== -->
 
             <section
                 class="step right"
@@ -499,13 +547,18 @@
 
     <script>
 
+
         /* ==================================================
-           MAPBOX INITIALIZATION
+           MAPBOX ACCESS TOKEN
         ================================================== */
 
         mapboxgl.accessToken =
             'pk.eyJ1IjoiY2NhcmFzaXMiLCJhIjoiY210dnp4dHBlMDRsNDJ5b2FzbzMwYzd0NCJ9.jjPwOMlmB3aCwKp8JpKS_Q';
 
+
+        /* ==================================================
+           CREATE MAP
+        ================================================== */
 
         const map = new mapboxgl.Map({
 
@@ -521,11 +574,24 @@
 
             zoom: 11,
 
+            /*
+             Moderate camera pitch.
+             */
+
             pitch: 48,
 
             bearing: 0,
 
+            /*
+             The map remains non-interactive because
+             this is a scroll-driven story.
+             */
+
             interactive: false,
+
+            /*
+             Prevent extremely steep camera angles.
+             */
 
             maxPitch: 60,
 
@@ -539,66 +605,107 @@
         ================================================== */
 
         /*
-         The old Arvanite name is shown first.
-         The current official name appears underneath.
-         */
+         Historical / Arvanite name first.
+         Current official name underneath.
+
+         Elevations are the values supplied for the project.
+        */
 
         const villages = [
 
             {
                 oldName: 'Limnes',
+
                 officialName: '',
+
                 elevation: 522,
-                coordinates: [22.8806, 37.7125]
+
+                coordinates:
+                    [22.8806, 37.7125]
             },
+
 
             {
                 oldName: 'Berbati',
+
                 officialName: 'Prosymna',
+
                 elevation: 250,
-                coordinates: [22.8394, 37.7183]
+
+                coordinates:
+                    [22.8394, 37.7183]
             },
+
 
             {
                 oldName: 'Amygdalitsa',
+
                 officialName: '',
+
                 elevation: 200,
-                coordinates: [22.8447, 37.6981]
+
+                coordinates:
+                    [22.8447, 37.6981]
             },
+
 
             {
                 oldName: 'Gerbesi',
+
                 officialName: 'Midea',
+
                 elevation: 130,
-                coordinates: [22.8425, 37.6486]
+
+                coordinates:
+                    [22.8425, 37.6486]
             },
+
 
             {
                 oldName: 'Manesi',
+
                 officialName: '',
+
                 elevation: 70,
-                coordinates: [22.8122, 37.6622]
+
+                coordinates:
+                    [22.8122, 37.6622]
             },
+
 
             {
                 oldName: 'Dousia / Bardi',
+
                 officialName: 'Metochi',
+
                 elevation: 120,
-                coordinates: [22.8469, 37.6253]
+
+                coordinates:
+                    [22.8469, 37.6253]
             },
+
 
             {
                 oldName: 'Aggelokastro',
+
                 officialName: '',
+
                 elevation: 800,
-                coordinates: [23.1814, 37.6908]
+
+                coordinates:
+                    [23.1814, 37.6908]
             },
+
 
             {
                 oldName: 'Xeli',
+
                 officialName: 'Arachnaio',
+
                 elevation: 600,
-                coordinates: [22.9772, 37.6489]
+
+                coordinates:
+                    [22.9772, 37.6489]
             }
 
         ];
@@ -610,32 +717,39 @@
 
         map.on('load', function () {
 
+
             /*
-             Add Mapbox's terrain elevation source.
-             */
+             Add Mapbox terrain elevation data.
+
+             This is what actually gives the map its
+             3D elevation surface.
+            */
 
             if (!map.getSource('elevation-dem')) {
 
-                map.addSource('elevation-dem', {
+                map.addSource(
+                    'elevation-dem',
+                    {
 
-                    type: 'raster-dem',
+                        type: 'raster-dem',
 
-                    url:
-                        'mapbox://mapbox.mapbox-terrain-dem-v1',
+                        url:
+                            'mapbox://mapbox.mapbox-terrain-dem-v1',
 
-                    tileSize: 512,
+                        tileSize: 512,
 
-                    maxzoom: 14
+                        maxzoom: 14
 
-                });
+                    }
+                );
 
             }
 
 
             /*
-             Moderate exaggeration makes elevation differences
-             easier to see without producing extreme relief.
-             */
+             1.5 exaggeration makes differences in elevation
+             visible without making the terrain extreme.
+            */
 
             map.setTerrain({
 
@@ -650,8 +764,8 @@
 
 
             /*
-             Add labels after the terrain has loaded.
-             */
+             Add village labels after the map has loaded.
+            */
 
             map.once('idle', function () {
 
@@ -663,61 +777,265 @@
 
 
         /* ==================================================
-           ADD ELEVATION MARKERS
+           VILLAGE ELEVATION LABELS
         ================================================== */
 
         function addElevationMarkers() {
 
-            villages.forEach(function (village) {
 
-                const element =
-                    document.createElement('div');
+            /*
+             Convert our village data into GeoJSON.
+            */
+
+            const elevationFeatures =
+                villages.map(function(village) {
+
+                    return {
+
+                        type: 'Feature',
+
+                        geometry: {
+
+                            type: 'Point',
+
+                            coordinates:
+                                village.coordinates
+                        },
+
+                        properties: {
+
+                            oldName:
+                                village.oldName,
+
+                            officialName:
+                                village.officialName,
+
+                            elevation:
+                                village.elevation
+                        }
+
+                    };
+
+                });
 
 
-                element.className =
-                    'elevation-marker';
+            /* --------------------------------------------------
+               SOURCE
+            -------------------------------------------------- */
+
+            map.addSource(
+                'village-elevations',
+                {
+
+                    type: 'geojson',
+
+                    data: {
+
+                        type: 'FeatureCollection',
+
+                        features:
+                            elevationFeatures
+                    }
+
+                }
+            );
 
 
-                let markerHTML =
+            /* ==================================================
+               LABELS
+            ================================================== */
 
-                    '<div class="elevation-marker-old">' +
-                    village.oldName +
-                    '</div>';
+            map.addLayer({
+
+                id:
+                    'village-elevation-labels',
+
+                type:
+                    'symbol',
+
+                source:
+                    'village-elevations',
 
 
-                if (village.officialName !== '') {
+                layout: {
 
-                    markerHTML +=
+                    /*
+                     Old Arvanite name is largest.
 
-                        '<div class="elevation-marker-new">' +
-                        village.officialName +
-                        '</div>';
+                     Current official name is smaller.
+
+                     Elevation is smallest.
+
+                     The CASE prevents empty official-name
+                     lines for villages where we don't have
+                     a separate historical/current distinction.
+                    */
+
+                    'text-field': [
+
+                        'format',
+
+
+                        ['get', 'oldName'],
+
+                        {
+                            'font-scale': 1.0
+                        },
+
+
+                        [
+                            'case',
+
+                            [
+                                '!=',
+                                ['get', 'officialName'],
+                                ''
+                            ],
+
+                            [
+                                'concat',
+                                '\n',
+                                ['get', 'officialName']
+                            ],
+
+                            ''
+                        ],
+
+                        {
+                            'font-scale': 0.72
+                        },
+
+
+                        '\n',
+
+
+                        [
+                            'concat',
+
+                            [
+                                'to-string',
+                                ['get', 'elevation']
+                            ],
+
+                            ' m'
+                        ],
+
+                        {
+                            'font-scale': 0.58
+                        }
+
+                    ],
+
+
+                    /*
+                     Small overall label size.
+                    */
+
+                    'text-size': 12,
+
+
+                    /*
+                     Keep labels centered above the
+                     actual village point.
+                    */
+
+                    'text-anchor':
+                        'bottom',
+
+
+                    'text-offset':
+                        [0, -0.3],
+
+
+                    /*
+                     Let Mapbox prevent labels from
+                     unnecessarily covering one another.
+                    */
+
+                    'text-allow-overlap':
+                        false,
+
+                    'text-ignore-placement':
+                        false,
+
+                    'symbol-placement':
+                        'point'
+
+                },
+
+
+                paint: {
+
+                    /*
+                     White text keeps the labels visible
+                     against the satellite imagery.
+                    */
+
+                    'text-color':
+                        '#ffffff',
+
+
+                    /*
+                     Very subtle dark halo.
+                    */
+
+                    'text-halo-color':
+                        'rgba(35, 25, 18, 0.65)',
+
+                    'text-halo-width':
+                        1.2,
+
+                    'text-halo-blur':
+                        0.6
 
                 }
 
-
-                markerHTML +=
-
-                    '<div class="elevation-marker-height">' +
-                    village.elevation +
-                    ' m' +
-                    '</div>';
+            });
 
 
-                element.innerHTML = markerHTML;
+            /* ==================================================
+               SMALL VILLAGE POINTS
+            ================================================== */
+
+            map.addLayer({
+
+                id:
+                    'village-elevation-points',
+
+                type:
+                    'circle',
+
+                source:
+                    'village-elevations',
 
 
-                new mapboxgl.Marker({
+                paint: {
 
-                    element: element,
+                    /*
+                     Tiny point so the label has a
+                     clear geographic anchor.
+                    */
 
-                    anchor: 'bottom'
+                    'circle-radius':
+                        2,
 
-                })
 
-                .setLngLat(village.coordinates)
+                    'circle-color':
+                        '#ffffff',
 
-                .addTo(map);
+
+                    'circle-opacity':
+                        0.55,
+
+
+                    'circle-stroke-color':
+                        'rgba(45, 30, 20, 0.65)',
+
+
+                    'circle-stroke-width':
+                        1
+
+                }
 
             });
 
@@ -728,45 +1046,58 @@
            SCROLLAMA
         ================================================== */
 
-        const scroller = scrollama();
+        const scroller =
+            scrollama();
 
 
         function handleStepEnter(response) {
+
 
             const chapterId =
                 response.element.id;
 
 
+            /*
+             Chapter camera positions.
+
+             The pitch is intentionally moderate so that
+             terrain relief is visible without creating
+             extreme perspective.
+            */
+
             const chapters = {
+
 
                 'slug-style-id': {
 
-                    center: [
-                        22.9562,
-                        37.6793
-                    ],
+                    center:
+                        [22.9562, 37.6793],
 
-                    zoom: 11,
+                    zoom:
+                        11,
 
-                    pitch: 48,
+                    pitch:
+                        48,
 
-                    bearing: 0
+                    bearing:
+                        0
 
                 },
 
 
                 'limnes-church': {
 
-                    center: [
-                        22.8804,
-                        37.7128
-                    ],
+                    center:
+                        [22.8804, 37.7128],
 
-                    zoom: 16.5,
+                    zoom:
+                        16.5,
 
-                    pitch: 50,
+                    pitch:
+                        50,
 
-                    bearing: -10
+                    bearing:
+                        -10
 
                 }
 
@@ -778,36 +1109,49 @@
 
 
             if (!chapter) {
+
                 return;
             }
 
 
             map.flyTo({
 
-                center: chapter.center,
+                center:
+                    chapter.center,
 
-                zoom: chapter.zoom,
+                zoom:
+                    chapter.zoom,
 
-                pitch: chapter.pitch,
+                pitch:
+                    chapter.pitch,
 
-                bearing: chapter.bearing,
+                bearing:
+                    chapter.bearing,
 
-                duration: 3000,
+                duration:
+                    3000,
 
-                essential: true
+                essential:
+                    true
 
             });
 
         }
 
 
+        /* ==================================================
+           SCROLLAMA SETUP
+        ================================================== */
+
         scroller
 
             .setup({
 
-                step: '.step',
+                step:
+                    '.step',
 
-                offset: 0.5
+                offset:
+                    0.5
 
             })
 
@@ -822,7 +1166,7 @@
 
         window.addEventListener(
             'resize',
-            function () {
+            function() {
 
                 map.resize();
 
@@ -830,6 +1174,7 @@
 
             }
         );
+
 
     </script>
 
