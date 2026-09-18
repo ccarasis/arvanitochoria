@@ -281,11 +281,20 @@
 
     mapboxgl.accessToken = config.accessToken;
 
-    const map = new mapboxgl.Map({
-      container: "map",
-      style: config.style,
-      interactive: false
+ const map = new mapboxgl.Map({
+  container: "map",
+  style: config.style,
+  interactive: false
+});
+
+map.on("style.load", () => {
+  if (map.getSource("mapbox-dem")) {
+    map.setTerrain({
+      source: "mapbox-dem",
+      exaggeration: 1
     });
+  }
+});
 
 
     /* -------------------------
