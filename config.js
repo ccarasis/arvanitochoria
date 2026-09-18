@@ -1,51 +1,43 @@
 var config = {
-    style: 'mapbox://styles/mapbox/satellite-streets-v12',
+    style: 'mapbox://styles/ccarasis/cmtw0jo3h000f01ra88t4fvvs',
+
     accessToken: 'pk.eyJ1IjoiY2NhcmFzaXMiLCJhIjoiY210dnp4dHBlMDRsNDJ5b2FzbzMwYzd0NCJ9.jjPwOMlmB3aCwKp8JpKS_Q',
-    showMarkers: true,
-    markerColor: '#8db855',
-    theme: 'dark',
-    use3dTerrain: false,
+
     title: '<img src="./assets/IMG_3358.jpeg"><br>Arvanitochoria',
+
     subtitle: 'Arvanite Cartographies of Mt. Arachnaio',
+
     byline: 'By Christina Maria Carasis <br> University of California, Berkeley <br> Department of Geography',
+
     chapters: [
+
         {
-            id: 'slug-style-id',
+            id: 'introduction',
             alignment: 'left',
-            hidden: false,
             title: 'What are the Arvanitochoria?',
-            image: '',
             description: 'Introduction to Arvanite settlements near Mt. Arachnaio.',
+
             location: {
-                center: [22.9562, 37.6793],
-                zoom: 11,
-                pitch: 60,
-                bearing: 0
-            },
-            mapAnimation: 'flyTo',
-            rotateAnimation: false,
-            callback: '',
-            onChapterEnter: [],
-            onChapterExit: []
+                center: [22.8804, 37.7128],
+                zoom: 12,
+                pitch: 50,
+                bearing: 130
+            }
         },
+
         {
             id: 'limnes-church',
             alignment: 'right',
-            hidden: false,
             title: 'Church of Agia Triada (Limnes)',
-            image: '',
             description: 'The Holy Trinity Church in the village square of Limnes.',
+
             location: {
                 center: [22.8804, 37.7128],
                 zoom: 16.5,
-                pitch: 65,
-                bearing: -10
-            },
-            mapAnimation: 'flyTo',
-            rotateAnimation: false,
-            callback: '',
-            onChapterEnter: [],
-            onChapterExit: []
+                pitch: 55,
+                bearing: 130
+            }
         }
+
     ]
 };
