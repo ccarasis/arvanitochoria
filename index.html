@@ -2,30 +2,38 @@
 <html lang="en">
 
 <head>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
 
   <title>Arvanitochoria</title>
 
-  <!-- Mapbox -->
- <link
-  href="https://api.mapbox.com/mapbox-gl-js/v3.16.0/mapbox-gl.css"
-  rel="stylesheet"
->
 
-<script src="https://api.mapbox.com/mapbox-gl-js/v3.16.0/mapbox-gl.js"></script>
+  <!-- Mapbox -->
+
+  <link
+    href="https://api.mapbox.com/mapbox-gl-js/v3.16.0/mapbox-gl.css"
+    rel="stylesheet"
+  >
+
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.16.0/mapbox-gl.js"></script>
+
 
   <!-- Scrollama -->
+
   <script src="https://unpkg.com/scrollama"></script>
 
-  <!-- Your story settings -->
+
+  <!-- Story configuration -->
+
   <script src="./config.js"></script>
 
-  <style>
 
-    /* -------------------------
-       BASIC PAGE
-    ------------------------- */
+  <style>
 
     * {
       box-sizing: border-box;
@@ -41,9 +49,7 @@
     }
 
 
-    /* -------------------------
-       MAP
-    ------------------------- */
+    /* MAP */
 
     #map {
       position: fixed;
@@ -54,9 +60,7 @@
     }
 
 
-    /* -------------------------
-       STORY
-    ------------------------- */
+    /* STORY */
 
     #story {
       position: relative;
@@ -64,9 +68,7 @@
     }
 
 
-    /* -------------------------
-       HEADER
-    ------------------------- */
+    /* HEADER */
 
     #header {
       position: relative;
@@ -122,6 +124,7 @@
       margin: 0;
 
       font-size: clamp(58px, 7vw, 105px);
+
       line-height: 1;
 
       font-weight: 400;
@@ -131,6 +134,7 @@
       margin-top: 25px;
 
       font-size: clamp(25px, 3vw, 42px);
+
       line-height: 1.2;
     }
 
@@ -138,19 +142,20 @@
       margin-top: 35px;
 
       font-family: Arial, sans-serif;
+
       font-size: 21px;
+
       line-height: 1.5;
     }
 
 
-    /* -------------------------
-       CHAPTERS
-    ------------------------- */
+    /* CHAPTERS */
 
     .step {
       min-height: 100vh;
 
       display: flex;
+
       align-items: center;
 
       padding: 80px 5vw;
@@ -181,6 +186,7 @@
       margin: 0 0 22px;
 
       font-size: 34px;
+
       line-height: 1.15;
 
       font-weight: 400;
@@ -192,13 +198,12 @@
       font-family: Arial, sans-serif;
 
       font-size: 20px;
+
       line-height: 1.65;
     }
 
 
-    /* -------------------------
-       MOBILE
-    ------------------------- */
+    /* MOBILE */
 
     @media (max-width: 700px) {
 
@@ -239,19 +244,25 @@
     }
 
   </style>
+
 </head>
 
 
 <body>
 
+
   <!-- MAP -->
+
   <div id="map"></div>
 
 
   <!-- STORY -->
+
   <main id="story">
 
-    <!-- TITLE / INTRO -->
+
+    <!-- TITLE -->
+
     <header id="header">
 
       <div id="header-content">
@@ -267,94 +278,133 @@
     </header>
 
 
-    <!-- CHAPTERS ARE CREATED FROM config.js -->
+    <!-- CHAPTERS -->
+
     <section id="chapters"></section>
+
 
   </main>
 
 
   <script>
 
-    /* -------------------------
-       START MAP
-    ------------------------- */
+    /*
+     * MAP
+     */
 
     mapboxgl.accessToken = config.accessToken;
 
- const map = new mapboxgl.Map({
-  container: "map",
-  style: config.style,
-  interactive: false
-});
 
-map.on("style.load", () => {
-  if (map.getSource("mapbox-dem")) {
-    map.setTerrain({
-      source: "mapbox-dem",
-      exaggeration: 1
+    const map = new mapboxgl.Map({
+
+      container: "map",
+
+      style: config.style,
+
+      interactive: false
+
     });
-  }
-});
 
 
-    /* -------------------------
-       HEADER
-    ------------------------- */
+    /*
+     * TERRAIN
+     *
+     * Uses the terrain already configured
+     * in the Mapbox Studio style.
+     *
+     * Nothing here controls the exaggeration.
+     * Mapbox Studio does.
+     */
 
-    const titleImage = config.title.match(
-      /<img[^>]+src=["']([^"']+)["']/i
-    );
+    map.on("style.load", () => {
+
+      const terrain = map.getStyle().terrain;
+
+      if (terrain) {
+
+        map.setTerrain(terrain);
+
+      }
+
+    });
+
+
+    /*
+     * HEADER IMAGE
+     */
+
+    const titleImage =
+      config.title.match(
+        /<img[^>]+src=["']([^"']+)["']/i
+      );
+
 
     if (titleImage) {
 
-      const image = document.createElement("img");
+      const image =
+        document.createElement("img");
 
       image.id = "header-image";
+
       image.src = titleImage[1];
 
       document
         .getElementById("header")
         .prepend(image);
 
-      document.getElementById("title").textContent =
+
+      document.getElementById("title")
+        .textContent =
         config.title
           .replace(/<img[^>]*>/i, "")
           .replace(/<br\s*\/?>/gi, "")
           .trim();
 
-    } else {
+    }
 
-      document.getElementById("title").textContent =
+    else {
+
+      document.getElementById("title")
+        .textContent =
         config.title;
 
     }
 
-    document.getElementById("subtitle").textContent =
+
+    document.getElementById("subtitle")
+      .textContent =
       config.subtitle;
 
-    document.getElementById("byline").innerHTML =
+
+    document.getElementById("byline")
+      .innerHTML =
       config.byline;
 
 
-    /* -------------------------
-       BUILD CHAPTERS
-    ------------------------- */
+    /*
+     * BUILD CHAPTERS
+     */
 
     const chapters =
       document.getElementById("chapters");
+
 
     config.chapters.forEach((chapter) => {
 
       const section =
         document.createElement("section");
 
+
       section.className =
         `step ${chapter.alignment || "left"}`;
+
 
       section.dataset.id =
         chapter.id;
 
+
       section.innerHTML = `
+
         <div class="step-content">
 
           <h2>${chapter.title}</h2>
@@ -362,18 +412,21 @@ map.on("style.load", () => {
           <p>${chapter.description}</p>
 
         </div>
+
       `;
+
 
       chapters.appendChild(section);
 
     });
 
 
-    /* -------------------------
-       SCROLLING
-    ------------------------- */
+    /*
+     * SCROLLAMA
+     */
 
-    const scroller = scrollama();
+    const scroller =
+      scrollama();
 
 
     function handleStepEnter(response) {
@@ -385,10 +438,6 @@ map.on("style.load", () => {
             response.element.dataset.id
         );
 
-      /*
-       * If a chapter has no location,
-       * the map simply stays where it is.
-       */
 
       if (
         !chapter ||
@@ -423,15 +472,20 @@ map.on("style.load", () => {
 
     scroller
       .setup({
+
         step: ".step",
+
         offset: 0.5
+
       })
-      .onStepEnter(handleStepEnter);
+      .onStepEnter(
+        handleStepEnter
+      );
 
 
-    /* -------------------------
-       RESIZE
-    ------------------------- */
+    /*
+     * RESIZE
+     */
 
     window.addEventListener(
       "resize",
@@ -446,5 +500,7 @@ map.on("style.load", () => {
 
   </script>
 
+
 </body>
+
 </html>
