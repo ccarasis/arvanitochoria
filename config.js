@@ -18,8 +18,8 @@ var config = {
             title: 'What are the Arvanitochoria?',
             description: 'Introduction to Arvanite settlements near Mt. Arachnaio.',
             location: {
-                center: [22.8804, 37.7128],
-                zoom: 10,
+                center: [22.9693, 37.6407],
+                zoom: 15,
                 pitch: 50,
                 bearing: 130
             }
@@ -31,9 +31,9 @@ var config = {
             title: 'Church of Agia Triada (Limnes)',
             description: 'The Holy Trinity Church in the village square of Limnes.',
             location: {
-                center: [22.8804, 37.7128],
-                zoom: 14,
-                pitch: 65,
+                center: [22.8802, 37.7141],
+                zoom: 17,
+                pitch: 75,
                 bearing: -10
             }
         }
