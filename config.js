@@ -19,7 +19,7 @@ var config = {
             description: 'Introduction to Arvanite villages near Mt. Arachnaio.',
             location: {
                 center: [22.9693, 37.6407],
-                zoom: 12,
+                zoom: 15,
                 pitch: 50,
                 bearing: 130
             }
@@ -32,7 +32,7 @@ var config = {
             description: 'The Holy Trinity Church in the village square of Limnes.',
             location: {
                 center: [22.8802, 37.7141],
-                zoom: 12,
+                zoom: 15,
                 pitch: 60,
                 bearing: -10
             }
