@@ -19,7 +19,7 @@ var config = {
             description: 'Introduction to Arvanite villages near Mt. Arachnaio.',
             location: {
                 center: [22.9693, 37.6407],
-                zoom: 17,
+                zoom: 16,
                 pitch: 50,
                 bearing: 130
             }
