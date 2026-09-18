@@ -28,8 +28,8 @@ var config = {
         {
             id: 'limnes-church',
             alignment: 'right',
-            title: 'Church of Agia Triada (Limnes)',
-            description: 'The Holy Trinity Church in the village square of Limnes.',
+            title: 'Temple of the Presentation of Christ (Limnes)',
+            description: 'Temple of the Presentation of Christ in the village square of Limnes.',
             location: {
                 center: [22.8802, 37.7141],
                 zoom: 18,
