@@ -16,7 +16,7 @@ var config = {
             id: 'chapter-1',
             alignment: 'left',
             title: 'What are the Arvanitochoria?',
-            description: 'Introduction to Arvanite settlements near Mt. Arachnaio.',
+            description: 'Introduction to Arvanite villages near Mt. Arachnaio.',
             location: {
                 center: [22.9693, 37.6407],
                 zoom: 12,
