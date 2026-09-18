@@ -1,5 +1,5 @@
 var config = {
-    style: 'mapbox://styles/ccarasis/cmtw0jo3h000f01ra88t4fvvs',
+   style: 'mapbox://styles/mapbox/satellite-streets-v12',
 
     accessToken: 'pk.eyJ1IjoiY2NhcmFzaXMiLCJhIjoiY210dnp4dHBlMDRsNDJ5b2FzbzMwYzd0NCJ9.jjPwOMlmB3aCwKp8JpKS_Q',
 
