@@ -1,21 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Arvanitochoria</title>
 
+  <!-- Mapbox -->
   <link
     href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
     rel="stylesheet"
   >
 
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+
+  <!-- Scrollama -->
   <script src="https://unpkg.com/scrollama"></script>
+
+  <!-- Your story settings -->
   <script src="./config.js"></script>
 
   <style>
+
+    /* -------------------------
+       BASIC PAGE
+    ------------------------- */
+
     * {
       box-sizing: border-box;
     }
@@ -29,6 +40,11 @@
       font-family: Georgia, "Times New Roman", serif;
     }
 
+
+    /* -------------------------
+       MAP
+    ------------------------- */
+
     #map {
       position: fixed;
       inset: 0;
@@ -37,34 +53,51 @@
       z-index: 1;
     }
 
+
+    /* -------------------------
+       STORY
+    ------------------------- */
+
     #story {
       position: relative;
       z-index: 2;
     }
 
+
+    /* -------------------------
+       HEADER
+    ------------------------- */
+
     #header {
       position: relative;
       height: 690px;
       overflow: hidden;
+
       display: flex;
       align-items: center;
       justify-content: center;
+
       text-align: center;
     }
 
     #header-image {
       position: absolute;
       inset: 0;
+
       width: 100%;
       height: 100%;
+
       object-fit: cover;
+
       z-index: -2;
     }
 
     #header::after {
       content: "";
+
       position: absolute;
       inset: 0;
+
       background:
         linear-gradient(
           to bottom,
@@ -72,39 +105,54 @@
           rgba(0, 0, 0, 0.55) 55%,
           rgba(0, 0, 0, 0.85)
         );
+
       z-index: -1;
     }
 
     #header-content {
       width: min(1000px, 90%);
+
       margin-top: 40px;
-      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.9);
+
+      text-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.9);
     }
 
     #title {
       margin: 0;
+
       font-size: clamp(58px, 7vw, 105px);
       line-height: 1;
+
       font-weight: 400;
     }
 
     #subtitle {
       margin-top: 25px;
+
       font-size: clamp(25px, 3vw, 42px);
       line-height: 1.2;
     }
 
     #byline {
       margin-top: 35px;
+
       font-family: Arial, sans-serif;
       font-size: 21px;
       line-height: 1.5;
     }
 
+
+    /* -------------------------
+       CHAPTERS
+    ------------------------- */
+
     .step {
       min-height: 100vh;
+
       display: flex;
       align-items: center;
+
       padding: 80px 5vw;
     }
 
@@ -118,27 +166,42 @@
 
     .step-content {
       width: min(590px, 88vw);
+
       padding: 34px 40px;
+
       background: rgba(70, 43, 27, 0.94);
+
       border-radius: 4px;
-      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.35);
+
+      box-shadow:
+        0 5px 25px rgba(0, 0, 0, 0.35);
     }
 
     .step-content h2 {
       margin: 0 0 22px;
+
       font-size: 34px;
       line-height: 1.15;
+
       font-weight: 400;
     }
 
     .step-content p {
       margin: 0;
+
       font-family: Arial, sans-serif;
+
       font-size: 20px;
       line-height: 1.65;
     }
 
+
+    /* -------------------------
+       MOBILE
+    ------------------------- */
+
     @media (max-width: 700px) {
+
       #header {
         height: 620px;
       }
@@ -157,6 +220,7 @@
 
       .step {
         padding: 60px 20px;
+
         justify-content: center !important;
       }
 
@@ -171,109 +235,182 @@
       .step-content p {
         font-size: 18px;
       }
+
     }
+
   </style>
 </head>
 
+
 <body>
 
+  <!-- MAP -->
   <div id="map"></div>
 
+
+  <!-- STORY -->
   <main id="story">
 
+    <!-- TITLE / INTRO -->
     <header id="header">
+
       <div id="header-content">
+
         <h1 id="title"></h1>
+
         <div id="subtitle"></div>
+
         <div id="byline"></div>
+
       </div>
+
     </header>
 
+
+    <!-- CHAPTERS ARE CREATED FROM config.js -->
     <section id="chapters"></section>
 
   </main>
 
+
   <script>
+
+    /* -------------------------
+       START MAP
+    ------------------------- */
+
     mapboxgl.accessToken = config.accessToken;
 
     const map = new mapboxgl.Map({
       container: "map",
       style: config.style,
-
-      center: [22.8804, 37.7128],
-      zoom: 12,
-      pitch: 50,
-      bearing: 130,
-
       interactive: false
     });
+
+
+    /* -------------------------
+       HEADER
+    ------------------------- */
 
     const titleImage = config.title.match(
       /<img[^>]+src=["']([^"']+)["']/i
     );
 
     if (titleImage) {
+
       const image = document.createElement("img");
 
       image.id = "header-image";
       image.src = titleImage[1];
 
-      document.getElementById("header").prepend(image);
+      document
+        .getElementById("header")
+        .prepend(image);
 
       document.getElementById("title").textContent =
         config.title
           .replace(/<img[^>]*>/i, "")
           .replace(/<br\s*\/?>/gi, "")
           .trim();
+
     } else {
-      document.getElementById("title").textContent = config.title;
+
+      document.getElementById("title").textContent =
+        config.title;
+
     }
 
-    document.getElementById("subtitle").textContent = config.subtitle;
-    document.getElementById("byline").innerHTML = config.byline;
+    document.getElementById("subtitle").textContent =
+      config.subtitle;
 
-    const chapters = document.getElementById("chapters");
+    document.getElementById("byline").innerHTML =
+      config.byline;
+
+
+    /* -------------------------
+       BUILD CHAPTERS
+    ------------------------- */
+
+    const chapters =
+      document.getElementById("chapters");
 
     config.chapters.forEach((chapter) => {
-      if (chapter.hidden) return;
 
-      const section = document.createElement("section");
+      const section =
+        document.createElement("section");
 
-      section.className = `step ${chapter.alignment || "left"}`;
-      section.dataset.id = chapter.id;
+      section.className =
+        `step ${chapter.alignment || "left"}`;
+
+      section.dataset.id =
+        chapter.id;
 
       section.innerHTML = `
         <div class="step-content">
+
           <h2>${chapter.title}</h2>
+
           <p>${chapter.description}</p>
+
         </div>
       `;
 
       chapters.appendChild(section);
+
     });
 
-    map.on("load", () => {
-      map.resize();
-    });
+
+    /* -------------------------
+       SCROLLING
+    ------------------------- */
 
     const scroller = scrollama();
 
-    function handleStepEnter(response) {
-      const chapter = config.chapters.find(
-        (item) => item.id === response.element.dataset.id
-      );
 
-      if (!chapter || !chapter.location) return;
+    function handleStepEnter(response) {
+
+      const chapter =
+        config.chapters.find(
+          item =>
+            item.id ===
+            response.element.dataset.id
+        );
+
+      /*
+       * If a chapter has no location,
+       * the map simply stays where it is.
+       */
+
+      if (
+        !chapter ||
+        !chapter.location
+      ) {
+        return;
+      }
+
 
       map.flyTo({
-        center: chapter.location.center,
-        zoom: chapter.location.zoom,
-        pitch: chapter.location.pitch || 50,
-        bearing: chapter.location.bearing || 0,
+
+        center:
+          chapter.location.center,
+
+        zoom:
+          chapter.location.zoom,
+
+        pitch:
+          chapter.location.pitch ?? 0,
+
+        bearing:
+          chapter.location.bearing ?? 0,
+
         duration: 1800,
+
         essential: true
+
       });
+
     }
+
 
     scroller
       .setup({
@@ -282,10 +419,22 @@
       })
       .onStepEnter(handleStepEnter);
 
-    window.addEventListener("resize", () => {
-      map.resize();
-      scroller.resize();
-    });
+
+    /* -------------------------
+       RESIZE
+    ------------------------- */
+
+    window.addEventListener(
+      "resize",
+      () => {
+
+        map.resize();
+
+        scroller.resize();
+
+      }
+    );
+
   </script>
 
 </body>
