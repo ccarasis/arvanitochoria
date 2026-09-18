@@ -11,27 +11,28 @@
           content="initial-scale=1,maximum-scale=1,user-scalable=no">
 
 
-    <!-- ==================================================
-         MAPBOX
-    ================================================== -->
+    <!-- =========================================================
+         MAPBOX GL JS
+         ========================================================= -->
 
-<script src="https://api.mapbox.com/mapbox-gl-js/v3.16.0/mapbox-gl.js"></script>
+    <link
+        href="https://api.mapbox.com/mapbox-gl-js/v3.16.0/mapbox-gl.css"
+        rel="stylesheet"
+    >
 
-<link
-    href="https://api.mapbox.com/mapbox-gl-js/v3.16.0/mapbox-gl.css"
-    rel="stylesheet"
->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.16.0/mapbox-gl.js"></script>
 
-    <!-- ==================================================
+
+    <!-- =========================================================
          SCROLLAMA
-    ================================================== -->
+         ========================================================= -->
 
     <script src="https://unpkg.com/scrollama"></script>
 
 
-    <!-- ==================================================
-         FONT
-    ================================================== -->
+    <!-- =========================================================
+         GOOGLE FONT
+         ========================================================= -->
 
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap"
@@ -41,9 +42,9 @@
 
     <style>
 
-        /* ==================================================
+        /* =========================================================
            GENERAL
-        ================================================== */
+           ========================================================= */
 
         * {
             box-sizing: border-box;
@@ -63,9 +64,9 @@
         }
 
 
-        /* ==================================================
+        /* =========================================================
            MAP
-        ================================================== */
+           ========================================================= */
 
         #map {
             position: fixed;
@@ -81,17 +82,19 @@
             z-index: 1;
         }
 
-
         /*
          IMPORTANT:
-         We intentionally do NOT modify
+         We intentionally do NOT alter
          .mapboxgl-canvas.
+
+         This prevents the terrain mesh from being
+         stretched by CSS.
         */
 
 
-        /* ==================================================
+        /* =========================================================
            HEADER
-        ================================================== */
+           ========================================================= */
 
         #header {
             position: relative;
@@ -109,7 +112,8 @@
         #header-image {
             position: absolute;
 
-            inset: 0;
+            top: 0;
+            left: 0;
 
             width: 100%;
             height: 100%;
@@ -122,27 +126,33 @@
         }
 
 
+        /* Dark overlay for readability */
+
         #header-overlay {
             position: absolute;
 
-            inset: 0;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
 
             z-index: 1;
 
             background:
                 linear-gradient(
                     to bottom,
-                    rgba(0, 0, 0, 0.18) 0%,
-                    rgba(0, 0, 0, 0.28) 35%,
-                    rgba(0, 0, 0, 0.62) 72%,
-                    rgba(0, 0, 0, 0.80) 100%
+                    rgba(0, 0, 0, 0.15) 0%,
+                    rgba(0, 0, 0, 0.25) 30%,
+                    rgba(0, 0, 0, 0.58) 70%,
+                    rgba(0, 0, 0, 0.82) 100%
                 );
         }
 
 
-        /* ==================================================
+        /* =========================================================
            HEADER TEXT
-        ================================================== */
+           ========================================================= */
 
         .header-content {
             position: absolute;
@@ -152,8 +162,8 @@
 
             transform: translateX(-50%);
 
-            width: 90%;
-            max-width: 1000px;
+            width: 92%;
+            max-width: 1100px;
 
             text-align: center;
 
@@ -170,7 +180,7 @@
                 "Times New Roman",
                 serif;
 
-            font-size: 72px;
+            font-size: 76px;
 
             line-height: 0.95;
 
@@ -178,9 +188,11 @@
 
             letter-spacing: 0.01em;
 
+            color: #fff;
+
             text-shadow:
-                0 2px 5px rgba(0, 0, 0, 0.90),
-                0 4px 15px rgba(0, 0, 0, 0.70);
+                0 2px 5px rgba(0, 0, 0, 0.95),
+                0 5px 18px rgba(0, 0, 0, 0.75);
         }
 
 
@@ -193,34 +205,38 @@
                 "Times New Roman",
                 serif;
 
-            font-size: 29px;
+            font-size: 31px;
 
             line-height: 1.2;
 
             font-weight: 500;
 
+            color: #fff;
+
             text-shadow:
-                0 2px 5px rgba(0, 0, 0, 0.90),
-                0 3px 10px rgba(0, 0, 0, 0.65);
+                0 2px 5px rgba(0, 0, 0, 0.95),
+                0 4px 12px rgba(0, 0, 0, 0.70);
         }
 
 
         .header-byline {
-            font-size: 17px;
+            font-size: 18px;
 
             line-height: 1.45;
 
             font-weight: 400;
 
+            color: #fff;
+
             text-shadow:
-                0 2px 5px rgba(0, 0, 0, 0.90),
-                0 3px 10px rgba(0, 0, 0, 0.65);
+                0 2px 5px rgba(0, 0, 0, 0.95),
+                0 3px 10px rgba(0, 0, 0, 0.70);
         }
 
 
-        /* ==================================================
+        /* =========================================================
            STORY
-        ================================================== */
+           ========================================================= */
 
         #story {
             position: relative;
@@ -243,18 +259,19 @@
         }
 
 
-        /* ==================================================
+        /* =========================================================
            BROWN STORY BOXES
-        ================================================== */
+           ========================================================= */
 
         .step > div {
             width: 420px;
 
             max-width: 85vw;
 
-            margin: 0 5vw;
+            margin-left: 5vw;
+            margin-right: 5vw;
 
-            padding: 24px 28px;
+            padding: 25px 28px;
 
             background:
                 rgba(70, 45, 29, 0.95);
@@ -287,7 +304,7 @@
                 "Times New Roman",
                 serif;
 
-            font-size: 31px;
+            font-size: 32px;
 
             line-height: 1.05;
 
@@ -298,15 +315,20 @@
         .step p {
             margin: 0;
 
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             font-size: 17px;
 
             line-height: 1.6;
         }
 
 
-        /* ==================================================
+        /* =========================================================
            MOBILE
-        ================================================== */
+           ========================================================= */
 
         @media (max-width: 700px) {
 
@@ -315,12 +337,13 @@
             }
 
             .header-content {
-                top: 170px;
+                top: 165px;
+
                 width: 92%;
             }
 
             .header-title {
-                font-size: 52px;
+                font-size: 53px;
             }
 
             .header-subtitle {
@@ -335,14 +358,10 @@
                 padding: 25vh 0;
             }
 
-            .step > div {
+            .step > div,
+            .step.right > div {
                 width: 85vw;
 
-                margin-left: 7.5vw;
-                margin-right: 7.5vw;
-            }
-
-            .step.right > div {
                 margin-left: 7.5vw;
                 margin-right: 7.5vw;
             }
@@ -357,9 +376,9 @@
 <body>
 
 
-    <!-- ==================================================
+    <!-- =========================================================
          HEADER
-    ================================================== -->
+         ========================================================= -->
 
     <header id="header">
 
@@ -395,21 +414,25 @@
     </header>
 
 
-    <!-- ==================================================
+    <!-- =========================================================
          MAP
-    ================================================== -->
+         ========================================================= -->
 
     <div id="map"></div>
 
 
-    <!-- ==================================================
+    <!-- =========================================================
          STORY
-    ================================================== -->
+         ========================================================= -->
 
     <div id="story">
 
         <div id="features">
 
+
+            <!-- =================================================
+                 CHAPTER 1
+                 ================================================= -->
 
             <section
                 class="step"
@@ -430,6 +453,10 @@
 
             </section>
 
+
+            <!-- =================================================
+                 CHAPTER 2
+                 ================================================= -->
 
             <section
                 class="step right"
@@ -459,65 +486,38 @@
     <script>
 
 
-        /* ==================================================
-           MAPBOX ACCESS TOKEN
-        ================================================== */
+        /* =========================================================
+           MAPBOX SETTINGS
+           ========================================================= */
 
-        mapboxgl.accessToken =
+        const MAPBOX_TOKEN =
             'pk.eyJ1IjoiY2NhcmFzaXMiLCJhIjoiY210dnp4dHBlMDRsNDJ5b2FzbzMwYzd0NCJ9.jjPwOMlmB3aCwKp8JpKS_Q';
 
 
-        /* ==================================================
-           CREATE MAP
-        ================================================== */
-
-        const map = new mapboxgl.Map({
-
-            container: 'map',
-
-            /*
-             YOUR CUSTOM MAPBOX STUDIO STYLE
-             WITH TERRAIN ENABLED
-            */
-
-            style:
-                'mapbox://styles/ccarasis/cmtw0jo3h000f01ra88t4fvvs',
-
-            center: [
-                22.9562,
-                37.6793
-            ],
-
-            zoom: 11,
-
-            /*
-             Moderate pitch so the elevation is visible
-             without making the landscape look distorted.
-            */
-
-            pitch: 40,
-
-            bearing: 0,
-
-            interactive: false,
-
-            maxPitch: 55,
-
-            renderWorldCopies: false
-
-        });
+        const STYLE_OWNER =
+            'ccarasis';
 
 
-        /* ==================================================
+        const STYLE_ID =
+            'cmtw0jo3h000f01ra88t4fvvs';
+
+
+        mapboxgl.accessToken =
+            MAPBOX_TOKEN;
+
+
+        /* =========================================================
            VILLAGE DATA
-        ================================================== */
+           =========================================================
 
-        /*
-         Historical / Arvanite name first.
-         Current official name underneath.
+           These are your historical / Arvanite names.
 
-         Elevations are the values supplied for the project.
+           Where you supplied a current official name,
+           it appears underneath the historical name.
+
+           Elevations are the values you supplied.
         */
+
 
         const villages = [
 
@@ -619,124 +619,261 @@
         ];
 
 
-        /* ==================================================
-           MAP LOAD
-        ================================================== */
+        /* =========================================================
+           LOAD THE CURRENT PUBLISHED MAPBOX STYLE
+           =========================================================
 
-   map.on('load', function () {
-
-    /*
-     * Hide Mapbox's built-in place-name labels.
-     *
-     * This leaves the map imagery, roads, terrain,
-     * and other map information intact.
-     *
-     * Our own historical/current village labels
-     * are added separately below.
-     */
-
-    const layers = map.getStyle().layers;
-
-    layers.forEach(function(layer) {
-
-        const layerId = layer.id.toLowerCase();
-
-        /*
-         * Hide geographic place labels:
-         * cities, towns, villages, settlements,
-         * localities, regions, countries, etc.
-         */
-
-        if (
-            layer.type === 'symbol' &&
-            (
-                layerId.includes('place') ||
-                layerId.includes('settlement') ||
-                layerId.includes('city') ||
-                layerId.includes('town') ||
-                layerId.includes('village') ||
-                layerId.includes('locality') ||
-                layerId.includes('country') ||
-                layerId.includes('state') ||
-                layerId.includes('region')
-            )
-        ) {
-
-            map.setLayoutProperty(
-                layer.id,
-                'visibility',
-                'none'
-            );
-
-        }
-
-    });
+           We request the published style directly instead of
+           relying entirely on the browser's cached style.
+        */
 
 
-    map.resize();
+        async function loadMap() {
 
 
-    /*
-     * Add our own historical/current village labels.
-     */
-
-    addElevationMarkers();
-
-});
+            const styleURL =
+                `https://api.mapbox.com/styles/v1/${STYLE_OWNER}/${STYLE_ID}?access_token=${MAPBOX_TOKEN}`;
 
 
-        /* ==================================================
-           VILLAGE LABELS
-        ================================================== */
+            const response =
+                await fetch(
+                    styleURL,
+                    {
+                        cache: 'no-store'
+                    }
+                );
 
-        function addElevationMarkers() {
+
+            if (!response.ok) {
+
+                throw new Error(
+                    'Could not load the published Mapbox Studio style.'
+                );
+
+            }
 
 
-            const elevationFeatures =
-                villages.map(function(village) {
+            const styleJSON =
+                await response.json();
 
-                    return {
 
-                        type: 'Feature',
+            /* =====================================================
+               CREATE MAP
+               ===================================================== */
 
-                        geometry: {
 
-                            type: 'Point',
+            const map =
+                new mapboxgl.Map({
 
-                            coordinates:
-                                village.coordinates
-                        },
+                    container: 'map',
 
-                        properties: {
+                    /*
+                     Use the freshly downloaded published style.
+                    */
 
-                            oldName:
-                                village.oldName,
+                    style: styleJSON,
 
-                            officialName:
-                                village.officialName,
 
-                            elevation:
-                                village.elevation
-                        }
+                    /*
+                     Starting location
+                    */
 
-                    };
+                    center:
+                        [22.9562, 37.6793],
+
+
+                    zoom:
+                        11,
+
+
+                    /*
+                     Moderate 3D camera angle.
+
+                     Terrain itself comes from your Mapbox
+                     Studio style.
+                    */
+
+                    pitch:
+                        40,
+
+
+                    bearing:
+                        0,
+
+
+                    interactive:
+                        false,
+
+
+                    maxPitch:
+                        55,
+
+
+                    renderWorldCopies:
+                        false
 
                 });
 
 
-            /* ==================================================
+            /* =====================================================
+               MAP LOAD
+               ===================================================== */
+
+
+            map.on(
+                'load',
+                function() {
+
+
+                    /*
+                     =================================================
+                     IMPORTANT FOR MAPBOX STANDARD SATELLITE
+                     =================================================
+
+                     Explicitly hide the built-in place labels.
+
+                     This is different from searching for layer names
+                     such as "place", "city", or "village."
+
+                     We are telling the Standard basemap itself
+                     not to display place labels.
+                    */
+
+
+                    try {
+
+                        map.setConfigProperty(
+                            'basemap',
+                            'showPlaceLabels',
+                            false
+                        );
+
+                    } catch (error) {
+
+                        console.warn(
+                            'Could not change Standard place-label configuration:',
+                            error
+                        );
+
+                    }
+
+
+                    /*
+                     Hide points of interest too.
+
+                     This keeps the map focused on your eight
+                     historical settlement labels rather than
+                     Mapbox's generic POI labels.
+                    */
+
+
+                    try {
+
+                        map.setConfigProperty(
+                            'basemap',
+                            'showPointOfInterestLabels',
+                            false
+                        );
+
+                    } catch (error) {
+
+                        console.warn(
+                            'Could not change POI-label configuration:',
+                            error
+                        );
+
+                    }
+
+
+                    /*
+                     Leave road labels alone.
+
+                     This means useful highway numbers and
+                     transportation information can remain visible.
+                    */
+
+
+                    map.resize();
+
+
+                    /*
+                     Add our custom village labels.
+                    */
+
+                    addElevationMarkers();
+
+
+                });
+
+
+            return map;
+
+        }
+
+
+        /* =========================================================
+           CUSTOM VILLAGE LABELS
+           ========================================================= */
+
+        function addElevationMarkers(map) {
+
+
+            const elevationFeatures =
+                villages.map(
+                    function(village) {
+
+                        return {
+
+                            type:
+                                'Feature',
+
+
+                            geometry: {
+
+                                type:
+                                    'Point',
+
+                                coordinates:
+                                    village.coordinates
+
+                            },
+
+
+                            properties: {
+
+                                oldName:
+                                    village.oldName,
+
+                                officialName:
+                                    village.officialName,
+
+                                elevation:
+                                    village.elevation
+
+                            }
+
+                        };
+
+                    }
+                );
+
+
+            /* =====================================================
                GEOJSON SOURCE
-            ================================================== */
+               ===================================================== */
+
 
             map.addSource(
                 'village-elevations',
                 {
 
-                    type: 'geojson',
+                    type:
+                        'geojson',
 
                     data: {
 
-                        type: 'FeatureCollection',
+                        type:
+                            'FeatureCollection',
 
                         features:
                             elevationFeatures
@@ -747,17 +884,29 @@
             );
 
 
-            /* ==================================================
-               LABELS
-            ================================================== */
+            /* =====================================================
+               CUSTOM LABELS
+               =====================================================
+
+               Three levels:
+
+               Historical name
+               Current official name
+               Elevation
+
+               All are intentionally subtle.
+            */
+
 
             map.addLayer({
 
                 id:
                     'village-elevation-labels',
 
+
                 type:
                     'symbol',
+
 
                 source:
                     'village-elevations',
@@ -766,15 +915,14 @@
                 layout: {
 
 
-                    /*
-                     Old Arvanite name:
-                     largest / primary
-                    */
-
                     'text-field': [
 
                         'format',
 
+
+                        /*
+                         HISTORICAL NAME
+                        */
 
                         ['get', 'oldName'],
 
@@ -782,6 +930,10 @@
                             'font-scale': 1.0
                         },
 
+
+                        /*
+                         CURRENT OFFICIAL NAME
+                        */
 
                         [
                             'case',
@@ -806,6 +958,10 @@
                         },
 
 
+                        /*
+                         ELEVATION
+                        */
+
                         '\n',
 
 
@@ -818,6 +974,7 @@
                             ],
 
                             ' m'
+
                         ],
 
                         {
@@ -828,30 +985,36 @@
 
 
                     /*
-                     Small overall size.
+                     Small label size.
                     */
 
-                    'text-size': 12,
+                    'text-size':
+                        12,
 
+
+                    /*
+                     Put the label just above the location.
+                    */
 
                     'text-anchor':
                         'bottom',
 
 
                     'text-offset':
-                        [0, -0.3],
+                        [0, -0.35],
 
 
                     /*
-                     Mapbox handles label placement so
-                     the map doesn't become cluttered.
+                     Let Mapbox avoid overlapping labels.
                     */
 
                     'text-allow-overlap':
                         false,
 
+
                     'text-ignore-placement':
                         false,
+
 
                     'symbol-placement':
                         'point'
@@ -861,18 +1024,29 @@
 
                 paint: {
 
+
+                    /*
+                     White labels work well over the
+                     satellite imagery.
+                    */
+
                     'text-color':
                         '#ffffff',
 
+
                     /*
-                     Very subtle dark halo.
+                     Very subtle halo so the labels
+                     remain readable without looking
+                     like separate text boxes.
                     */
 
                     'text-halo-color':
-                        'rgba(35, 25, 18, 0.65)',
+                        'rgba(35, 25, 18, 0.70)',
+
 
                     'text-halo-width':
                         1.2,
+
 
                     'text-halo-blur':
                         0.6
@@ -882,17 +1056,25 @@
             });
 
 
-            /* ==================================================
-               TINY LOCATION POINTS
-            ================================================== */
+            /* =====================================================
+               VERY SMALL LOCATION POINT
+               =====================================================
+
+               This is deliberately subtle — it simply helps
+               the viewer understand exactly where the label
+               refers to.
+            */
+
 
             map.addLayer({
 
                 id:
                     'village-elevation-points',
 
+
                 type:
                     'circle',
+
 
                 source:
                     'village-elevations',
@@ -903,14 +1085,18 @@
                     'circle-radius':
                         2,
 
+
                     'circle-color':
                         '#ffffff',
+
 
                     'circle-opacity':
                         0.55,
 
+
                     'circle-stroke-color':
                         'rgba(45, 30, 20, 0.65)',
+
 
                     'circle-stroke-width':
                         1
@@ -922,58 +1108,63 @@
         }
 
 
-        /* ==================================================
-           SCROLLAMA
-        ================================================== */
-
-        const scroller =
-            scrollama();
+        /* =========================================================
+           CHAPTER CAMERA SETTINGS
+           ========================================================= */
 
 
-        function handleStepEnter(response) {
+        const chapters = {
+
+
+            'slug-style-id': {
+
+                center:
+                    [22.9562, 37.6793],
+
+                zoom:
+                    11,
+
+                pitch:
+                    40,
+
+                bearing:
+                    0
+
+            },
+
+
+            'limnes-church': {
+
+                center:
+                    [22.8804, 37.7128],
+
+                zoom:
+                    16.5,
+
+                pitch:
+                    45,
+
+                bearing:
+                    -10
+
+            }
+
+        };
+
+
+        /* =========================================================
+           CHAPTER TRANSITIONS
+           ========================================================= */
+
+
+        function handleStepEnter(
+            response,
+            map
+        ) {
 
 
             const chapterId =
                 response.element.id;
-
-
-            const chapters = {
-
-
-                'slug-style-id': {
-
-                    center:
-                        [22.9562, 37.6793],
-
-                    zoom:
-                        11,
-
-                    pitch:
-                        40,
-
-                    bearing:
-                        0
-
-                },
-
-
-                'limnes-church': {
-
-                    center:
-                        [22.8804, 37.7128],
-
-                    zoom:
-                        16.5,
-
-                    pitch:
-                        45,
-
-                    bearing:
-                        -10
-
-                }
-
-            };
 
 
             const chapter =
@@ -983,6 +1174,7 @@
             if (!chapter) {
 
                 return;
+
             }
 
 
@@ -1011,41 +1203,87 @@
         }
 
 
-        /* ==================================================
-           SCROLLAMA SETUP
-        ================================================== */
+        /* =========================================================
+           SCROLLAMA
+           ========================================================= */
 
-        scroller
 
-            .setup({
+        function setupScrollama(map) {
 
-                step:
-                    '.step',
 
-                offset:
-                    0.5
+            const scroller =
+                scrollama();
 
-            })
 
-            .onStepEnter(
-                handleStepEnter
+            scroller
+
+                .setup({
+
+                    step:
+                        '.step',
+
+                    offset:
+                        0.5
+
+                })
+
+
+                .onStepEnter(
+                    function(response) {
+
+                        handleStepEnter(
+                            response,
+                            map
+                        );
+
+                    }
+                );
+
+
+            /* =====================================================
+               RESIZE
+               ===================================================== */
+
+
+            window.addEventListener(
+                'resize',
+                function() {
+
+                    map.resize();
+
+                    scroller.resize();
+
+                }
             );
 
+        }
 
-        /* ==================================================
-           RESIZE
-        ================================================== */
 
-        window.addEventListener(
-            'resize',
-            function() {
+        /* =========================================================
+           START EVERYTHING
+           ========================================================= */
 
-                map.resize();
 
-                scroller.resize();
+        loadMap()
 
-            }
-        );
+            .then(
+                function(map) {
+
+                    setupScrollama(map);
+
+                }
+            )
+
+            .catch(
+                function(error) {
+
+                    console.error(
+                        'Mapbox failed to load:',
+                        error
+                    );
+
+                }
+            );
 
 
     </script>
