@@ -12,17 +12,10 @@ var config = {
     chapters: [
 
         {
-            id: 'introduction',
+            id: 'chapter-1',
             alignment: 'left',
             title: 'What are the Arvanitochoria?',
-            description: 'Introduction to Arvanite settlements near Mt. Arachnaio.',
-
-            location: {
-                center: [22.8804, 37.7128],
-                zoom: 12,
-                pitch: 50,
-                bearing: 130
-            }
+            description: 'Introduction to Arvanite settlements near Mt. Arachnaio.'
         },
 
         {
@@ -30,12 +23,11 @@ var config = {
             alignment: 'right',
             title: 'Church of Agia Triada (Limnes)',
             description: 'The Holy Trinity Church in the village square of Limnes.',
-
             location: {
                 center: [22.8804, 37.7128],
                 zoom: 16.5,
-                pitch: 55,
-                bearing: 130
+                pitch: 65,
+                bearing: -10
             }
         }
 
