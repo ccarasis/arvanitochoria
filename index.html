@@ -623,34 +623,66 @@
            MAP LOAD
         ================================================== */
 
-        map.on('load', function () {
+   map.on('load', function () {
 
-            /*
-             IMPORTANT:
+    /*
+     * Hide Mapbox's built-in place-name labels.
+     *
+     * This leaves the map imagery, roads, terrain,
+     * and other map information intact.
+     *
+     * Our own historical/current village labels
+     * are added separately below.
+     */
 
-             We do NOT add another DEM source here.
+    const layers = map.getStyle().layers;
 
-             We do NOT call map.setTerrain().
+    layers.forEach(function(layer) {
 
-             Your Mapbox Studio style already contains
-             the terrain configuration.
+        const layerId = layer.id.toLowerCase();
 
-             This avoids the WebGL terrain-stretching
-             problem we were seeing before.
-            */
+        /*
+         * Hide geographic place labels:
+         * cities, towns, villages, settlements,
+         * localities, regions, countries, etc.
+         */
+
+        if (
+            layer.type === 'symbol' &&
+            (
+                layerId.includes('place') ||
+                layerId.includes('settlement') ||
+                layerId.includes('city') ||
+                layerId.includes('town') ||
+                layerId.includes('village') ||
+                layerId.includes('locality') ||
+                layerId.includes('country') ||
+                layerId.includes('state') ||
+                layerId.includes('region')
+            )
+        ) {
+
+            map.setLayoutProperty(
+                layer.id,
+                'visibility',
+                'none'
+            );
+
+        }
+
+    });
 
 
-            map.resize();
+    map.resize();
 
 
-            /*
-             Add our historical/current village labels
-             after the style has loaded.
-            */
+    /*
+     * Add our own historical/current village labels.
+     */
 
-            addElevationMarkers();
+    addElevationMarkers();
 
-        });
+});
 
 
         /* ==================================================
