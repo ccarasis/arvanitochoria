@@ -1,5 +1,6 @@
 var config = {
-style: 'mapbox://styles/ccarasis/cmtw0jo3h000f01ra88t4fvvs',
+
+    style: 'mapbox://styles/ccarasis/cmtw0jo3h000f01ra88t4fvvs',
 
     accessToken: 'pk.eyJ1IjoiY2NhcmFzaXMiLCJhIjoiY210dnp4dHBlMDRsNDJ5b2FzbzMwYzd0NCJ9.jjPwOMlmB3aCwKp8JpKS_Q',
 
@@ -15,13 +16,13 @@ style: 'mapbox://styles/ccarasis/cmtw0jo3h000f01ra88t4fvvs',
             id: 'chapter-1',
             alignment: 'left',
             title: 'What are the Arvanitochoria?',
-            description: 'Introduction to Arvanite settlements near Mt. Arachnaio.'
+            description: 'Introduction to Arvanite settlements near Mt. Arachnaio.',
             location: {
-    center: [22.8804, 37.7128],
-    zoom: 12,
-    pitch: 50,
-    bearing: 130
-}
+                center: [22.8804, 37.7128],
+                zoom: 12,
+                pitch: 50,
+                bearing: 130
+            }
         },
 
         {
