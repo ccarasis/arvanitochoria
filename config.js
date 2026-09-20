@@ -21,7 +21,7 @@ var config = {
                 center: [22.96, 37.69],
                 zoom: 11,
                 pitch: 55,
-                bearing: 130
+                bearing: 0
             }
         },
 
