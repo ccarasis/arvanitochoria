@@ -16,23 +16,24 @@ var config = {
             id: 'chapter-1',
             alignment: 'left',
             title: 'What are the Arvanitochoria?',
-            description: 'Placeholder for overview text about cluster of Arvanite villages on Mt. Arachnaio.',
-     location: {
-    center: [22.91, 37.68],
-    zoom: 10.5,
-    pitch: 45,
-    bearing: 130
-}
+            description: 'Placeholder text about Arvanite settlements on Mt. Arachnaio.',
+            location: {
+                center: [22.91, 37.68],
+                zoom: 10.5,
+                pitch: 45,
+                bearing: 130
+            }
+        },
 
         {
             id: 'limnes-church',
             alignment: 'right',
-            title: 'Temple of the Presentation of Christ (Limnes)',
-            description: 'Temple of the Presentation of Christ in the village square of Limnes.',
+            title: 'Church of Agia Triada (Limnes)',
+            description: 'The Holy Trinity Church in the village square of Limnes.',
             location: {
                 center: [22.8802, 37.7141],
-                zoom: 18,
-                pitch: 60,
+                zoom: 17,
+                pitch: 75,
                 bearing: -10
             }
         }
