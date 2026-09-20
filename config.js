@@ -16,14 +16,13 @@ var config = {
             id: 'chapter-1',
             alignment: 'left',
             title: 'What are the Arvanitochoria?',
-            description: 'Introduction to Arvanite villages near Mt. Arachnaio.',
-            location: {
-                center: [22.9693, 37.6407],
-                zoom: 14,
-                pitch: 60,
-                bearing: 130
-            }
-        },
+            description: 'Placeholder for overview text about cluster of Arvanite villages on Mt. Arachnaio.',
+     location: {
+    center: [22.91, 37.68],
+    zoom: 10.5,
+    pitch: 45,
+    bearing: 130
+}
 
         {
             id: 'limnes-church',
