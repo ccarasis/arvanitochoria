@@ -318,26 +318,26 @@
 
     map.on("style.load", () => {
 
-  const terrain = map.getStyle().terrain;
+      const terrain = map.getStyle().terrain;
 
-  if (terrain) {
-    map.setTerrain(terrain);
-  }
+      if (terrain) {
+        map.setTerrain(terrain);
+      }
 
-  const firstChapter = config.chapters[0];
+      const firstChapter = config.chapters[0];
 
-  if (firstChapter && firstChapter.location) {
+      if (firstChapter && firstChapter.location) {
 
-    map.jumpTo({
-      center: firstChapter.location.center,
-      zoom: firstChapter.location.zoom,
-      pitch: firstChapter.location.pitch ?? 0,
-      bearing: firstChapter.location.bearing ?? 0
+        map.jumpTo({
+          center: firstChapter.location.center,
+          zoom: firstChapter.location.zoom,
+          pitch: firstChapter.location.pitch ?? 0,
+          bearing: firstChapter.location.bearing ?? 0
+        });
+
+      }
+
     });
-
-  }
-
-});
 
 
     /*
@@ -394,6 +394,10 @@
 
     /*
      * BUILD CHAPTERS
+     *
+     * Chapter 0 is camera-only.
+     * It sets the opening map position but
+     * does not create a visible story box.
      */
 
     const chapters =
@@ -401,6 +405,11 @@
 
 
     config.chapters.forEach((chapter) => {
+
+      if (chapter.id === "chapter-0") {
+        return;
+      }
+
 
       const section =
         document.createElement("section");
