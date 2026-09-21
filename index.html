@@ -203,6 +203,52 @@
     }
 
 
+    /* VIDEO */
+
+    .video-step {
+      position: relative;
+
+      width: 100%;
+      min-height: 100vh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: #000;
+
+      z-index: 5;
+    }
+
+    .video-container {
+      position: relative;
+
+      width: 100vw;
+      height: 100vh;
+
+      overflow: hidden;
+
+      background: #000;
+    }
+
+    .video-container iframe {
+      position: absolute;
+
+      top: 50%;
+      left: 50%;
+
+      width: 100vw;
+      height: 56.25vw;
+
+      min-height: 100vh;
+      min-width: 177.78vh;
+
+      transform: translate(-50%, -50%);
+
+      border: 0;
+    }
+
+
     /* MOBILE */
 
     @media (max-width: 700px) {
@@ -311,9 +357,6 @@
      *
      * Uses the terrain already configured
      * in the Mapbox Studio style.
-     *
-     * Nothing here controls the exaggeration.
-     * Mapbox Studio does.
      */
 
     map.on("style.load", () => {
@@ -396,8 +439,8 @@
      * BUILD CHAPTERS
      *
      * Chapter 0 is camera-only.
-     * It sets the opening map position but
-     * does not create a visible story box.
+     * It controls the opening map position
+     * but does not create a visible story box.
      */
 
     const chapters =
@@ -442,6 +485,76 @@
 
 
     /*
+     * VIDEO SECTION
+     *
+     * This appears after the final chapter.
+     * The YouTube video is loaded only when
+     * the reader reaches this section.
+     */
+
+    const videoSection =
+      document.createElement("section");
+
+    videoSection.className =
+      "video-step";
+
+    videoSection.dataset.id =
+      "ra-kampana-video";
+
+
+    videoSection.innerHTML = `
+
+      <div class="video-container">
+
+        <iframe
+          id="ra-kampana-video"
+          data-src="https://www.youtube.com/embed/_My7FpdZFWo?autoplay=1&mute=1&controls=1&playsinline=1&rel=0"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+
+      </div>
+
+    `;
+
+
+    chapters.appendChild(videoSection);
+
+
+    /*
+     * VIDEO CONTROL
+     */
+
+    const videoFrame =
+      document.getElementById(
+        "ra-kampana-video"
+      );
+
+
+    function startVideo() {
+
+      if (!videoFrame.src) {
+
+        videoFrame.src =
+          videoFrame.dataset.src;
+
+      }
+
+    }
+
+
+    function stopVideo() {
+
+      if (videoFrame.src) {
+
+        videoFrame.src = "";
+
+      }
+
+    }
+
+
+    /*
      * SCROLLAMA
      */
 
@@ -451,11 +564,31 @@
 
     function handleStepEnter(response) {
 
+      const id =
+        response.element.dataset.id;
+
+
+      /*
+       * VIDEO STEP
+       */
+
+      if (id === "ra-kampana-video") {
+
+        startVideo();
+
+        return;
+
+      }
+
+
+      /*
+       * NORMAL CHAPTER
+       */
+
       const chapter =
         config.chapters.find(
           item =>
-            item.id ===
-            response.element.dataset.id
+            item.id === id
         );
 
 
@@ -490,16 +623,36 @@
     }
 
 
+    function handleStepExit(response) {
+
+      const id =
+        response.element.dataset.id;
+
+
+      if (id === "ra-kampana-video") {
+
+        stopVideo();
+
+      }
+
+    }
+
+
     scroller
       .setup({
 
-        step: ".step",
+        step: ".step, .video-step",
 
         offset: 0.5
 
       })
+
       .onStepEnter(
         handleStepEnter
+      )
+
+      .onStepExit(
+        handleStepExit
       );
 
 
