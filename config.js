@@ -19,7 +19,7 @@ var config = {
     location: {
         center: [22.940,37.664],
         zoom: 14,
-        pitch: 75,
+        pitch: 65,
         bearing: 0
     }
 },
@@ -30,8 +30,8 @@ var config = {
             title: 'What are the Arvanitochoria?',
             description: 'Placeholder text about Arvanite settlements on Mt. Arachnaio.',
             location: {
-                center: [22.96, 37.69],
-                zoom: 11,
+                center: [22.95, 37.68],
+                zoom: 12,
                 pitch: 55,
                 bearing: 0
             }
