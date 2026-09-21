@@ -31,7 +31,7 @@ var config = {
             description: 'Placeholder text about Arvanite settlements on Mt. Arachnaio.',
             location: {
                 center: [22.87, 37.66],
-                zoom: 12,
+                zoom: 12.5,
                 pitch: 55,
                 bearing: 0
             }
