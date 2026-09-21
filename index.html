@@ -33,6 +33,26 @@
   <script src="./config.js"></script>
 
 
+  <!-- YouTube Player API -->
+
+  <script>
+
+    let youtubePlayer = null;
+    let youtubeAPIReady = false;
+
+    function onYouTubeIframeAPIReady() {
+
+      youtubeAPIReady = true;
+
+      initializeYouTubePlayer();
+
+    }
+
+  </script>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+
   <style>
 
     * {
@@ -487,9 +507,8 @@
     /*
      * VIDEO SECTION
      *
-     * This appears after the final chapter.
-     * The YouTube video is loaded only when
-     * the reader reaches this section.
+     * The YouTube player is created once
+     * and remains alive while scrolling.
      */
 
     const videoSection =
@@ -508,7 +527,7 @@
 
         <iframe
           id="ra-kampana-video"
-          data-src="https://www.youtube.com/embed/_My7FpdZFWo?autoplay=1&mute=1&controls=1&playsinline=1&rel=0"
+          src="https://www.youtube.com/embed/_My7FpdZFWo?enablejsapi=1&autoplay=0&mute=1&controls=1&playsinline=1&rel=0"
           allow="autoplay; encrypted-media; picture-in-picture"
           allowfullscreen>
         </iframe>
@@ -522,36 +541,55 @@
 
 
     /*
-     * VIDEO CONTROL
+     * YOUTUBE PLAYER
      */
 
-    const videoFrame =
-      document.getElementById(
-        "ra-kampana-video"
-      );
+    function initializeYouTubePlayer() {
+
+      const iframe =
+        document.getElementById(
+          "ra-kampana-video"
+        );
 
 
-    function startVideo() {
-
-      if (!videoFrame.src) {
-
-        videoFrame.src =
-          videoFrame.dataset.src;
-
+      if (
+        !youtubeAPIReady ||
+        !iframe ||
+        youtubePlayer
+      ) {
+        return;
       }
+
+
+      youtubePlayer =
+        new YT.Player(
+          "ra-kampana-video",
+          {
+
+            events: {
+
+              onReady: function () {
+
+                youtubePlayer.mute();
+
+              }
+
+            }
+
+          }
+        );
 
     }
 
 
-    function stopVideo() {
+    /*
+     * The YouTube API might become ready
+     * before or after the iframe exists.
+     *
+     * Try again after the page has created it.
+     */
 
-      if (videoFrame.src) {
-
-        videoFrame.src = "";
-
-      }
-
-    }
+    initializeYouTubePlayer();
 
 
     /*
@@ -574,7 +612,13 @@
 
       if (id === "ra-kampana-video") {
 
-        startVideo();
+        if (youtubePlayer) {
+
+          youtubePlayer.mute();
+
+          youtubePlayer.playVideo();
+
+        }
 
         return;
 
@@ -629,9 +673,12 @@
         response.element.dataset.id;
 
 
-      if (id === "ra-kampana-video") {
+      if (
+        id === "ra-kampana-video" &&
+        youtubePlayer
+      ) {
 
-        stopVideo();
+        youtubePlayer.pauseVideo();
 
       }
 
