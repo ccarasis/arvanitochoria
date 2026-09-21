@@ -30,7 +30,7 @@ var config = {
             title: 'What are the Arvanitochoria?',
             description: 'Placeholder text about Arvanite settlements on Mt. Arachnaio.',
             location: {
-                center: [22.95, 37.68],
+                center: [22.96, 37.69],
                 zoom: 12,
                 pitch: 55,
                 bearing: 0
@@ -44,8 +44,8 @@ var config = {
             description: 'The Holy Trinity Church in the village square of Limnes.',
             location: {
                 center: [22.8802, 37.7141],
-                zoom: 17,
-                pitch: 75,
+                zoom: 16,
+                pitch: 65,
                 bearing: -10
             }
         }
