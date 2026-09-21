@@ -11,6 +11,18 @@ var config = {
     byline: 'By Christina Maria Carasis <br> University of California, Berkeley <br> Department of Geography',
 
     chapters: [
+        {
+    id: 'chapter-0',
+    alignment: 'left',
+    title: '',
+    description: '',
+    location: {
+        center: [22.940,37.664],
+        zoom: 14,
+        pitch: 75,
+        bearing: 0
+    }
+},
 
         {
             id: 'chapter-1',
