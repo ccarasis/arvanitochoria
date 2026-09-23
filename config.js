@@ -39,11 +39,11 @@ var config = {
         {
     id: 'chapter-1-villages',
     alignment: 'right',
-    title: 'The Eight Arvanite Villages',
+    title: 'The Eight Arvanite Villages of Mt. Arachnaio',
     description: 'Placeholder text about villages',
     location: {
         center: [22.96, 37.69],
-        zoom: 14,
+        zoom: 12,
         pitch: 55,
         bearing: 0
     }
