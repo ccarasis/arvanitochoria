@@ -43,7 +43,7 @@ var config = {
     description: 'Placeholder text about villages',
     location: {
         center: [22.96, 37.69],
-        zoom: 11,
+        zoom: 14,
         pitch: 55,
         bearing: 0
     }
