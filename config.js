@@ -28,10 +28,10 @@ var config = {
             id: 'chapter-1',
             alignment: 'left',
             title: 'What are the Arvanitochoria?',
-            description: 'The term Arvanitochoria (literally "Arvanite villages") refers to the rural settlements across Southern Greece that have been historically populated by Arvanites. Descended from late-medieval migrants to these lands, these communities maintained Arvanitika (a now critically endangered archaic dialect related to Albanian) as their primary everyday language for centuries before beginning to assimilate into the speaking of standard Greek during the 19th and 20th centuries.',
+            description: 'Arvanitochoria (literally "Arvanite villages") refers to the clusters of rural settlements across Southern Greece historically populated by Arvanites. Descended from medieval migrants, these communities preserved their distinct language (Arvanitika - a now critically endangered, Albanian-derived dialect) and cultural practices for centuries. Shaping the human geography of the region, Arvanites fought prominently in the 1821 Revolution to establish the modern state. They maintain an identity that remains both distinctly Arvanite and steadfastly Greek to this day.',
             location: {
                 center: [22.96, 37.69],
-        zoom: 12,
+        zoom: 09,
         pitch: 55,
         bearing: 0
             }
