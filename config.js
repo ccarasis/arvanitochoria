@@ -36,6 +36,18 @@ var config = {
                 bearing: 0
             }
         },
+        {
+    id: 'chapter-1-villages',
+    alignment: 'right',
+    title: 'The Eight Arvanite Villages',
+    description: 'Placeholder text about villages',
+    location: {
+        center: [22.96, 37.69],
+        zoom: 11,
+        pitch: 55,
+        bearing: 0
+    }
+},
 
         {
             id: 'limnes-church',
