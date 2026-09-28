@@ -55,7 +55,7 @@ var config = {
     description: 'Situated along the highest peak of the Argolis region of the Peloponnese, eight Arvanitochoria have existed on Mt. Arachnaio for over six centuries. Although 20th-century state campaigns officially renamed them, residents still overwhelmingly use their traditional Arvanite toponyms: Aggelokastro, Berbati, Bardi, Dousia, Limnes, Gerbesi, Manesi, and Xeli.',
     location: {
         center: [22.88, 37.67],
-                zoom: 12.5,
+                zoom: 12,
                 pitch: 55,
                 bearing: 0
     }
@@ -66,8 +66,8 @@ var config = {
     title: 'Rooted Together',
     description: 'Though today split between the modern municipalities of Argos and Corinth, they have long been bound together by extended kinship networks, shared religious celebrations, seasonal agricultural and pastoral relationships, and a deep connection to the land. These relational geographies, connecting both people and landscape, have played a vital role in sustaining their Arvanite culture and language.',
     location: {
-        center: [22.88, 37.67],
-                zoom: 12.5,
+        center: [22.88, 37.71],
+                zoom: 13,
                 pitch: 55,
                 bearing: 0
     }
