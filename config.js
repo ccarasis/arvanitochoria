@@ -37,10 +37,10 @@ var config = {
             }
         },
         {
-    id: 'chapter-1-villages',
+    id: 'chapter-1-Arvanitika',
     alignment: 'right',
-    title: 'The Eight Arvanite Villages of Mt. Arachnaio',
-    description: 'Placeholder text about villages',
+    title: 'Arvanitika',
+    description: 'Arvanitika is an oral language, spoken across Arvanitochoria of Southern Greece. Largely unwritten, modern transcripts have used both the Latin and Greek alphabets. UNESCO classifies Arvanitika as critically endangered, with an estimated 50,000 speakers remaining across 300 villages (Moseley, 2010). Sociolinguist Lukas Tsitsipis (1998) coined the term “terminal speaker” in relation to Arvanitika, marking  the final generation with native knowledge of the language.',
     location: {
         center: [22.88, 37.67],
                 zoom: 12.5,
@@ -48,7 +48,30 @@ var config = {
                 bearing: 0
     }
 },
-
+        {
+    id: 'chapter-1-Villages',
+    alignment: 'left',
+    title: 'The Eight Arvanitochoria of Mt. Arachnaio',
+    description: 'Situated along the highest peak of the Argolis region of the Peloponnese, eight Arvanitochoria have existed on Mt. Arachnaio for over six centuries. Although 20th-century state campaigns officially renamed them, residents still overwhelmingly use their traditional Arvanite toponyms: Aggelokastro, Berbati, Bardi, Dousia, Limnes, Gerbesi, Manesi, and Xeli.',
+    location: {
+        center: [22.88, 37.67],
+                zoom: 12.5,
+                pitch: 55,
+                bearing: 0
+    }
+},
+                {
+    id: 'chapter-1-Rooted',
+    alignment: 'right',
+    title: 'Rooted Together',
+    description: 'Though today split between the modern municipalities of Argos and Corinth, they have long been bound together by extended kinship networks, shared religious celebrations, seasonal agricultural and pastoral relationships, and a deep connection to the land. These relational geographies, connecting both people and landscape, have played a vital role in sustaining their Arvanite culture and language.',
+    location: {
+        center: [22.88, 37.67],
+                zoom: 12.5,
+                pitch: 55,
+                bearing: 0
+    }
+},
         {
             id: 'limnes-church',
             alignment: 'right',
