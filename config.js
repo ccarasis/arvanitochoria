@@ -73,12 +73,12 @@ var config = {
     }
 },
         {
-            id: 'limnes-church',
-            alignment: 'right',
-            title: 'Church of Agia Triada (Limnes)',
-            description: 'The Holy Trinity Church in the village square of Limnes.',
+            id: 'History Intro',
+            alignment: 'left',
+            title: ' A Brief History of Mt. Arachnaio',
+            description: 'Mt. Arachnaio has a rich history that stretches back to ancient times. These 1945 aerial photographs taken by the Greek military showcase the rural landscape of the mountain’s villages, as well as the networks of pastoral pathways that wove across the land prior to the building of paved roads in the late 1970s. ',
             location: {
-                center: [22.8802, 37.7141],
+                center: [22.947, 37.678],
                 zoom: 16,
                 pitch: 65,
                 bearing: -10
