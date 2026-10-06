@@ -89,6 +89,18 @@ var config = {
                 bearing: -10
             }
         },
+           {
+            id: 'chapter-2-geography-acient',
+            alignment: 'right',
+            title: 'Geographic history & Ancient times',
+            description: 'Placeholder Text',
+            location: {
+                center: [22.825100, 37.712500],
+                zoom: 16,
+                pitch: 55,
+                bearing: 0
+            }
+        },
 
         {
             id: 'chapter-2-war-and-occupation',
