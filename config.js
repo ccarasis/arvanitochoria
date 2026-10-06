@@ -83,7 +83,16 @@ var config = {
                 pitch: 65,
                 bearing: -10
             }
-        }
-
-    ]
 };
+                {
+    id: 'chapter-2-War and Occupation',
+    alignment: 'right',
+    title: 'War and Occupation',
+    description: 'These villages also hold deep histories from the 1821 Revolution, the Axis occupation of World War II, and the Greek Civil War. While the revolutionary legacy of Arvanites remains a point of collective pride, the conflict and devastation of the later wars left enduring marks of shared trauma across the region.',
+    location: {
+        center: [22.881, 37.713],
+                zoom: 14.5,
+                pitch: 55,
+                bearing: 0
+    }
+},
