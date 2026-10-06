@@ -96,7 +96,7 @@ var config = {
             description: 'Placeholder Text',
             location: {
                 center: [22.824, 37.713],
-                zoom: 20,
+                zoom: 19.5,
                 pitch: 55,
                 bearing: 0
             }
