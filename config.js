@@ -95,8 +95,8 @@ var config = {
             title: 'Geographic history & Ancient times',
             description: 'Placeholder Text',
             location: {
-                center: [22.825100, 37.712500],
-                zoom: 18,
+                center: [22.824, 37.713],
+                zoom: 20,
                 pitch: 55,
                 bearing: 0
             }
