@@ -113,8 +113,19 @@ var config = {
                 pitch: 55,
                 bearing: 0
             }
-        }
-
+        },
+   {
+            id: 'rural-intro',
+            alignment: 'left',
+            title: 'Life on the Mountain',
+            description: 'Life on Mt. Arachnaio is defined by rugged landscape and seasonal rhythms. Before modern infrastructure reshaped everyday routines, survival required physical endurance and deep community reliance. These living memories are still shared by village elders.',
+            location: {
+                center: [22.941, 37.691],
+                zoom: 13,
+                pitch: 65,
+                bearing: -10
+            }
+        },
         // ADD NEW CHAPTERS ABOVE THIS LINE.
         // When adding one, remember to put a comma after
         // the closing } of the chapter before it.
