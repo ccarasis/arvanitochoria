@@ -41,6 +41,7 @@ var config = {
         {
             id: 'chapter-1-arvanitika',
             alignment: 'right',
+             videoId: '70Z0PLAcaOU',
             title: 'Arvanitika',
             description: 'Arvanitika is an oral language, spoken across Arvanitochoria of Southern Greece. Largely unwritten, modern transcripts have used both the Latin and Greek alphabets. UNESCO classifies Arvanitika as critically endangered, with an estimated 50,000 speakers remaining across 300 villages (Moseley, 2010). Sociolinguist Lukas Tsitsipis (1998) coined the term “terminal speaker” in relation to Arvanitika, marking the final generation with native knowledge of the language.',
             location: {
