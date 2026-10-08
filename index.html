@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,18 +74,14 @@
     #header-image {
       position: absolute;
       inset: 0;
-
       width: 100%;
       height: 100%;
-
       object-fit: cover;
-
       z-index: -2;
     }
 
     #header::after {
       content: "";
-
       position: absolute;
       inset: 0;
 
@@ -166,9 +163,27 @@
       line-height: 1.65;
     }
 
+    /* ORAL HISTORY VIDEOS */
+
+    .oral-history-video {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      margin-top: 24px;
+    }
+
+    .oral-history-video iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
     /* MOBILE */
 
     @media (max-width: 700px) {
+
       #header {
         height: 380px;
       }
@@ -240,6 +255,7 @@
   </main>
 
   <script>
+
     /*
      * MAP
      */
@@ -255,11 +271,6 @@
 
     /*
      * RESPONSIVE CAMERA
-     *
-     * Desktop uses the zoom values in config.js exactly.
-     * On narrower screens, the same center/pitch/bearing are used,
-     * but the map pulls back slightly so a similar geographic area
-     * remains visible on a phone.
      */
 
     function getResponsiveLocation(location) {
@@ -282,9 +293,7 @@
 
     /*
      * TERRAIN
-     *
-     * Uses the terrain already configured
-     * in the Mapbox Studio style.
+     * Uses terrain configured in Mapbox Studio.
      */
 
     map.on("style.load", () => {
@@ -298,11 +307,9 @@
       const firstChapter = config.chapters[0];
 
       if (firstChapter && firstChapter.location) {
-
         map.jumpTo(
           getResponsiveLocation(firstChapter.location)
         );
-
       }
 
     });
@@ -339,26 +346,22 @@
     } else {
 
       document.getElementById("title")
-        .textContent =
-        config.title;
+        .textContent = config.title;
 
     }
 
     document.getElementById("subtitle")
-      .textContent =
-      config.subtitle;
+      .textContent = config.subtitle;
 
     document.getElementById("byline")
-      .innerHTML =
-      config.byline;
+      .innerHTML = config.byline;
 
 
     /*
      * BUILD CHAPTERS
      *
-     * Chapter 0 is camera-only.
-     * It controls the opening map position
-     * but does not create a visible story box.
+     * Chapter 0 controls the opening camera
+     * and has no visible story box.
      */
 
     const chapters =
@@ -376,13 +379,28 @@
       section.className =
         `step ${chapter.alignment || "left"}`;
 
-      section.dataset.id =
-        chapter.id;
+      section.dataset.id = chapter.id;
 
       section.innerHTML = `
         <div class="step-content">
+
           <h2>${chapter.title}</h2>
+
           <p>${chapter.description}</p>
+
+          ${chapter.videoId ? `
+            <div class="oral-history-video">
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(chapter.videoId)}?cc_load_policy=1"
+                title="Oral history: Arvanitika vocabulary from Limnes"
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </div>
+          ` : ''}
+
         </div>
       `;
 
@@ -395,8 +413,7 @@
      * SCROLLAMA
      */
 
-    const scroller =
-      scrollama();
+    const scroller = scrollama();
 
     function handleStepEnter(response) {
 
@@ -408,10 +425,7 @@
           item => item.id === id
         );
 
-      if (
-        !chapter ||
-        !chapter.location
-      ) {
+      if (!chapter || !chapter.location) {
         return;
       }
 
@@ -435,9 +449,7 @@
         step: ".step",
         offset: 0.5
       })
-      .onStepEnter(
-        handleStepEnter
-      );
+      .onStepEnter(handleStepEnter);
 
 
     /*
