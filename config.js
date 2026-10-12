@@ -205,17 +205,3 @@ config.translations = {
     }
 };
 
-/*
- * Add Greek chapter descriptions later using:
- *
- * 'chapter-1-arvanitika': {
- *     title: 'Αρβανίτικα',
- *     description: 'Your Greek translation here...'
- * }
- */
-        // ADD NEW CHAPTERS ABOVE THIS LINE.
-        // When adding one, remember to put a comma after
-        // the closing } of the chapter before it.
-
-    ]
-};
