@@ -1,3 +1,4 @@
+
 var config = {
 
     style: 'mapbox://styles/ccarasis/cmtw0jo3h000f01ra88t4fvvs',
@@ -28,7 +29,7 @@ var config = {
         {
             id: 'chapter-1',
             alignment: 'left',
-             videoId: 'ew1XbJb6TAk',
+            videoId: 'ew1XbJb6TAk',
             title: 'What are the Arvanitochoria?',
             description: 'Arvanitochoria (literally "Arvanite villages") refers to the clusters of rural settlements across Southern Greece historically populated by Arvanites. Descended from medieval migrants, these communities preserved their distinct language (Arvanitika - a now critically endangered, Albanian-derived dialect) and cultural practices for centuries. Shaping the human geography of the region, Arvanites fought prominently in the 1821 Revolution to establish the modern state. They maintain an identity that remains both distinctly Arvanite and steadfastly Greek to this day.',
             location: {
@@ -42,7 +43,7 @@ var config = {
         {
             id: 'chapter-1-arvanitika',
             alignment: 'right',
-             videoId: '70Z0PLAcaOU',
+            videoId: '70Z0PLAcaOU',
             title: 'Arvanitika',
             description: 'Arvanitika is an oral language, spoken across Arvanitochoria of Southern Greece. Largely unwritten, modern transcripts have used both the Latin and Greek alphabets. UNESCO classifies Arvanitika as critically endangered, with an estimated 50,000 speakers remaining across 300 villages (Moseley, 2010). Sociolinguist Lukas Tsitsipis (1998) coined the term “terminal speaker” in relation to Arvanitika, marking the final generation with native knowledge of the language.',
             location: {
@@ -91,7 +92,8 @@ var config = {
                 bearing: -10
             }
         },
-           {
+
+        {
             id: 'chapter-2-geography-acient',
             alignment: 'right',
             title: 'Ancient Ruins',
@@ -116,7 +118,8 @@ var config = {
                 bearing: 0
             }
         },
-   {
+
+        {
             id: 'rural-intro',
             alignment: 'left',
             title: 'Life on the Mountain',
@@ -128,7 +131,8 @@ var config = {
                 bearing: -10
             }
         },
-                {
+
+        {
             id: 'chapter-3-Infrastructure',
             alignment: 'right',
             title: 'Infrastructure',
@@ -139,33 +143,35 @@ var config = {
                 pitch: 55,
                 bearing: 0
             }
-        },
-        
+        }
+
+    ]
+
+};
+
+
 /*
  * ENGLISH / GREEK TRANSLATIONS
  *
- * English text stays in config.chapters.
- * Add Greek translations here as you complete them.
- * Missing translations automatically display English.
+ * English is stored in config.chapters above.
+ * Greek translations are stored below.
+ *
+ * You can add Greek descriptions gradually.
+ * Missing translations display English.
  */
 
 config.translations = {
+
     el: {
+
         site: {
             title: 'Αρβανιτοχώρια',
             subtitle: 'Αρβανίτικες Χαρτογραφίες του Όρους Αραχναίου',
             byline: 'Από τη Christina Maria Carasis <br> Πανεπιστήμιο της Καλιφόρνιας, Μπέρκλεϋ <br> Τμήμα Γεωγραφίας'
         },
 
-        navigation: {
-            introduction: 'Εισαγωγή',
-            language: 'Γλώσσα',
-            villages: 'Χωριά',
-            history: 'Ιστορία',
-            mountainLife: 'Ζωή στο Βουνό'
-        },
-
         chapters: {
+
             'chapter-1': {
                 title: 'Τι είναι τα Αρβανιτοχώρια;'
             },
@@ -201,7 +207,11 @@ config.translations = {
             'chapter-3-Infrastructure': {
                 title: 'Υποδομές'
             }
+
         }
+
     }
+
 };
+
 
