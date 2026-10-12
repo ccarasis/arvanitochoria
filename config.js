@@ -128,6 +128,18 @@ var config = {
                 bearing: -10
             }
         },
+                {
+            id: 'chapter-3-Infrastructure',
+            alignment: 'right',
+            title: 'Infrastructure',
+            description: 'Geography isolated the Arvanitochoria from modern utility networks, with paved roads and electricity arriving only in the late 1970s, nearly two decades after valley communities were connected.Before then, daily life moved by the light of oil lamps, and movement across the mountain depended on foot trails, donkeys, and oxen.',
+            location: {
+                center: [22.992, 37.741],
+                zoom: 14.5,
+                pitch: 55,
+                bearing: 0
+            }
+        },
         // ADD NEW CHAPTERS ABOVE THIS LINE.
         // When adding one, remember to put a comma after
         // the closing } of the chapter before it.
