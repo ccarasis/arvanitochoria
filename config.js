@@ -140,6 +140,79 @@ var config = {
                 bearing: 0
             }
         },
+        
+/*
+ * ENGLISH / GREEK TRANSLATIONS
+ *
+ * English text stays in config.chapters.
+ * Add Greek translations here as you complete them.
+ * Missing translations automatically display English.
+ */
+
+config.translations = {
+    el: {
+        site: {
+            title: 'Αρβανιτοχώρια',
+            subtitle: 'Αρβανίτικες Χαρτογραφίες του Όρους Αραχναίου',
+            byline: 'Από τη Christina Maria Carasis <br> Πανεπιστήμιο της Καλιφόρνιας, Μπέρκλεϋ <br> Τμήμα Γεωγραφίας'
+        },
+
+        navigation: {
+            introduction: 'Εισαγωγή',
+            language: 'Γλώσσα',
+            villages: 'Χωριά',
+            history: 'Ιστορία',
+            mountainLife: 'Ζωή στο Βουνό'
+        },
+
+        chapters: {
+            'chapter-1': {
+                title: 'Τι είναι τα Αρβανιτοχώρια;'
+            },
+
+            'chapter-1-arvanitika': {
+                title: 'Αρβανίτικα'
+            },
+
+            'chapter-1-villages': {
+                title: 'Τα Οκτώ Αρβανιτοχώρια του Όρους Αραχναίου'
+            },
+
+            'chapter-1-rooted': {
+                title: 'Ριζωμένοι Μαζί'
+            },
+
+            'history-intro': {
+                title: 'Μια Σύντομη Ιστορία του Όρους Αραχναίου'
+            },
+
+            'chapter-2-geography-acient': {
+                title: 'Αρχαία Ερείπια'
+            },
+
+            'chapter-2-war-and-occupation': {
+                title: 'Πόλεμος και Κατοχή'
+            },
+
+            'rural-intro': {
+                title: 'Η Ζωή στο Βουνό'
+            },
+
+            'chapter-3-Infrastructure': {
+                title: 'Υποδομές'
+            }
+        }
+    }
+};
+
+/*
+ * Add Greek chapter descriptions later using:
+ *
+ * 'chapter-1-arvanitika': {
+ *     title: 'Αρβανίτικα',
+ *     description: 'Your Greek translation here...'
+ * }
+ */
         // ADD NEW CHAPTERS ABOVE THIS LINE.
         // When adding one, remember to put a comma after
         // the closing } of the chapter before it.
