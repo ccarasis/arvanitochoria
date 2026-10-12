@@ -30,6 +30,10 @@
       box-sizing: border-box;
     }
 
+    html {
+      scroll-padding-top: 70px;
+    }
+
     html,
     body {
       margin: 0;
@@ -55,6 +59,81 @@
     #story {
       position: relative;
       z-index: 2;
+    }
+
+    /* TOP NAVIGATION */
+
+    #top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+
+      min-height: 54px;
+      padding: 9px 18px;
+
+      background: rgba(54, 34, 24, 0.96);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 22px;
+    }
+
+    .nav-link,
+    .language-button,
+    #menu-toggle {
+      color: #f7eee5;
+      background: transparent;
+      border: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .nav-link {
+      text-decoration: none;
+    }
+
+    .nav-link:hover,
+    .nav-link:focus-visible,
+    .language-button:hover,
+    .language-button:focus-visible {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .language-switch {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .language-button {
+      padding: 4px;
+      opacity: 0.6;
+    }
+
+    .language-button[aria-pressed="true"] {
+      opacity: 1;
+      font-weight: bold;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    #menu-toggle {
+      display: none;
     }
 
     /* HEADER */
@@ -85,13 +164,12 @@
       position: absolute;
       inset: 0;
 
-      background:
-        linear-gradient(
-          to bottom,
-          rgba(0, 0, 0, 0.25),
-          rgba(0, 0, 0, 0.55) 55%,
-          rgba(0, 0, 0, 0.85)
-        );
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.25),
+        rgba(0, 0, 0, 0.55) 55%,
+        rgba(0, 0, 0, 0.85)
+      );
 
       z-index: -1;
     }
@@ -100,8 +178,7 @@
       width: min(1000px, 90%);
       margin-top: 40px;
 
-      text-shadow:
-        0 3px 8px rgba(0, 0, 0, 0.9);
+      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.9);
     }
 
     #title {
@@ -131,6 +208,7 @@
       display: flex;
       align-items: center;
       padding: 80px 5vw;
+      scroll-margin-top: 54px;
     }
 
     .step.left {
@@ -184,6 +262,41 @@
 
     @media (max-width: 700px) {
 
+      #top-nav {
+        justify-content: space-between;
+        gap: 8px;
+        padding: 10px 14px;
+      }
+
+      #menu-toggle {
+        display: block;
+        padding: 4px 8px;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+
+        background: rgba(54, 34, 24, 0.98);
+        padding: 8px 16px 14px;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-link {
+        display: block;
+        padding: 12px 6px;
+      }
+
       #header {
         height: 380px;
       }
@@ -194,7 +307,7 @@
       }
 
       #title {
-        font-size: 50px;
+        font-size: clamp(36px, 11vw, 50px);
       }
 
       #subtitle {
@@ -209,7 +322,7 @@
 
       .step {
         min-height: 100vh;
-        padding: 50px 5vw;
+        padding: 65px 5vw 50px;
         justify-content: center !important;
       }
 
@@ -236,6 +349,76 @@
 
   <!-- MAP -->
   <div id="map"></div>
+
+  <!-- TOP NAVIGATION -->
+  <nav id="top-nav" aria-label="Main navigation">
+
+    <button
+      id="menu-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="nav-links"
+    >
+      Menu ☰
+    </button>
+
+    <div class="nav-links" id="nav-links">
+
+      <a
+        class="nav-link"
+        href="#chapter-1"
+        data-nav="chapter1"
+      >
+        Chapter 1: What are the Arvanitochoria?
+      </a>
+
+      <a
+        class="nav-link"
+        href="#history-intro"
+        data-nav="chapter2"
+      >
+        Chapter 2: A Brief History of Mt. Arachnaio
+      </a>
+
+      <a
+        class="nav-link"
+        href="#rural-intro"
+        data-nav="chapter3"
+      >
+        Chapter 3: Life on the Mountain
+      </a>
+
+    </div>
+
+    <!-- LANGUAGE SWITCH -->
+    <div
+      class="language-switch"
+      role="group"
+      aria-label="Website language"
+    >
+
+      <button
+        type="button"
+        class="language-button"
+        data-lang="en"
+        aria-pressed="true"
+      >
+        EN
+      </button>
+
+      <span aria-hidden="true">|</span>
+
+      <button
+        type="button"
+        class="language-button"
+        data-lang="el"
+        aria-pressed="false"
+      >
+        ΕΛ
+      </button>
+
+    </div>
+  </nav>
 
   <!-- STORY -->
   <main id="story">
@@ -274,6 +457,7 @@
      */
 
     function getResponsiveLocation(location) {
+
       let zoomAdjustment = 0;
 
       if (window.innerWidth <= 480) {
@@ -319,42 +503,28 @@
      * HEADER IMAGE
      */
 
-    const titleImage =
-      config.title.match(
-        /<img[^>]+src=["']([^"']+)["']/i
-      );
+    const titleImage = config.title.match(
+      /<img[^>]+src=["']([^"']+)["']/i
+    );
 
     if (titleImage) {
 
-      const image =
-        document.createElement("img");
+      const image = document.createElement("img");
 
       image.id = "header-image";
       image.src = titleImage[1];
+      image.alt = "Mt. Arachnaio landscape";
 
       document
         .getElementById("header")
         .prepend(image);
 
-      document.getElementById("title")
-        .textContent =
-        config.title
-          .replace(/<img[^>]*>/i, "")
-          .replace(/<br\s*\/?\s*>/gi, "")
-          .trim();
-
-    } else {
-
-      document.getElementById("title")
-        .textContent = config.title;
-
     }
 
-    document.getElementById("subtitle")
-      .textContent = config.subtitle;
-
-    document.getElementById("byline")
-      .innerHTML = config.byline;
+    const englishTitle = config.title
+      .replace(/<img[^>]*>/i, "")
+      .replace(/<br\s*\/?\s*>/gi, "")
+      .trim();
 
 
     /*
@@ -364,8 +534,10 @@
      * and has no visible story box.
      */
 
-    const chapters =
+    const chaptersContainer =
       document.getElementById("chapters");
+
+    const chapterElements = new Map();
 
     config.chapters.forEach((chapter) => {
 
@@ -373,40 +545,205 @@
         return;
       }
 
-      const section =
-        document.createElement("section");
+      const section = document.createElement("section");
 
       section.className =
         `step ${chapter.alignment || "left"}`;
 
       section.dataset.id = chapter.id;
+      section.id = chapter.id;
 
-      section.innerHTML = `
-        <div class="step-content">
+      const card = document.createElement("div");
+      card.className = "step-content";
 
-          <h2>${chapter.title}</h2>
+      const heading = document.createElement("h2");
+      const paragraph = document.createElement("p");
 
-          <p>${chapter.description}</p>
+      card.append(heading, paragraph);
 
-          ${chapter.videoId ? `
-            <div class="oral-history-video">
-              <iframe
-                src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(chapter.videoId)}?cc_load_policy=1"
-                title="Oral history: Arvanitika vocabulary from Limnes"
-                loading="lazy"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-              ></iframe>
-            </div>
-          ` : ''}
+      /*
+       * Preserve existing YouTube videos.
+       */
 
-        </div>
-      `;
+      if (chapter.videoId) {
 
-      chapters.appendChild(section);
+        const video = document.createElement("div");
+        video.className = "oral-history-video";
+
+        const iframe = document.createElement("iframe");
+
+        iframe.src =
+          `https://www.youtube-nocookie.com/embed/${encodeURIComponent(chapter.videoId)}?cc_load_policy=1`;
+
+        iframe.title = "Oral history video";
+        iframe.loading = "lazy";
+
+        iframe.referrerPolicy =
+          "strict-origin-when-cross-origin";
+
+        iframe.allow =
+          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+
+        iframe.allowFullscreen = true;
+
+        video.appendChild(iframe);
+        card.appendChild(video);
+      }
+
+      section.appendChild(card);
+      chaptersContainer.appendChild(section);
+
+      chapterElements.set(chapter.id, {
+        section,
+        heading,
+        paragraph
+      });
 
     });
+
+
+    /*
+     * NAVIGATION LABELS
+     */
+
+    const navLabels = {
+
+      en: {
+        chapter1: "Chapter 1: What are the Arvanitochoria?",
+        chapter2: "Chapter 2: A Brief History of Mt. Arachnaio",
+        chapter3: "Chapter 3: Life on the Mountain",
+        menu: "Menu ☰"
+      },
+
+      el: {
+        chapter1: "Κεφάλαιο 1: Τι είναι τα Αρβανιτοχώρια;",
+        chapter2: "Κεφάλαιο 2: Μια Σύντομη Ιστορία του Όρους Αραχναίου",
+        chapter3: "Κεφάλαιο 3: Η Ζωή στο Βουνό",
+        menu: "Μενού ☰"
+      }
+
+    };
+
+
+    /*
+     * LANGUAGE SWITCH
+     *
+     * English is stored in config.chapters.
+     * Greek translations are stored in
+     * config.translations.el.
+     *
+     * Missing Greek text falls back to English.
+     */
+
+    function setLanguage(lang) {
+
+      const greek = lang === "el"
+        ? (config.translations?.el || {})
+        : {};
+
+      const site = greek.site || {};
+
+      document.documentElement.lang = lang;
+
+      /*
+       * Translate header.
+       */
+
+      document.getElementById("title").textContent =
+        lang === "el"
+          ? (site.title || englishTitle)
+          : englishTitle;
+
+      document.getElementById("subtitle").textContent =
+        lang === "el"
+          ? (site.subtitle || config.subtitle)
+          : config.subtitle;
+
+      document.getElementById("byline").innerHTML =
+        lang === "el"
+          ? (site.byline || config.byline)
+          : config.byline;
+
+
+      /*
+       * Translate chapter headings and paragraphs.
+       */
+
+      config.chapters.forEach((chapter) => {
+
+        const elements =
+          chapterElements.get(chapter.id);
+
+        if (!elements) {
+          return;
+        }
+
+        const translation = lang === "el"
+          ? (greek.chapters?.[chapter.id] || {})
+          : {};
+
+        elements.heading.textContent =
+          translation.title || chapter.title || "";
+
+        elements.paragraph.textContent =
+          translation.description || chapter.description || "";
+
+      });
+
+
+      /*
+       * Translate navigation.
+       */
+
+      document.querySelectorAll("[data-nav]")
+        .forEach((link) => {
+
+          link.textContent =
+            navLabels[lang][link.dataset.nav];
+
+        });
+
+      document.getElementById("menu-toggle")
+        .textContent = navLabels[lang].menu;
+
+
+      /*
+       * Update selected language button.
+       */
+
+      document.querySelectorAll(".language-button")
+        .forEach((button) => {
+
+          button.setAttribute(
+            "aria-pressed",
+            String(button.dataset.lang === lang)
+          );
+
+        });
+
+
+      /*
+       * Remember language preference.
+       */
+
+      try {
+        localStorage.setItem(
+          "arvanitochoria-language",
+          lang
+        );
+      } catch (_) {}
+
+
+      /*
+       * Recalculate chapter positions after
+       * text changes.
+       */
+
+      requestAnimationFrame(() => {
+        scroller.resize();
+      });
+
+    }
 
 
     /*
@@ -415,56 +752,180 @@
 
     const scroller = scrollama();
 
-    function handleStepEnter(response) {
+    function moveMapToChapter(chapter) {
 
-      const id =
-        response.element.dataset.id;
-
-      const chapter =
-        config.chapters.find(
-          item => item.id === id
-        );
-
-      if (!chapter || !chapter.location) {
+      if (!chapter?.location) {
         return;
       }
 
-      const location =
-        getResponsiveLocation(chapter.location);
-
       map.flyTo({
-        center: location.center,
-        zoom: location.zoom,
-        pitch: location.pitch,
-        bearing: location.bearing,
+        ...getResponsiveLocation(chapter.location),
         duration: 1800,
         essential: true
       });
 
     }
 
-
     scroller
       .setup({
         step: ".step",
         offset: 0.5
       })
-      .onStepEnter(handleStepEnter);
+      .onStepEnter((response) => {
+
+        const chapter = config.chapters.find(
+          item => item.id === response.element.dataset.id
+        );
+
+        moveMapToChapter(chapter);
+
+      });
+
+
+    /*
+     * CHAPTER NAVIGATION
+     *
+     * Only the three main sections appear
+     * in the navigation bar.
+     */
+
+    document.querySelectorAll(".nav-link")
+      .forEach((link) => {
+
+        link.addEventListener("click", (event) => {
+
+          event.preventDefault();
+
+          const id =
+            link.getAttribute("href").slice(1);
+
+          const target =
+            document.getElementById(id);
+
+          if (!target) {
+            return;
+          }
+
+          /*
+           * Close mobile menu.
+           */
+
+          document.getElementById("nav-links")
+            .classList.remove("open");
+
+          document.getElementById("menu-toggle")
+            .setAttribute("aria-expanded", "false");
+
+
+          /*
+           * Scroll to selected chapter.
+           */
+
+          target.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+
+
+          /*
+           * Move map to selected chapter.
+           */
+
+          moveMapToChapter(
+            config.chapters.find(
+              chapter => chapter.id === id
+            )
+          );
+
+
+          /*
+           * Update URL anchor.
+           */
+
+          if (history.replaceState) {
+            history.replaceState(
+              null,
+              "",
+              `#${id}`
+            );
+          }
+
+        });
+
+      });
+
+
+    /*
+     * MOBILE MENU
+     */
+
+    const menuToggle =
+      document.getElementById("menu-toggle");
+
+    menuToggle.addEventListener("click", () => {
+
+      const open =
+        document.getElementById("nav-links")
+          .classList.toggle("open");
+
+      menuToggle.setAttribute(
+        "aria-expanded",
+        String(open)
+      );
+
+    });
+
+
+    /*
+     * LANGUAGE BUTTONS
+     */
+
+    document.querySelectorAll(".language-button")
+      .forEach((button) => {
+
+        button.addEventListener("click", () => {
+          setLanguage(button.dataset.lang);
+        });
+
+      });
+
+
+    /*
+     * INITIAL LANGUAGE
+     *
+     * Default: English
+     */
+
+    let initialLanguage = "en";
+
+    try {
+
+      if (
+        localStorage.getItem(
+          "arvanitochoria-language"
+        ) === "el"
+      ) {
+        initialLanguage = "el";
+      }
+
+    } catch (_) {}
+
+    setLanguage(initialLanguage);
 
 
     /*
      * RESIZE
      */
 
-    window.addEventListener(
-      "resize",
-      () => {
-        map.resize();
-        scroller.resize();
-      }
-    );
+    window.addEventListener("resize", () => {
+
+      map.resize();
+      scroller.resize();
+
+    });
 
   </script>
 
 </body>
 </html>
+
