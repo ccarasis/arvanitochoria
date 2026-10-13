@@ -40,6 +40,35 @@ window.archiveClips = [
         tags: ['Language'],
 
         type: 'clip'
-    }
+    },
+    
+{
+    id: 'limnes-arvanitochoria-identity',
+
+    youtubeId: 'ew1XbJb6TAk',
+
+    title: {
+        en: 'Arvanitochoria: Arvanite Identity',
+        el: ''
+    },
+
+    description: {
+        en: 'A conversation with Limnes residents, exploring Arvanite identity and what it means to belong to the Arvanitochoria.',
+        el: ''
+    },
+
+    village: 'Limnes',
+
+    categories: ['language', 'community'],
+
+    tags: [
+        'Identity',
+        'Community/Family Connections',
+        'Language'
+    ],
+
+    type: 'clip'
+}
+
 
 ];
