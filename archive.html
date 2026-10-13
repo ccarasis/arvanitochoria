@@ -1,0 +1,935 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+
+  <meta
+    name="description"
+    content="Arvanitochoria video archive: oral histories and thematic clips from Mt. Arachnaio."
+  >
+
+  <title>Video Archive | Arvanitochoria</title>
+
+  <script defer src="./archive-data.js"></script>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      color-scheme: light;
+    }
+
+    body {
+      margin: 0;
+      background: #f4efe8;
+      color: #35251c;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    select,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* NAVIGATION */
+
+    .site-nav {
+      background: #362218;
+      color: #f8eee4;
+      padding: 15px max(20px, calc((100vw - 1180px)/2));
+
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .brand {
+      text-decoration: none;
+      font-size: 19px;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .nav-actions a {
+      text-decoration: none;
+    }
+
+    .nav-actions a:hover {
+      text-decoration: underline;
+    }
+
+    .lang {
+      background: transparent;
+      color: inherit;
+      border: 0;
+      opacity: 0.65;
+      padding: 6px;
+    }
+
+    .lang[aria-pressed="true"] {
+      opacity: 1;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+    }
+
+    /* PAGE */
+
+    main {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 54px 0 90px;
+    }
+
+    h1 {
+      font-size: clamp(34px, 5vw, 56px);
+      font-weight: normal;
+      margin: 0 0 12px;
+    }
+
+    .intro {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      max-width: 760px;
+      color: #685549;
+      margin: 0 0 32px;
+    }
+
+    /* CATEGORY FILTERS */
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .filter {
+      border: 1px solid #b9a99b;
+      border-radius: 999px;
+      background: #fffaf4;
+      color: #4b3528;
+      padding: 10px 15px;
+      font-size: 14px;
+    }
+
+    .filter[aria-pressed="true"] {
+      background: #493023;
+      border-color: #493023;
+      color: white;
+    }
+
+    /* SEARCH AND VILLAGE FILTER */
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .controls label {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      font: 13px Arial, sans-serif;
+      color: #655145;
+    }
+
+    .controls select,
+    .controls input {
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid #b9a99b;
+      border-radius: 5px;
+      background: white;
+      color: #35251c;
+    }
+
+    .controls input {
+      width: min(320px, calc(100vw - 40px));
+    }
+
+    #results-count {
+      font: 14px Arial, sans-serif;
+      color: #685549;
+      margin: 0 0 18px;
+    }
+
+    /* VIDEO GRID */
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: #fffaf5;
+      border: 1px solid #e1d5c9;
+      border-radius: 8px;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .thumb {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      padding: 0;
+      border: 0;
+      display: block;
+      background: #271a15;
+      color: white;
+    }
+
+    .thumb img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .play {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(40, 24, 16, 0.86);
+      border-radius: 999px;
+      width: 56px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      font: 24px Arial, sans-serif;
+    }
+
+    .thumb:hover .play,
+    .thumb:focus-visible .play {
+      background: #8b5231;
+    }
+
+    .player {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      display: block;
+      border: 0;
+    }
+
+    .card-body {
+      padding: 18px;
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 21px;
+      font-weight: normal;
+      line-height: 1.25;
+    }
+
+    .meta {
+      font: 13px Arial, sans-serif;
+      color: #796254;
+      margin-bottom: 12px;
+    }
+
+    .description {
+      font: 15px/1.55 Arial, sans-serif;
+      color: #554338;
+      margin: 0;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      font: 12px Arial, sans-serif;
+      padding: 5px 8px;
+      background: #efe5da;
+      border-radius: 4px;
+    }
+
+    .empty {
+      font: 16px Arial, sans-serif;
+      color: #685549;
+      padding: 20px 0;
+    }
+
+    footer {
+      border-top: 1px solid #dfd2c5;
+      margin-top: 60px;
+      padding-top: 22px;
+      font: 13px Arial, sans-serif;
+      color: #786557;
+    }
+
+    /* TABLET */
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 600px) {
+
+      main {
+        width: calc(100% - 28px);
+        padding-top: 34px;
+      }
+
+      .site-nav {
+        padding: 14px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .filter {
+        padding: 10px 12px;
+      }
+
+      .controls,
+      .controls label,
+      .controls input,
+      .controls select {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP NAVIGATION -->
+
+  <nav class="site-nav" aria-label="Main navigation">
+
+    <a class="brand" href="./index.html">
+      Arvanitochoria
+    </a>
+
+    <div class="nav-actions">
+
+      <a href="./index.html" id="map-link">
+        Map
+      </a>
+
+      <span id="archive-nav">
+        Video Archive
+      </span>
+
+      <div role="group" aria-label="Language">
+
+        <button
+          class="lang"
+          data-lang="en"
+          aria-pressed="true"
+        >
+          EN
+        </button>
+
+        <span aria-hidden="true">|</span>
+
+        <button
+          class="lang"
+          data-lang="el"
+          aria-pressed="false"
+        >
+          ΕΛ
+        </button>
+
+      </div>
+
+    </div>
+
+  </nav>
+
+  <!-- ARCHIVE CONTENT -->
+
+  <main>
+
+    <h1 id="page-title">
+      Video Archive
+    </h1>
+
+    <p class="intro" id="page-intro">
+      Explore thematic clips documenting language,
+      memories, and everyday life in the
+      Arvanitochoria of Mt. Arachnaio.
+    </p>
+
+    <div
+      class="filters"
+      id="category-filters"
+      aria-label="Filter by theme"
+    ></div>
+
+    <div class="controls">
+
+      <label>
+        <span id="village-label">Village</span>
+
+        <select id="village-filter">
+          <option value="all">All villages</option>
+        </select>
+      </label>
+
+      <label>
+        <span id="search-label">Search clips</span>
+
+        <input
+          id="search"
+          type="search"
+          placeholder="Search titles, descriptions, or tags"
+        >
+      </label>
+
+    </div>
+
+    <p
+      id="results-count"
+      role="status"
+      aria-live="polite"
+    ></p>
+
+    <div class="grid" id="clip-grid"></div>
+
+    <p class="empty" id="empty" hidden>
+      No clips match these filters.
+    </p>
+
+    <footer id="footer">
+      Recordings are presented for cultural documentation
+      and research. Please respect the speakers and
+      their communities.
+    </footer>
+
+  </main>
+
+  <script>
+
+    /*
+     * FIVE THEMATIC CATEGORIES
+     */
+
+    window.addEventListener("DOMContentLoaded", () => {
+
+      const categories = [
+
+        [
+          "language",
+          "Language, Identity & Belonging",
+          "Γλώσσα, Ταυτότητα και Κοινωνική Ένταξη"
+        ],
+
+        [
+          "community",
+          "Community, Family & Traditions",
+          "Κοινότητα, Οικογένεια και Παραδόσεις"
+        ],
+
+        [
+          "land",
+          "Land, Labor & Rural Life",
+          "Γη, Εργασία και Αγροτική Ζωή"
+        ],
+
+        [
+          "mobility",
+          "Isolation, Mobility & Modernization",
+          "Απομόνωση, Μετακινήσεις και Εκσυγχρονισμός"
+        ],
+
+        [
+          "history",
+          "History & Collective Memory",
+          "Ιστορία και Συλλογική Μνήμη"
+        ]
+
+      ];
+
+
+      /*
+       * INTERFACE TRANSLATIONS
+       */
+
+      const labels = {
+
+        en: {
+          map: "Map",
+          archive: "Video Archive",
+          intro: "Explore thematic clips documenting language, memories, and everyday life in the Arvanitochoria of Mt. Arachnaio.",
+          all: "All themes",
+          village: "Village",
+          villages: "All villages",
+          search: "Search clips",
+          placeholder: "Search titles, descriptions, or tags",
+          results: n => `${n} ${n === 1 ? "clip" : "clips"}`,
+          empty: "No clips match these filters.",
+          play: "Play video",
+          footer: "Recordings are presented for cultural documentation and research. Please respect the speakers and their communities."
+        },
+
+        el: {
+          map: "Χάρτης",
+          archive: "Αρχείο Βίντεο",
+          intro: "Θεματικά αποσπάσματα για τη γλώσσα, τις μνήμες και την καθημερινή ζωή στα Αρβανιτοχώρια του Όρους Αραχναίου.",
+          all: "Όλες οι θεματικές",
+          village: "Χωριό",
+          villages: "Όλα τα χωριά",
+          search: "Αναζήτηση βίντεο",
+          placeholder: "Αναζήτηση σε τίτλους, περιγραφές και ετικέτες",
+          results: n => `${n} βίντεο`,
+          empty: "Δεν βρέθηκαν βίντεο με αυτά τα φίλτρα.",
+          play: "Αναπαραγωγή βίντεο",
+          footer: "Οι καταγραφές παρουσιάζονται για πολιτιστική τεκμηρίωση και έρευνα. Παρακαλούμε να σεβαστείτε τους ομιλητές και τις κοινότητές τους."
+        }
+
+      };
+
+
+      /*
+       * LOAD VIDEO DATA
+       */
+
+      const clips = Array.isArray(window.archiveClips)
+        ? window.archiveClips
+        : [];
+
+      const $ = id => document.getElementById(id);
+
+      let language = "en";
+      let category = "all";
+      let village = "all";
+
+
+      /*
+       * REMEMBER LANGUAGE
+       */
+
+      try {
+
+        if (
+          localStorage.getItem(
+            "arvanitochoria-language"
+          ) === "el"
+        ) {
+          language = "el";
+        }
+
+      } catch (_) {}
+
+
+      /*
+       * GET TRANSLATED TEXT
+       */
+
+      const localized = value => {
+
+        if (typeof value === "string") {
+          return value;
+        }
+
+        return value?.[language] || value?.en || "";
+
+      };
+
+
+      /*
+       * BUILD VILLAGE DROPDOWN
+       */
+
+      const villages = [
+        ...new Set(
+          clips.map(c => c.village).filter(Boolean)
+        )
+      ].sort();
+
+      villages.forEach(v => {
+
+        const option = document.createElement("option");
+
+        option.value = v;
+        option.textContent = v;
+
+        $("village-filter").append(option);
+
+      });
+
+
+      /*
+       * FILTER EVENTS
+       */
+
+      $("village-filter").addEventListener(
+        "change",
+        event => {
+
+          village = event.target.value;
+          render();
+
+        }
+      );
+
+      $("search").addEventListener("input", render);
+
+
+      /*
+       * LANGUAGE BUTTONS
+       */
+
+      document.querySelectorAll(".lang")
+        .forEach(button => {
+
+          button.addEventListener("click", () => {
+
+            language = button.dataset.lang;
+
+            try {
+
+              localStorage.setItem(
+                "arvanitochoria-language",
+                language
+              );
+
+            } catch (_) {}
+
+            render();
+
+          });
+
+        });
+
+
+      /*
+       * RENDER ARCHIVE
+       */
+
+      function render() {
+
+        const t = labels[language];
+
+        document.documentElement.lang = language;
+
+        document.title =
+          `${t.archive} | Arvanitochoria`;
+
+        $("map-link").textContent = t.map;
+        $("archive-nav").textContent = t.archive;
+        $("page-title").textContent = t.archive;
+        $("page-intro").textContent = t.intro;
+
+        $("village-label").textContent = t.village;
+
+        $("village-filter").options[0].textContent =
+          t.villages;
+
+        $("search-label").textContent = t.search;
+        $("search").placeholder = t.placeholder;
+
+        $("empty").textContent = t.empty;
+        $("footer").textContent = t.footer;
+
+
+        /*
+         * UPDATE LANGUAGE BUTTONS
+         */
+
+        document.querySelectorAll(".lang")
+          .forEach(button => {
+
+            button.setAttribute(
+              "aria-pressed",
+              String(button.dataset.lang === language)
+            );
+
+          });
+
+
+        /*
+         * BUILD CATEGORY FILTERS
+         */
+
+        $("category-filters").replaceChildren();
+
+        [
+          ["all", t.all, t.all],
+          ...categories
+        ].forEach(([id, en, el]) => {
+
+          const button =
+            document.createElement("button");
+
+          button.className = "filter";
+          button.type = "button";
+
+          button.textContent =
+            language === "el" ? el : en;
+
+          button.setAttribute(
+            "aria-pressed",
+            String(category === id)
+          );
+
+          button.addEventListener("click", () => {
+
+            category = id;
+            render();
+
+          });
+
+          $("category-filters").append(button);
+
+        });
+
+
+        /*
+         * FILTER CLIPS
+         */
+
+        const query =
+          $("search").value.toLocaleLowerCase();
+
+        const shown = clips.filter(c =>
+
+          (
+            category === "all" ||
+            (c.categories || []).includes(category)
+          ) &&
+
+          (
+            village === "all" ||
+            c.village === village
+          ) &&
+
+          [
+            localized(c.title),
+            localized(c.description),
+            c.village,
+            ...(c.tags || [])
+          ]
+            .join(" ")
+            .toLocaleLowerCase()
+            .includes(query)
+
+        );
+
+
+        /*
+         * RESULTS COUNT
+         */
+
+        $("results-count").textContent =
+          t.results(shown.length);
+
+        $("empty").hidden =
+          shown.length !== 0;
+
+
+        /*
+         * BUILD VIDEO CARDS
+         */
+
+        const grid = $("clip-grid");
+
+        grid.replaceChildren();
+
+        shown.forEach(c => {
+
+          if (
+            !/^[A-Za-z0-9_-]{11}$/.test(
+              c.youtubeId || ""
+            )
+          ) {
+            return;
+          }
+
+          const card =
+            document.createElement("article");
+
+          card.className = "card";
+
+
+          /*
+           * THUMBNAIL
+           *
+           * YouTube loads only after clicking.
+           */
+
+          const thumb =
+            document.createElement("button");
+
+          thumb.type = "button";
+          thumb.className = "thumb";
+
+          thumb.setAttribute(
+            "aria-label",
+            `${t.play}: ${localized(c.title)}`
+          );
+
+          const img =
+            document.createElement("img");
+
+          img.src =
+            `https://i.ytimg.com/vi/${c.youtubeId}/hqdefault.jpg`;
+
+          img.alt = "";
+          img.loading = "lazy";
+          img.decoding = "async";
+
+          const play =
+            document.createElement("span");
+
+          play.className = "play";
+          play.textContent = "▶";
+
+          play.setAttribute(
+            "aria-hidden",
+            "true"
+          );
+
+          thumb.append(img, play);
+
+
+          /*
+           * PLAY VIDEO WHEN CLICKED
+           */
+
+          thumb.addEventListener("click", () => {
+
+            const iframe =
+              document.createElement("iframe");
+
+            iframe.className = "player";
+
+            iframe.src =
+              `https://www.youtube-nocookie.com/embed/${c.youtubeId}?autoplay=1&cc_load_policy=1`;
+
+            iframe.title = localized(c.title);
+            iframe.allowFullscreen = true;
+
+            iframe.allow =
+              "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+
+            iframe.referrerPolicy =
+              "strict-origin-when-cross-origin";
+
+            thumb.replaceWith(iframe);
+
+          });
+
+
+          /*
+           * VIDEO INFORMATION
+           */
+
+          const body =
+            document.createElement("div");
+
+          body.className = "card-body";
+
+          const heading =
+            document.createElement("h2");
+
+          heading.textContent =
+            localized(c.title);
+
+          const meta =
+            document.createElement("div");
+
+          meta.className = "meta";
+          meta.textContent = c.village || "";
+
+          const description =
+            document.createElement("p");
+
+          description.className = "description";
+
+          description.textContent =
+            localized(c.description);
+
+          const tags =
+            document.createElement("div");
+
+          tags.className = "tags";
+
+          (c.tags || []).forEach(tag => {
+
+            const span =
+              document.createElement("span");
+
+            span.className = "tag";
+            span.textContent = tag;
+
+            tags.append(span);
+
+          });
+
+          body.append(
+            heading,
+            meta,
+            description,
+            tags
+          );
+
+          card.append(thumb, body);
+          grid.append(card);
+
+        });
+
+      }
+
+
+      /*
+       * INITIAL RENDER
+       */
+
+      render();
+
+    });
+
+  </script>
+
+</body>
+</html>
