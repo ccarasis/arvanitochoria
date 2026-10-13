@@ -24,16 +24,16 @@ window.archiveClips = [
         youtubeId: '70Z0PLAcaOU',
 
         title: {
-            en: 'Arvanitika Vocabulary from Limnes',
+            en: 'Arvanitika Vocabulary from Dousia',
             el: ''
         },
 
         description: {
-            en: 'An oral recording of Arvanitika vocabulary spoken in Limnes.',
+            en: 'An oral recording of Arvanitika vocabulary spoken in Dousia.',
             el: ''
         },
 
-        village: 'Limnes',
+        village: 'Dousia',
 
         categories: ['language'],
 
