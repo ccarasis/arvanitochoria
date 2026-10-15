@@ -144,19 +144,21 @@ var config = {
                 bearing: 0
             }
         },
-              {
-            id: 'chapter-3-Schools',
-            alignment: 'right',
-            title: 'Schools',
-            description: 'Educational access on Mt. Arachnaio has historically been limited, with many villages sharing a single primary school. Local children today bus into the valley for secondary education, but for older generations, formal schooling beyond the primary grades was rare, and family labor took priority. Young women in particular were discouraged from pursuing higher education until recent decades.
-Because instruction was conducted exclusively in Greek, the schoolyard often became a site of linguistic assimilation. Several elders recall facing social stigma and discipline for speaking Arvanitika on school grounds, even during informal conversations.',
-            location: {
-                center: [22.834, 37.680],
-                zoom: 15,
-                pitch: 55,
-                bearing: 0
-            }
-        }
+
+{
+    id: 'chapter-3-Schools',
+    alignment: 'right',
+    title: 'Schools',
+    description: `Educational access on Mt. Arachnaio has historically been limited, with many villages sharing a single primary school. Local children today bus into the valley for secondary education, but for older generations, formal schooling beyond the primary grades was rare, and family labor took priority. Young women in particular were discouraged from pursuing higher education until recent decades.
+
+Because instruction was conducted exclusively in Greek, the schoolyard often became a site of linguistic assimilation. Several elders recall facing social stigma and discipline for speaking Arvanitika on school grounds, even during informal conversations.`,
+    location: {
+        center: [22.834, 37.680],
+        zoom: 15,
+        pitch: 55,
+        bearing: 0
+    }
+}
     ]
 
 };
@@ -216,14 +218,14 @@ config.translations = {
                 title: 'Η Ζωή στο Βουνό'
             },
 
-            'chapter-3-Infrastructure': {
-                title: 'Υποδομές'
-            }
+      
+'chapter-3-Infrastructure': {
+    title: 'Υποδομές'
+},
 
-        },
-        'chapter-3-Education': {
-            title: 'Τα Σχολεία'
-        }
+'chapter-3-Schools': {
+    title: 'Τα Σχολεία'
+}
 
     }
 
