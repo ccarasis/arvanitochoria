@@ -145,9 +145,9 @@ var config = {
             }
         },
               {
-            id: 'chapter-3-Education',
+            id: 'chapter-3-Schools',
             alignment: 'right',
-            title: 'Education',
+            title: 'Schools',
             description: 'Educational access on Mt. Arachnaio has historically been limited, with many villages sharing a single primary school. Local children today bus into the valley for secondary education, but for older generations, formal schooling beyond the primary grades was rare, and family labor took priority. Young women in particular were discouraged from pursuing higher education until recent decades.
 Because instruction was conducted exclusively in Greek, the schoolyard often became a site of linguistic assimilation. Several elders recall facing social stigma and discipline for speaking Arvanitika on school grounds, even during informal conversations.',
             location: {
@@ -220,6 +220,9 @@ config.translations = {
                 title: 'Υποδομές'
             }
 
+        },
+        'chapter-3-Education': {
+            title: 'Τα Σχολεία'
         }
 
     }
