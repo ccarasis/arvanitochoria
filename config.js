@@ -158,7 +158,31 @@ Because instruction was conducted exclusively in Greek, the schoolyard often bec
                 pitch: 55,
                 bearing: 0
             }
-        }
+        },
+           {
+            id: 'Ag-intro',
+            alignment: 'left',
+            title: 'Wheat & Tobacco',
+            description: 'Along with olive groves that line the lower hills, families on Mt. Arachnaio depended on two main crops: wheat for daily bread and tobacco to bring in cash. Working the steep mountain fields meant doing everything by hand, with whole families pitching in and communities coming together during planting and harvest.',
+            location: {
+                center: [22.868, 37.707],
+                zoom: 15.5,
+                pitch: 65,
+                bearing: -10
+            }
+        },
+          {
+          id: 'Ch-4-Citrus-Shift',
+            alignment: 'Right',
+            title: 'Oranges at the Market',
+            description: 'Over time, orange groves took over the valley below, and the local market for mountain crops dried up. Almost every family still tends their olives today, but the move toward growing citrus for the global market down in the plain changed mountain life forever, spurring population loss and shifting families away from collective labor. ',
+            location: {
+                center: [22.781, 37.665],
+                zoom: 13.5,
+                pitch: 65,
+                bearing: -10
+            }
+        },
 
     ]
 
@@ -225,7 +249,16 @@ config.translations = {
 
             'chapter-3-Schools': {
                 title: 'Τα Σχολεία'
-            }
+            },
+            
+            'Ag-intro': {
+                title: 'Σιτάρι και Καπνός'
+            },
+            
+            'Ch-4-Citrus-Shift': {
+                title: 'Πορτοκάλια στην Αγορά'
+            },
+            
 
         }
 
