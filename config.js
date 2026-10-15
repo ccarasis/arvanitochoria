@@ -156,7 +156,7 @@ Because instruction was conducted exclusively in Greek, the schoolyard often bec
                 pitch: 55,
                 bearing: 0
             }
-        },
+        }
     ]
 
 };
