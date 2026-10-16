@@ -3,40 +3,20 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
-  >
-
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Arvanitochoria</title>
 
-  <!-- MAPBOX -->
-  <link
-    href="https://api.mapbox.com/mapbox-gl-js/v3.16.0/mapbox-gl.css"
-    rel="stylesheet"
-  >
-
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.16.0/mapbox-gl.css" rel="stylesheet">
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.16.0/mapbox-gl.js"></script>
-
-  <!-- SCROLLAMA -->
   <script src="https://unpkg.com/scrollama"></script>
-
-  <!-- STORY CONFIGURATION -->
   <script src="./config.js"></script>
 
   <style>
+    * { box-sizing: border-box; }
 
-    * {
-      box-sizing: border-box;
-    }
+    html { scroll-padding-top: 70px; }
 
-    html {
-      scroll-padding-top: 70px;
-    }
-
-    html,
-    body {
+    html, body {
       margin: 0;
       padding: 0;
       background: #000;
@@ -45,8 +25,7 @@
       -webkit-text-size-adjust: 100%;
     }
 
-    /* MAP */
-
+    /* MAPBOX BACKGROUND */
     #map {
       position: fixed;
       inset: 0;
@@ -55,32 +34,26 @@
       z-index: 1;
     }
 
-    /* STORY */
-
     #story {
       position: relative;
       z-index: 2;
     }
 
-    /* TOP NAVIGATION */
-
+    /* NAVIGATION */
     #top-nav {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       z-index: 20;
-
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 14px;
-
       min-height: 54px;
       padding: 9px 14px;
-
       background: rgba(54, 34, 24, 0.96);
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 2px 12px rgba(0,0,0,.3);
     }
 
     .nav-links {
@@ -91,9 +64,7 @@
       gap: 14px;
     }
 
-    .nav-link,
-    .language-button,
-    #menu-toggle {
+    .nav-link, .language-button, #menu-toggle {
       color: #f7eee5;
       background: transparent;
       border: 0;
@@ -106,28 +77,24 @@
       text-decoration: none;
     }
 
-    .nav-link:visited {
-      color: #f7eee5;
-    }
+    .nav-link:visited { color: #f7eee5; }
 
-    .nav-link:hover,
-    .nav-link:focus-visible,
-    .language-button:hover,
-    .language-button:focus-visible {
+    .nav-link:hover, .nav-link:focus-visible,
+    .language-button:hover, .language-button:focus-visible {
       text-decoration: underline;
       text-underline-offset: 4px;
     }
 
     .language-switch {
       display: flex;
-      gap: 5px;
       align-items: center;
+      gap: 5px;
       white-space: nowrap;
     }
 
     .language-button {
       padding: 4px;
-      opacity: 0.6;
+      opacity: .6;
     }
 
     .language-button[aria-pressed="true"] {
@@ -137,21 +104,16 @@
       text-underline-offset: 4px;
     }
 
-    #menu-toggle {
-      display: none;
-    }
+    #menu-toggle { display: none; }
 
     /* HEADER */
-
     #header {
       position: relative;
       height: 400px;
       overflow: hidden;
-
       display: flex;
       align-items: center;
       justify-content: center;
-
       text-align: center;
     }
 
@@ -168,21 +130,19 @@
       content: "";
       position: absolute;
       inset: 0;
-
       background: linear-gradient(
         to bottom,
-        rgba(0, 0, 0, 0.25),
-        rgba(0, 0, 0, 0.55) 55%,
-        rgba(0, 0, 0, 0.85)
+        rgba(0,0,0,.25),
+        rgba(0,0,0,.55) 55%,
+        rgba(0,0,0,.85)
       );
-
       z-index: -1;
     }
 
     #header-content {
       width: min(1000px, 90%);
       margin-top: 40px;
-      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.9);
+      text-shadow: 0 3px 8px rgba(0,0,0,.9);
     }
 
     #title {
@@ -205,8 +165,7 @@
       line-height: 1.5;
     }
 
-    /* CHAPTERS */
-
+    /* SCROLLYTELLING CHAPTERS */
     .step {
       min-height: 100vh;
       display: flex;
@@ -215,20 +174,15 @@
       scroll-margin-top: 54px;
     }
 
-    .step.left {
-      justify-content: flex-start;
-    }
-
-    .step.right {
-      justify-content: flex-end;
-    }
+    .step.left { justify-content: flex-start; }
+    .step.right { justify-content: flex-end; }
 
     .step-content {
       width: min(590px, 88vw);
       padding: 34px 40px;
-      background: rgba(70, 43, 27, 0.94);
+      background: rgba(70, 43, 27, .94);
       border-radius: 4px;
-      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 5px 25px rgba(0,0,0,.35);
     }
 
     .step-content h2 {
@@ -246,8 +200,6 @@
       white-space: pre-line;
     }
 
-    /* ORAL HISTORY VIDEOS */
-
     .oral-history-video {
       position: relative;
       width: 100%;
@@ -263,10 +215,113 @@
       border: 0;
     }
 
+    /* MARIA MPINIARI'S MAP REVEAL */
+    .memory-map-feature {
+      position: relative;
+      z-index: 4;
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding: 85px 4vw 35px;
+      background: #362218;
+      color: #f7eee5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      text-align: center;
+      scroll-margin-top: 54px;
+    }
+
+    .memory-map-feature h2 {
+      font-weight: 400;
+      font-size: clamp(25px, 3vw, 40px);
+      margin: 0;
+    }
+
+    .memory-map-feature .map-credit {
+      margin: 0;
+      font-size: 15px;
+    }
+
+    .memory-map-feature .map-open {
+      display: block;
+      width: min(100%, 1100px);
+      border: 0;
+      background: #fff;
+      padding: 7px;
+      cursor: zoom-in;
+    }
+
+    .memory-map-feature .map-open img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 64vh;
+      max-height: 64dvh;
+      object-fit: contain;
+    }
+
+    .memory-map-feature .map-caption {
+      max-width: 880px;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .memory-map-feature .map-hint {
+      font-size: 12px;
+      opacity: .75;
+      margin: 0;
+    }
+
+    /* ENLARGED MAP VIEW */
+    .memory-map-dialog {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      max-height: none;
+      margin: 0;
+      padding: 55px 15px 15px;
+      border: 0;
+      background: rgba(15,10,7,.97);
+      color: white;
+    }
+
+    .memory-map-dialog:not([open]) { display: none; }
+
+    .memory-map-dialog[open] {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .memory-map-dialog img {
+      max-width: 100%;
+      max-height: calc(100dvh - 90px);
+      object-fit: contain;
+    }
+
+    .memory-map-dialog .close-map {
+      position: absolute;
+      top: 10px;
+      right: 16px;
+      color: white;
+      background: transparent;
+      border: 1px solid white;
+      border-radius: 4px;
+      padding: 7px 12px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
     /* TABLET AND MOBILE NAVIGATION */
-
     @media (max-width: 1100px) {
-
       #top-nav {
         justify-content: space-between;
         gap: 8px;
@@ -284,46 +339,34 @@
         top: 100%;
         left: 0;
         right: 0;
-
         flex-direction: column;
         align-items: stretch;
         gap: 0;
-
-        background: rgba(54, 34, 24, 0.98);
+        background: rgba(54,34,24,.98);
         padding: 8px 16px 14px;
-
         max-height: calc(100dvh - 54px);
         overflow-y: auto;
       }
 
-      .nav-links.open {
-        display: flex;
-      }
+      .nav-links.open { display: flex; }
 
       .nav-link {
         display: block;
         padding: 12px 6px;
         font-size: 14px;
       }
-
     }
 
     /* PHONE LAYOUT */
-
     @media (max-width: 700px) {
-
-      #header {
-        height: 380px;
-      }
+      #header { height: 380px; }
 
       #header-content {
         width: 90%;
         margin-top: 20px;
       }
 
-      #title {
-        font-size: clamp(36px, 11vw, 50px);
-      }
+      #title { font-size: clamp(36px, 11vw, 50px); }
 
       #subtitle {
         margin-top: 14px;
@@ -357,18 +400,27 @@
         line-height: 1.6;
       }
 
-    }
+      .memory-map-feature {
+        padding: 80px 14px 30px;
+      }
 
+      .memory-map-feature .map-open img {
+        max-height: 55dvh;
+      }
+
+      .memory-map-feature .map-caption {
+        font-size: 14px;
+      }
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- MAP -->
+  <!-- MAPBOX -->
   <div id="map"></div>
 
   <!-- TOP NAVIGATION -->
-
   <nav id="top-nav" aria-label="Main navigation">
 
     <button
@@ -376,70 +428,43 @@
       type="button"
       aria-expanded="false"
       aria-controls="nav-links"
-    >
-      Menu ☰
-    </button>
+    >Menu ☰</button>
 
     <div class="nav-links" id="nav-links">
 
-      <a
-        class="nav-link"
-        href="#chapter-1"
-        data-nav="chapter1"
-      >
+      <a class="nav-link" href="#chapter-1" data-nav="chapter1">
         Chapter 1: What are the Arvanitochoria?
       </a>
 
-      <a
-        class="nav-link"
-        href="#history-intro"
-        data-nav="chapter2"
-      >
+      <a class="nav-link" href="#history-intro" data-nav="chapter2">
         Chapter 2: A Brief History of Mt. Arachnaio
       </a>
 
-      <a
-        class="nav-link"
-        href="#rural-intro"
-        data-nav="chapter3"
-      >
+      <a class="nav-link" href="#rural-intro" data-nav="chapter3">
         Chapter 3: Life on the Mountain
       </a>
 
-      <a
-        class="nav-link"
-        href="#Ag-intro"
-        data-nav="chapter4"
-      >
+      <a class="nav-link" href="#Ag-intro" data-nav="chapter4">
         Chapter 4: Agriculture &amp; Pastoral Life
       </a>
 
-      <a
-        class="nav-link"
-        href="./archive.html"
-        data-nav="archive"
-      >
+      <a class="nav-link" href="./archive.html" data-nav="archive">
         Video Archive
       </a>
 
     </div>
-
-    <!-- LANGUAGE SWITCH -->
 
     <div
       class="language-switch"
       role="group"
       aria-label="Website language"
     >
-
       <button
         type="button"
         class="language-button"
         data-lang="en"
         aria-pressed="true"
-      >
-        EN
-      </button>
+      >EN</button>
 
       <span aria-hidden="true">|</span>
 
@@ -448,19 +473,13 @@
         class="language-button"
         data-lang="el"
         aria-pressed="false"
-      >
-        ΕΛ
-      </button>
-
+      >ΕΛ</button>
     </div>
 
   </nav>
 
   <!-- STORY -->
-
   <main id="story">
-
-    <!-- TITLE -->
 
     <header id="header">
       <div id="header-content">
@@ -470,17 +489,14 @@
       </div>
     </header>
 
-    <!-- CHAPTERS -->
     <section id="chapters"></section>
 
   </main>
 
   <script>
-
     /*
-     * MAP
+     * MAPBOX INITIALIZATION
      */
-
     mapboxgl.accessToken = config.accessToken;
 
     const map = new mapboxgl.Map({
@@ -489,13 +505,7 @@
       interactive: false
     });
 
-
-    /*
-     * RESPONSIVE CAMERA
-     */
-
     function getResponsiveLocation(location) {
-
       let zoomAdjustment = 0;
 
       if (window.innerWidth <= 480) {
@@ -512,14 +522,10 @@
       };
     }
 
-
     /*
-     * TERRAIN
-     * Uses terrain configured in Mapbox Studio.
+     * TERRAIN FROM MAPBOX STUDIO
      */
-
     map.on("style.load", () => {
-
       const terrain = map.getStyle().terrain;
 
       if (terrain) {
@@ -528,35 +534,27 @@
 
       const firstChapter = config.chapters[0];
 
-      if (firstChapter && firstChapter.location) {
+      if (firstChapter?.location) {
         map.jumpTo(
           getResponsiveLocation(firstChapter.location)
         );
       }
-
     });
-
 
     /*
      * HEADER IMAGE
      */
-
     const titleImage = config.title.match(
       /<img[^>]+src=["']([^"']+)["']/i
     );
 
     if (titleImage) {
-
       const image = document.createElement("img");
-
       image.id = "header-image";
       image.src = titleImage[1];
       image.alt = "Mt. Arachnaio landscape";
 
-      document
-        .getElementById("header")
-        .prepend(image);
-
+      document.getElementById("header").prepend(image);
     }
 
     const englishTitle = config.title
@@ -564,14 +562,9 @@
       .replace(/<br\s*\/?\s*>/gi, "")
       .trim();
 
-
     /*
-     * BUILD CHAPTERS
-     *
-     * Chapter 0 controls the opening camera
-     * and has no visible story box.
+     * BUILD CHAPTERS FROM CONFIG.JS
      */
-
     const chaptersContainer =
       document.getElementById("chapters");
 
@@ -579,15 +572,14 @@
 
     config.chapters.forEach((chapter) => {
 
+      // Chapter 0 is only the opening camera.
       if (chapter.id === "chapter-0") {
         return;
       }
 
       const section = document.createElement("section");
-
       section.className =
         `step ${chapter.alignment || "left"}`;
-
       section.dataset.id = chapter.id;
       section.id = chapter.id;
 
@@ -600,22 +592,18 @@
       card.append(heading, paragraph);
 
       /*
-       * PRESERVE EXISTING YOUTUBE VIDEOS
+       * EXISTING ORAL HISTORY VIDEOS
        */
-
       if (chapter.videoId) {
-
         const video = document.createElement("div");
         video.className = "oral-history-video";
 
         const iframe = document.createElement("iframe");
-
         iframe.src =
           `https://www.youtube-nocookie.com/embed/${encodeURIComponent(chapter.videoId)}?cc_load_policy=1`;
 
         iframe.title = "Oral history video";
         iframe.loading = "lazy";
-
         iframe.referrerPolicy =
           "strict-origin-when-cross-origin";
 
@@ -637,15 +625,102 @@
         paragraph
       });
 
+      /*
+       * MARIA MPINIARI'S MAP
+       * Insert immediately after Schools.
+       */
+      if (chapter.id === "chapter-3-Schools") {
+
+        const feature = document.createElement("section");
+
+        feature.className = "memory-map-feature";
+        feature.id = "maria-school-map";
+
+        feature.innerHTML = `
+          <h2 data-map-i18n="title">
+            Mapping a Journey to Education
+          </h2>
+
+          <p class="map-credit" data-map-i18n="credit">
+            Hand-drawn by Maria Mpiniari
+          </p>
+
+          <button
+            type="button"
+            class="map-open"
+            aria-label="Enlarge Maria Mpiniari's hand-drawn map"
+          >
+            <img
+              src="./assets/maria-mpiniari-school-map.png"
+              alt="Maria Mpiniari's hand-drawn map of village schools, churches and routes across Mt. Arachnaio"
+              loading="lazy"
+            >
+          </button>
+
+          <p class="map-caption" data-map-i18n="caption">
+            Maria Mpiniari drew the schools, churches, and routes
+            linking the mountain villages. She walked from Dousia
+            to Bardi for elementary school. As the only girl in
+            her village to continue beyond primary school, she
+            then took a bus to Manesis for middle school and
+            another bus into the valley to Merbaka for high school.
+          </p>
+
+          <p class="map-hint" data-map-i18n="hint">
+            Click or tap the map to enlarge
+          </p>
+        `;
+
+        chaptersContainer.appendChild(feature);
+      }
+
     });
 
+    /*
+     * ENLARGED MAP VIEW
+     */
+    const mapDialog = document.createElement("dialog");
+    mapDialog.className = "memory-map-dialog";
+
+    mapDialog.innerHTML = `
+      <button
+        type="button"
+        class="close-map"
+        aria-label="Close enlarged map"
+      >Close ×</button>
+
+      <img
+        src="./assets/maria-mpiniari-school-map.png"
+        alt="Enlarged hand-drawn school and church map by Maria Mpiniari"
+      >
+    `;
+
+    document.body.appendChild(mapDialog);
+
+    const mapOpenButton =
+      document.querySelector(".memory-map-feature .map-open");
+
+    if (mapOpenButton) {
+      mapOpenButton.addEventListener("click", () => {
+        mapDialog.showModal();
+      });
+    }
+
+    mapDialog.querySelector(".close-map")
+      .addEventListener("click", () => {
+        mapDialog.close();
+      });
+
+    mapDialog.addEventListener("click", (event) => {
+      if (event.target === mapDialog) {
+        mapDialog.close();
+      }
+    });
 
     /*
-     * NAVIGATION LABELS
+     * BILINGUAL NAVIGATION
      */
-
     const navLabels = {
-
       en: {
         chapter1: "Chapter 1: What are the Arvanitochoria?",
         chapter2: "Chapter 2: A Brief History of Mt. Arachnaio",
@@ -654,7 +729,6 @@
         archive: "Video Archive",
         menu: "Menu ☰"
       },
-
       el: {
         chapter1: "Κεφάλαιο 1: Τι είναι τα Αρβανιτοχώρια;",
         chapter2: "Κεφάλαιο 2: Μια Σύντομη Ιστορία του Όρους Αραχναίου",
@@ -663,22 +737,66 @@
         archive: "Αρχείο Βίντεο",
         menu: "Μενού ☰"
       }
-
     };
 
+    /*
+     * MARIA'S MAP TRANSLATIONS
+     */
+    const mapTranslations = {
+      en: {
+        title: "Mapping a Journey to Education",
+        credit: "Hand-drawn by Maria Mpiniari",
+        caption:
+          "Maria Mpiniari drew the schools, churches, and routes linking the mountain villages. She walked from Dousia to Bardi for elementary school. As the only girl in her village to continue beyond primary school, she then took a bus to Manesis for middle school and another bus into the valley to Merbaka for high school.",
+        hint: "Click or tap the map to enlarge",
+        close: "Close ×",
+        open: "Enlarge Maria Mpiniari's hand-drawn map"
+      },
+      el: {
+        title: "Χαρτογραφώντας τη Διαδρομή προς την Εκπαίδευση",
+        credit: "Χειρόγραφος χάρτης της Μαρίας Μπινιάρη",
+        caption:
+          "Η Μαρία Μπινιάρη αποτύπωσε τα σχολεία, τις εκκλησίες και τις διαδρομές που συνέδεαν τα χωριά του βουνού. Πήγαινε με τα πόδια από τη Ντούσια στο Μπάρδι για το δημοτικό. Ως το μοναδικό κορίτσι του χωριού της που συνέχισε μετά το δημοτικό, έπαιρνε το λεωφορείο για το γυμνάσιο στο Μάνεση και στη συνέχεια άλλο λεωφορείο για το λύκειο στη Μέρμπακα, στην κοιλάδα.",
+        hint: "Πατήστε στον χάρτη για μεγέθυνση",
+        close: "Κλείσιμο ×",
+        open: "Μεγέθυνση του χάρτη της Μαρίας Μπινιάρη"
+      }
+    };
+
+    /*
+     * SCROLLAMA
+     */
+    const scroller = scrollama();
+
+    function moveMapToChapter(chapter) {
+      if (!chapter?.location) {
+        return;
+      }
+
+      map.flyTo({
+        ...getResponsiveLocation(chapter.location),
+        duration: 1800,
+        essential: true
+      });
+    }
+
+    scroller
+      .setup({
+        step: ".step",
+        offset: 0.5
+      })
+      .onStepEnter((response) => {
+        const chapter = config.chapters.find(
+          item => item.id === response.element.dataset.id
+        );
+
+        moveMapToChapter(chapter);
+      });
 
     /*
      * LANGUAGE SWITCH
-     *
-     * English is stored in config.chapters.
-     * Greek translations are stored in
-     * config.translations.el.
-     *
-     * Missing Greek text falls back to English.
      */
-
     function setLanguage(lang) {
-
       const greek = lang === "el"
         ? (config.translations?.el || {})
         : {};
@@ -686,10 +804,6 @@
       const site = greek.site || {};
 
       document.documentElement.lang = lang;
-
-      /*
-       * TRANSLATE HEADER
-       */
 
       document.getElementById("title").textContent =
         lang === "el"
@@ -706,15 +820,11 @@
           ? (site.byline || config.byline)
           : config.byline;
 
-
       /*
-       * TRANSLATE CHAPTERS
+       * CHAPTER TRANSLATIONS
        */
-
       config.chapters.forEach((chapter) => {
-
-        const elements =
-          chapterElements.get(chapter.id);
+        const elements = chapterElements.get(chapter.id);
 
         if (!elements) {
           return;
@@ -729,44 +839,46 @@
 
         elements.paragraph.textContent =
           translation.description || chapter.description || "";
-
       });
 
-
       /*
-       * TRANSLATE NAVIGATION
+       * MARIA'S MAP TRANSLATIONS
        */
-
-      document.querySelectorAll("[data-nav]")
-        .forEach((link) => {
-
-          link.textContent =
-            navLabels[lang][link.dataset.nav];
-
+      document.querySelectorAll("[data-map-i18n]")
+        .forEach((element) => {
+          const key = element.dataset.mapI18n;
+          element.textContent = mapTranslations[lang][key];
         });
 
-      document.getElementById("menu-toggle")
-        .textContent = navLabels[lang].menu;
+      mapDialog.querySelector(".close-map").textContent =
+        mapTranslations[lang].close;
 
+      if (mapOpenButton) {
+        mapOpenButton.setAttribute(
+          "aria-label",
+          mapTranslations[lang].open
+        );
+      }
 
       /*
-       * UPDATE LANGUAGE BUTTONS
+       * NAVIGATION TRANSLATIONS
        */
+      document.querySelectorAll("[data-nav]")
+        .forEach((link) => {
+          link.textContent =
+            navLabels[lang][link.dataset.nav];
+        });
+
+      document.getElementById("menu-toggle").textContent =
+        navLabels[lang].menu;
 
       document.querySelectorAll(".language-button")
         .forEach((button) => {
-
           button.setAttribute(
             "aria-pressed",
             String(button.dataset.lang === lang)
           );
-
         });
-
-
-      /*
-       * REMEMBER LANGUAGE
-       */
 
       try {
         localStorage.setItem(
@@ -775,80 +887,27 @@
         );
       } catch (_) {}
 
-
-      /*
-       * RECALCULATE CHAPTER POSITIONS
-       */
-
       requestAnimationFrame(() => {
         scroller.resize();
       });
-
     }
-
-
-    /*
-     * SCROLLAMA
-     */
-
-    const scroller = scrollama();
-
-    function moveMapToChapter(chapter) {
-
-      if (!chapter?.location) {
-        return;
-      }
-
-      map.flyTo({
-        ...getResponsiveLocation(chapter.location),
-        duration: 1800,
-        essential: true
-      });
-
-    }
-
-    scroller
-      .setup({
-        step: ".step",
-        offset: 0.5
-      })
-      .onStepEnter((response) => {
-
-        const chapter = config.chapters.find(
-          item => item.id === response.element.dataset.id
-        );
-
-        moveMapToChapter(chapter);
-
-      });
-
 
     /*
      * CHAPTER NAVIGATION
-     *
-     * Four main sections plus Video Archive.
+     * Only anchor links within the map use camera movement.
+     * Video Archive remains a normal page link.
      */
-
     document.querySelectorAll('.nav-link[href^="#"]')
       .forEach((link) => {
-
         link.addEventListener("click", (event) => {
-
           event.preventDefault();
 
-          const id =
-            link.getAttribute("href").slice(1);
-
-          const target =
-            document.getElementById(id);
+          const id = link.getAttribute("href").slice(1);
+          const target = document.getElementById(id);
 
           if (!target) {
             return;
           }
-
-          /*
-           * CLOSE MOBILE MENU
-           */
 
           document.getElementById("nav-links")
             .classList.remove("open");
@@ -856,54 +915,28 @@
           document.getElementById("menu-toggle")
             .setAttribute("aria-expanded", "false");
 
-
-          /*
-           * SCROLL TO CHAPTER
-           */
-
           target.scrollIntoView({
             behavior: "smooth",
             block: "start"
           });
 
-
-          /*
-           * MOVE MAP CAMERA
-           */
-
           moveMapToChapter(
-            config.chapters.find(
-              chapter => chapter.id === id
-            )
+            config.chapters.find(chapter => chapter.id === id)
           );
 
-
-          /*
-           * UPDATE URL ANCHOR
-           */
-
           if (history.replaceState) {
-            history.replaceState(
-              null,
-              "",
-              `#${id}`
-            );
+            history.replaceState(null, "", `#${id}`);
           }
-
         });
-
       });
-
 
     /*
      * MOBILE MENU
      */
-
     const menuToggle =
       document.getElementById("menu-toggle");
 
     menuToggle.addEventListener("click", () => {
-
       const open =
         document.getElementById("nav-links")
           .classList.toggle("open");
@@ -912,60 +945,42 @@
         "aria-expanded",
         String(open)
       );
-
     });
-
 
     /*
      * LANGUAGE BUTTONS
      */
-
     document.querySelectorAll(".language-button")
       .forEach((button) => {
-
         button.addEventListener("click", () => {
           setLanguage(button.dataset.lang);
         });
-
       });
-
 
     /*
      * INITIAL LANGUAGE
-     *
-     * DEFAULT: ENGLISH
      */
-
     let initialLanguage = "en";
 
     try {
-
       if (
-        localStorage.getItem(
-          "arvanitochoria-language"
-        ) === "el"
+        localStorage.getItem("arvanitochoria-language") === "el"
       ) {
         initialLanguage = "el";
       }
-
     } catch (_) {}
 
     setLanguage(initialLanguage);
 
-
     /*
      * RESIZE
      */
-
     window.addEventListener("resize", () => {
-
       map.resize();
       scroller.resize();
-
     });
 
   </script>
 
 </body>
 </html>
-
