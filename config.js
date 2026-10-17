@@ -82,6 +82,7 @@ var config = {
 
         {
             id: 'history-intro',
+            videoId: "vyt6NhjoTzY",
             alignment: 'left',
             title: 'A Brief History of Mt. Arachnaio',
             description: 'Mt. Arachnaio has a rich history that stretches back to ancient times. These 1945 aerial photographs taken by the Greek military showcase the rural landscape of the mountain’s villages, as well as the networks of pastoral pathways that wove across the land prior to the building of paved roads in the late 1970s.',
@@ -121,7 +122,6 @@ var config = {
 
         {
             id: 'rural-intro',
-            videoId: "vyt6NhjoTzY",
             alignment: 'left',
             title: 'Life on the Mountain',
             description: 'Life on Mt. Arachnaio is defined by rugged landscape and seasonal rhythms. Before modern infrastructure reshaped everyday routines, survival required physical endurance and deep community reliance. These living memories are still shared by village elders.',
