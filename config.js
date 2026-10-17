@@ -58,6 +58,7 @@ var config = {
             id: 'chapter-1-villages',
             alignment: 'left',
             title: 'The Eight Arvanitochoria of Mt. Arachnaio',
+            videoId: '9eZdczb-0s4',
             description: 'Situated along the highest peak of the Argolis region of the Peloponnese, eight Arvanitochoria have existed on Mt. Arachnaio for over six centuries. Although 20th-century state campaigns officially renamed them, residents still overwhelmingly use their traditional Arvanite toponyms: Aggelokastro, Berbati, Bardi, Dousia, Limnes, Gerbesi, Manesi, and Xeli.',
             location: {
                 center: [22.88, 37.67],
