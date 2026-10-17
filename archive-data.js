@@ -41,34 +41,61 @@ window.archiveClips = [
 
         type: 'clip'
     },
-    
-{
-    id: 'limnes-arvanitochoria-identity',
 
-    youtubeId: 'ew1XbJb6TAk',
+    {
+        id: 'limnes-arvanitochoria-identity',
 
-    title: {
-        en: 'Arvanitochoria: Arvanite Identity',
-        el: ''
+        youtubeId: 'ew1XbJb6TAk',
+
+        title: {
+            en: 'Arvanitochoria: Arvanite Identity',
+            el: ''
+        },
+
+        description: {
+            en: 'A conversation with Limnes residents, exploring Arvanite identity and what it means to belong to the Arvanitochoria.',
+            el: ''
+        },
+
+        village: 'Limnes',
+
+        categories: ['language', 'community'],
+
+        tags: [
+            'Identity',
+            'Community/Family Connections',
+            'Language'
+        ],
+
+        type: 'clip'
     },
 
-    description: {
-        en: 'A conversation with Limnes residents, exploring Arvanite identity and what it means to belong to the Arvanitochoria.',
-        el: ''
-    },
+    {
+        id: 'xeli-land-boundaries',
 
-    village: 'Limnes',
+        youtubeId: 'vyt6NhjoTzY',
 
-    categories: ['language', 'community'],
+        title: {
+            en: 'Establishing Land Boundaries in Xeli',
+            el: ''
+        },
 
-    tags: [
-        'Identity',
-        'Community/Family Connections',
-        'Language'
-    ],
+        description: {
+            en: 'Zafirios Georgios describes how land boundaries were established in Xeli. Initially, villagers’ grandfathers marked property boundaries using stones. Later, the military and the municipality installed official boundary markers, reflecting a transition from locally established boundaries to formal land demarcation.',
+            el: ''
+        },
 
-    type: 'clip'
-}
+        village: 'Xeli',
 
+        categories: ['land'],
+
+        tags: [
+            'Land Boundaries',
+            'Land Ownership',
+            'Rural Life'
+        ],
+
+        type: 'clip'
+    }
 
 ];
