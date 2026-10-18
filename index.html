@@ -299,6 +299,13 @@
       text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
     }
 
+    .landscape-photo-feature .photo-credit {
+      display: block;
+      margin-top: 6px;
+      font-size: 0.88em;
+      font-style: normal;
+    }
+
     /* MARIA MPINIARI'S FULL-SCREEN MAP */
 
     .memory-map-feature {
@@ -796,8 +803,13 @@ Her drawing reveals more than the locations of educational institutions. It offe
               loading="lazy"
             >
 
-            <figcaption data-photo-i18n="xeli-caption">
-              Looking down from Xeli toward the valley, with mountain slopes descending into agricultural lands. <br>Photograph by Christina Maria Carasis.
+            <figcaption>
+              <span data-photo-i18n="description">
+                Looking down from Xeli toward the valley, with mountain slopes descending into agricultural lands.
+              </span>
+              <span class="photo-credit" data-photo-i18n="credit">
+                Photograph by Christina Maria Carasis.
+              </span>
             </figcaption>
           </figure>
         `;
@@ -939,18 +951,22 @@ Her drawing reveals more than the locations of educational institutions. It offe
     };
 
     /*
-     * XELI PHOTO CAPTION TRANSLATIONS
+     * XELI PHOTO TRANSLATIONS
      */
 
     const photoTranslations = {
       en: {
-        xeliCaption:
-          "Looking down from Xeli toward the valley, with mountain slopes descending into agricultural lands. <br>Photograph by Christina Maria Carasis."
+        description:
+          "Looking down from Xeli toward the valley, with mountain slopes descending into agricultural lands.",
+        credit:
+          "Photograph by Christina Maria Carasis."
       },
 
       el: {
-        xeliCaption:
-          "Θέα από το Χέλι προς την κοιλάδα, με τις πλαγιές του βουνού να κατηφορίζουν προς τις καλλιεργήσιμες εκτάσεις. <br>Φωτογραφία: Christina Maria Carasis."
+        description:
+          "Θέα από το Χέλι προς την κοιλάδα, με τις πλαγιές του βουνού να κατηφορίζουν προς τις καλλιεργήσιμες εκτάσεις.",
+        credit:
+          "Φωτογραφία: Christina Maria Carasis."
       }
     };
 
@@ -1066,17 +1082,15 @@ Her drawing reveals more than the locations of educational institutions. It offe
       }
 
       /*
-       * TRANSLATE XELI PHOTO CAPTION
+       * TRANSLATE XELI PHOTO
+       * Separate elements ensure a real line break.
        */
 
-      const xeliCaption = document.querySelector(
-        '[data-photo-i18n="xeli-caption"]'
-      );
-
-      if (xeliCaption) {
-        xeliCaption.textContent =
-          photoTranslations[lang].xeliCaption;
-      }
+      document.querySelectorAll("[data-photo-i18n]")
+        .forEach((element) => {
+          const key = element.dataset.photoI18n;
+          element.textContent = photoTranslations[lang][key];
+        });
 
       /*
        * TRANSLATE NAVIGATION
