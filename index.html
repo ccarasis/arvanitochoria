@@ -238,46 +238,65 @@
       border: 0;
     }
 
-    /* XELI LANDSCAPE PHOTO BREAK */
+    /* FULL-SCREEN XELI LANDSCAPE PHOTO */
 
     .landscape-photo-feature {
       position: relative;
       z-index: 4;
-      min-height: 100vh;
-      min-height: 100dvh;
-      padding: 75px 0 35px;
-      background: #241810;
-      color: #f7eee5;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      scroll-margin-top: 54px;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #000;
+      scroll-margin-top: 0;
     }
 
     .landscape-photo-feature figure {
-      margin: 0;
+      position: relative;
       width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
     }
 
     .landscape-photo-feature img {
       display: block;
       width: 100%;
-      height: min(76vh, 850px);
-      height: min(76dvh, 850px);
+      height: 100%;
       object-fit: cover;
       object-position: center;
     }
 
+    .landscape-photo-feature figure::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(0, 0, 0, 0.12) 68%,
+        rgba(0, 0, 0, 0.72) 100%
+      );
+      pointer-events: none;
+    }
+
     .landscape-photo-feature figcaption {
-      max-width: 1050px;
-      margin: 0 auto;
-      padding: 24px 25px 10px;
+      position: absolute;
+      z-index: 2;
+      bottom: 7%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1100px, 90%);
+      margin: 0;
+      color: #fff;
       font-family: Georgia, "Times New Roman", serif;
-      font-size: 17px;
+      font-size: clamp(16px, 1.6vw, 22px);
       font-style: italic;
       line-height: 1.6;
       text-align: center;
-      color: #e6d0b5;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
     }
 
     /* MARIA MPINIARI'S FULL-SCREEN MAP */
@@ -482,13 +501,11 @@
         line-height: 1.6;
       }
 
-      .landscape-photo-feature img {
-        height: 55dvh;
-      }
-
       .landscape-photo-feature figcaption {
-        font-size: 15px;
-        padding: 20px 20px 5px;
+        bottom: 9%;
+        width: 88%;
+        font-size: 16px;
+        line-height: 1.5;
       }
 
       .memory-map-feature {
@@ -774,7 +791,7 @@ Her drawing reveals more than the locations of educational institutions. It offe
         photoFeature.innerHTML = `
           <figure>
             <img
-              src="./assets/Xeli_landscape.jpeg"
+              src="./assets/IMG_2357.jpeg"
               alt="View from Xeli across mountain slopes, agricultural land, and the valley below"
               loading="lazy"
             >
