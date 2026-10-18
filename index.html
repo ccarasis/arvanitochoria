@@ -33,7 +33,7 @@ body {
   background: transparent;
 }
 
-/* MAPBOX ALWAYS REMAINS VISIBLE UNDERNEATH */
+/* MAPBOX REMAINS VISIBLE BEHIND THE PAGE */
 
 #map {
   position: fixed;
@@ -134,7 +134,7 @@ body.viewing-static-map #top-nav {
   display: none;
 }
 
-/* HEADER PHOTO */
+/* HEADER */
 
 #header {
   position: relative;
@@ -222,7 +222,7 @@ body.viewing-static-map #top-nav {
   font: 15px/1.5 Arial,sans-serif;
 }
 
-/* CHAPTERS — 70% WARM BROWN */
+/* CHAPTERS */
 
 .step {
   position: relative;
@@ -282,15 +282,12 @@ body.viewing-static-map #top-nav {
 }
 
 /*
-  CUTAWAY MAPS
+  STATIC MAPS
 
-  Apply the fade to the ENTIRE white section,
-  including the image and caption.
+  The image and caption stay fully opaque.
 
-  This prevents the white background from leaving
-  a hard horizontal line over Mapbox.
-
-  The fade occupies only the first and last 10%.
+  A separate transition strip below the caption
+  creates the fade without affecting any text.
 */
 
 .geography-map-feature,
@@ -303,26 +300,12 @@ body.viewing-static-map #top-nav {
   min-height: 0;
   margin: 0;
   padding: 0;
-  background: #fff;
+  background: transparent;
   color: #302820;
   text-align: center;
-
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    #000 10%,
-    #000 90%,
-    transparent 100%
-  );
-
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    #000 10%,
-    #000 90%,
-    transparent 100%
-  );
 }
+
+/* Fade in only the top edge of the map image */
 
 .geography-map-feature figure,
 .memory-map-feature figure {
@@ -331,7 +314,7 @@ body.viewing-static-map #top-nav {
   height: auto;
   margin: 0;
   padding: 0;
-  background: #fff;
+  background: transparent;
 }
 
 .geography-image-link,
@@ -347,9 +330,39 @@ body.viewing-static-map #top-nav {
   cursor: zoom-in;
 }
 
+.geography-image-link {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 10%,
+    #000 100%
+  );
+
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 10%,
+    #000 100%
+  );
+}
+
 .memory-map-feature .map-open {
   appearance: none;
   -webkit-appearance: none;
+
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 10%,
+    #000 100%
+  );
+
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 10%,
+    #000 100%
+  );
 }
 
 .geography-image,
@@ -366,7 +379,7 @@ body.viewing-static-map #top-nav {
   background: #fff;
 }
 
-/* ARCGIS CAPTION */
+/* ARCGIS CAPTION — FULLY READABLE */
 
 .geography-map-feature figcaption {
   display: block;
@@ -392,7 +405,7 @@ body.viewing-static-map #top-nav {
   font: 11px/1.45 Arial,sans-serif;
 }
 
-/* MARIA'S MAP CAPTION */
+/* MARIA'S MAP CAPTION — FULLY READABLE */
 
 .memory-map-feature figcaption {
   display: block;
@@ -431,7 +444,30 @@ body.viewing-static-map #top-nav {
   font: italic 11px/1.4 Georgia,serif;
 }
 
-/* XELI PHOTO — MATCHING 10% FADE */
+/*
+  FADE OUT AFTER THE CAPTION
+
+  This is a small decorative strip, not part of
+  the caption. It cannot obscure the text.
+*/
+
+.cutaway-fade-out {
+  display: block;
+  width: 100%;
+  height: clamp(45px,7vw,100px);
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,1) 0%,
+    rgba(255,255,255,.9) 15%,
+    rgba(255,255,255,.55) 55%,
+    rgba(255,255,255,0) 100%
+  );
+}
+
+/* XELI PHOTO — ORIGINAL GENTLE FADE */
 
 .landscape-photo-feature {
   position: relative;
@@ -961,6 +997,7 @@ config.chapters.forEach(chapter => {
           <span class="geography-caption" data-geography-i18n="caption"></span>
         </figcaption>
       </figure>
+      <div class="cutaway-fade-out" aria-hidden="true"></div>
     `;
 
     chaptersContainer.appendChild(feature);
@@ -1013,6 +1050,7 @@ config.chapters.forEach(chapter => {
           <p class="map-hint" data-map-i18n="hint"></p>
         </figcaption>
       </figure>
+      <div class="cutaway-fade-out" aria-hidden="true"></div>
     `;
 
     chaptersContainer.appendChild(feature);
