@@ -238,6 +238,48 @@
       border: 0;
     }
 
+    /* XELI LANDSCAPE PHOTO BREAK */
+
+    .landscape-photo-feature {
+      position: relative;
+      z-index: 4;
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding: 75px 0 35px;
+      background: #241810;
+      color: #f7eee5;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      scroll-margin-top: 54px;
+    }
+
+    .landscape-photo-feature figure {
+      margin: 0;
+      width: 100%;
+    }
+
+    .landscape-photo-feature img {
+      display: block;
+      width: 100%;
+      height: min(76vh, 850px);
+      height: min(76dvh, 850px);
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .landscape-photo-feature figcaption {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 24px 25px 10px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 17px;
+      font-style: italic;
+      line-height: 1.6;
+      text-align: center;
+      color: #e6d0b5;
+    }
+
     /* MARIA MPINIARI'S FULL-SCREEN MAP */
 
     .memory-map-feature {
@@ -355,7 +397,6 @@
     /* TABLET AND MOBILE NAVIGATION */
 
     @media (max-width: 1100px) {
-
       #top-nav {
         justify-content: space-between;
         gap: 8px;
@@ -396,7 +437,6 @@
     /* PHONE LAYOUT */
 
     @media (max-width: 700px) {
-
       #header {
         height: 380px;
       }
@@ -440,6 +480,15 @@
       .step-content p {
         font-size: 17px;
         line-height: 1.6;
+      }
+
+      .landscape-photo-feature img {
+        height: 55dvh;
+      }
+
+      .landscape-photo-feature figcaption {
+        font-size: 15px;
+        padding: 20px 20px 5px;
       }
 
       .memory-map-feature {
@@ -711,6 +760,35 @@ Her drawing reveals more than the locations of educational institutions. It offe
       });
 
       /*
+       * XELI LANDSCAPE PHOTO BREAK
+       * Immediately after the history chapter and video.
+       */
+
+      if (chapter.id === "history-intro") {
+
+        const photoFeature = document.createElement("section");
+
+        photoFeature.className = "landscape-photo-feature";
+        photoFeature.id = "xeli-landscape-photo";
+
+        photoFeature.innerHTML = `
+          <figure>
+            <img
+              src="./assets/Xeli_landscape.jpeg"
+              alt="View from Xeli across mountain slopes, agricultural land, and the valley below"
+              loading="lazy"
+            >
+
+            <figcaption data-photo-i18n="xeli-caption">
+              Looking down from Xeli toward the valley, with mountain slopes descending into agricultural lands. Photograph by Christina Maria Carasis.
+            </figcaption>
+          </figure>
+        `;
+
+        chaptersContainer.appendChild(photoFeature);
+      }
+
+      /*
        * INSERT MARIA'S MAP AFTER SCHOOLS
        */
 
@@ -844,6 +922,22 @@ Her drawing reveals more than the locations of educational institutions. It offe
     };
 
     /*
+     * XELI PHOTO CAPTION TRANSLATIONS
+     */
+
+    const photoTranslations = {
+      en: {
+        xeliCaption:
+          "Looking down from Xeli toward the valley, with mountain slopes descending into agricultural lands. Photograph by Christina Maria Carasis."
+      },
+
+      el: {
+        xeliCaption:
+          "Θέα από το Χέλι προς την κοιλάδα, με τις πλαγιές του βουνού να κατηφορίζουν προς τις καλλιεργήσιμες εκτάσεις. Φωτογραφία: Christina Maria Carasis."
+      }
+    };
+
+    /*
      * SCROLLAMA
      */
 
@@ -952,6 +1046,19 @@ Her drawing reveals more than the locations of educational institutions. It offe
           "aria-label",
           mapTranslations[lang].open
         );
+      }
+
+      /*
+       * TRANSLATE XELI PHOTO CAPTION
+       */
+
+      const xeliCaption = document.querySelector(
+        '[data-photo-i18n="xeli-caption"]'
+      );
+
+      if (xeliCaption) {
+        xeliCaption.textContent =
+          photoTranslations[lang].xeliCaption;
       }
 
       /*
