@@ -45,7 +45,11 @@ html, body {
   z-index: 2;
 }
 
-/* NAVIGATION */
+#chapters {
+  background: transparent;
+}
+
+/* NAVIGATION — 85% OPAQUE */
 
 #top-nav {
   position: fixed;
@@ -123,7 +127,7 @@ body.viewing-static-map #top-nav {
   display: none;
 }
 
-/* HEADER — PHOTO FADES INTO MAPBOX */
+/* HEADER — 40% WARM OVERLAY, BOTTOM 30% FADE */
 
 #header {
   position: relative;
@@ -161,8 +165,6 @@ body.viewing-static-map #top-nav {
     transparent 100%
   );
 }
-
-/* 40% BROWN OVERLAY, FADING WITH PHOTO */
 
 #header::after {
   content: "";
@@ -213,14 +215,17 @@ body.viewing-static-map #top-nav {
   font: 15px/1.5 Arial,sans-serif;
 }
 
-/* CHAPTERS — 70% BROWN */
+/* CHAPTERS — 70% WARM BROWN */
 
 .step {
+  position: relative;
+  z-index: 2;
   min-height: 100vh;
   display: flex;
   align-items: center;
   padding: 80px 5vw;
   scroll-margin-top: 54px;
+  background: transparent;
 }
 
 .step.left {
@@ -269,14 +274,15 @@ body.viewing-static-map #top-nav {
   border: 0;
 }
 
-/* FULL-WIDTH STATIC MAPS */
+/* STATIC MAPS — WHITE ONLY BEHIND MAP AND CAPTION */
 
 .geography-map-feature,
 .memory-map-feature {
   position: relative;
   z-index: 5;
-  display: block;
+  display: flow-root;
   width: 100%;
+  height: auto;
   min-height: 0;
   margin: 0;
   padding: 0;
@@ -289,6 +295,8 @@ body.viewing-static-map #top-nav {
 .memory-map-feature figure {
   display: block;
   width: 100%;
+  height: auto;
+  min-height: 0;
   margin: 0;
   padding: 0;
   background: #fff;
@@ -326,13 +334,13 @@ body.viewing-static-map #top-nav {
   background: #fff;
 }
 
-/* ARCGIS CAPTION */
+/* ARCGIS CAPTION — COMPACT */
 
 .geography-map-feature figcaption {
   display: block;
   width: 100%;
   margin: 0;
-  padding: 10px 5vw 16px;
+  padding: 8px 5vw 10px;
   background: #fff;
   color: #625b54;
   text-align: center;
@@ -341,7 +349,7 @@ body.viewing-static-map #top-nav {
 .geography-title {
   display: block;
   max-width: 1000px;
-  margin: 0 auto 4px;
+  margin: 0 auto 3px;
   font-family: Georgia, serif;
   font-size: 13px;
   line-height: 1.4;
@@ -352,10 +360,10 @@ body.viewing-static-map #top-nav {
   display: block;
   max-width: 1000px;
   margin: 0 auto;
-  font: 11px/1.5 Arial,sans-serif;
+  font: 11px/1.45 Arial,sans-serif;
 }
 
-/* MARIA MAP — SHORTER WHITE CAPTION AREA */
+/* MARIA'S MAP CAPTION — COMPACT */
 
 .memory-map-feature figcaption {
   display: block;
@@ -401,7 +409,7 @@ body.viewing-static-map #top-nav {
   color: #77716a;
 }
 
-/* XELI PHOTO */
+/* XELI PHOTO — SUBTLE TOP AND BOTTOM 10% FADE */
 
 .landscape-photo-feature {
   position: relative;
@@ -412,7 +420,7 @@ body.viewing-static-map #top-nav {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background: #000;
+  background: transparent;
 }
 
 .landscape-photo-feature figure {
@@ -429,6 +437,22 @@ body.viewing-static-map #top-nav {
   height: 100%;
   object-fit: cover;
   object-position: center;
+
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 10%,
+    #000 90%,
+    transparent 100%
+  );
+
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 10%,
+    #000 90%,
+    transparent 100%
+  );
 }
 
 .landscape-photo-feature figure::after {
@@ -441,6 +465,22 @@ body.viewing-static-map #top-nav {
     transparent 60%,
     rgba(0,0,0,.2) 75%,
     rgba(0,0,0,.85)
+  );
+
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 10%,
+    #000 90%,
+    transparent 100%
+  );
+
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 10%,
+    #000 90%,
+    transparent 100%
   );
 }
 
@@ -606,7 +646,7 @@ body.viewing-static-map #top-nav {
   }
 
   .geography-map-feature figcaption {
-    padding: 8px 14px 14px;
+    padding: 8px 14px 10px;
   }
 
   .geography-title {
@@ -962,7 +1002,7 @@ config.chapters.forEach(chapter => {
   }
 });
 
-/* MAPBOX FADES OUT AND BACK IN */
+/* MAPBOX FADES — NO WHITE GAP AFTER CAPTIONS */
 
 const staticMapSections = [
   document.getElementById("arvanite-geography-map"),
@@ -981,25 +1021,31 @@ function updateMapboxFade() {
   fadeUpdatePending = false;
 
   const viewportHeight = window.innerHeight;
-
   let strongestPresence = 0;
 
   staticMapSections.forEach(section => {
     const rect = section.getBoundingClientRect();
 
-    /* SHORTER FADE AFTER MARIA'S MAP */
-    const fadeDistance = section.id === "maria-school-map"
-      ? viewportHeight * 0.30
-      : viewportHeight * 0.65;
+    /* FADE OUT AS THE STATIC MAP ENTERS */
+    const fadeInDistance = viewportHeight * 0.45;
 
     const entering = clamp(
-      (viewportHeight - rect.top) / fadeDistance,
+      (viewportHeight - rect.top) / fadeInDistance,
       0,
       1
     );
 
+    /*
+      RETURN MAPBOX AS THE CAPTION REACHES
+      THE BOTTOM OF THE SCREEN.
+      DO NOT WAIT FOR AN EXTRA WHITE AREA.
+    */
+    const caption = section.querySelector("figcaption");
+    const captionRect = caption.getBoundingClientRect();
+
     const leaving = clamp(
-      rect.bottom / fadeDistance,
+      (captionRect.bottom - viewportHeight * 0.10) /
+      (viewportHeight * 0.30),
       0,
       1
     );
