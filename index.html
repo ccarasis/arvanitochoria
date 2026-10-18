@@ -405,6 +405,50 @@ body.viewing-static-map #top-nav {
   font: 11px/1.45 Arial,sans-serif;
 }
 
+/* NEW: ARCGIS LEGEND */
+
+.geography-legend {
+  width: min(620px, 100%);
+  margin: 0 auto 17px;
+  padding: 12px 10px 14px;
+  color: #514b45;
+  text-align: left;
+}
+
+.geography-legend-heading {
+  display: block;
+  margin-bottom: 12px;
+  font: 17px/1.4 Georgia, serif;
+  text-align: center;
+}
+
+.geography-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin: 9px 0;
+  font: 13px/1.45 Arial, sans-serif;
+}
+
+.geography-legend-swatch {
+  flex: 0 0 34px;
+  width: 34px;
+  height: 23px;
+  border: 1px solid rgba(90,75,60,.12);
+}
+
+.geography-legend-swatch.core {
+  background: #ffd49a;
+}
+
+.geography-legend-swatch.fieldwork {
+  background: #e6ac91;
+}
+
+.geography-legend-swatch.blended {
+  background: #d5c4a7;
+}
+
 /* MARIA'S MAP CAPTION — FULLY READABLE */
 
 .memory-map-feature figcaption {
@@ -715,6 +759,19 @@ body.viewing-static-map #top-nav {
     font-size: 10px;
   }
 
+  .geography-legend {
+    padding: 10px 0 12px;
+  }
+
+  .geography-legend-heading {
+    font-size: 15px;
+  }
+
+  .geography-legend-item {
+    font-size: 12px;
+    gap: 10px;
+  }
+
   .memory-map-feature h2 {
     font-size: 14px;
   }
@@ -871,12 +928,20 @@ const geographyTranslations = {
   en: {
     title: "Geographic Distribution of Arvanite Settlement Regions in Southern Greece",
     caption: "Map created by Christina Maria Carasis using ArcGIS, referencing settlement data from Lithoxoou (n.d.) and regional ethnolinguistic boundaries from Philippson (1890) and Tsitsipis (1998).",
-    alt: "Map of Arvanite settlement regions in Southern Greece"
+    alt: "Map of Arvanite settlement regions in Southern Greece",
+    legendHeading: "Ethnolinguistic Presence",
+    core: "Core Arvanite Regions",
+    fieldwork: "Fieldwork Area: Mt. Arachnaio & Argolida/Corinthia",
+    blended: "Blended & Low Population Areas"
   },
   el: {
     title: "Γεωγραφική Κατανομή των Περιοχών Αρβανίτικης Εγκατάστασης στη Νότια Ελλάδα",
     caption: "Χάρτης που δημιουργήθηκε από τη Christina Maria Carasis με τη χρήση του ArcGIS, με βάση δεδομένα οικισμών από τον Lithoxoou (χ.χ.) και περιφερειακά εθνογλωσσικά όρια από τους Philippson (1890) και Tsitsipis (1998).",
-    alt: "Χάρτης περιοχών αρβανίτικης εγκατάστασης στη Νότια Ελλάδα"
+    alt: "Χάρτης περιοχών αρβανίτικης εγκατάστασης στη Νότια Ελλάδα",
+    legendHeading: "Εθνογλωσσική Παρουσία",
+    core: "Κύριες Αρβανίτικες Περιοχές",
+    fieldwork: "Περιοχή Επιτόπιας Έρευνας: Όρος Αραχναίο και Αργολίδα/Κορινθία",
+    blended: "Περιοχές Μικτού και Αραιού Πληθυσμού"
   }
 };
 
@@ -971,6 +1036,8 @@ config.chapters.forEach(chapter => {
     paragraph
   });
 
+  /* ARCGIS MAP AND LEGEND */
+
   if (chapter.id === "chapter-1") {
     const feature = document.createElement("section");
     feature.className = "geography-map-feature";
@@ -993,15 +1060,65 @@ config.chapters.forEach(chapter => {
           >
         </a>
         <figcaption>
-          <strong class="geography-title" data-geography-i18n="title"></strong>
-          <span class="geography-caption" data-geography-i18n="caption"></span>
+
+          <div class="geography-legend"
+               role="group"
+               aria-label="Ethnolinguistic presence legend">
+
+            <strong
+              class="geography-legend-heading"
+              data-geography-i18n="legendHeading"
+            ></strong>
+
+            <div class="geography-legend-item">
+              <span
+                class="geography-legend-swatch core"
+                aria-hidden="true"
+              ></span>
+              <span data-geography-i18n="core"></span>
+            </div>
+
+            <div class="geography-legend-item">
+              <span
+                class="geography-legend-swatch fieldwork"
+                aria-hidden="true"
+              ></span>
+              <span data-geography-i18n="fieldwork"></span>
+            </div>
+
+            <div class="geography-legend-item">
+              <span
+                class="geography-legend-swatch blended"
+                aria-hidden="true"
+              ></span>
+              <span data-geography-i18n="blended"></span>
+            </div>
+
+          </div>
+
+          <strong
+            class="geography-title"
+            data-geography-i18n="title"
+          ></strong>
+
+          <span
+            class="geography-caption"
+            data-geography-i18n="caption"
+          ></span>
+
         </figcaption>
       </figure>
-      <div class="cutaway-fade-out" aria-hidden="true"></div>
+
+      <div
+        class="cutaway-fade-out"
+        aria-hidden="true"
+      ></div>
     `;
 
     chaptersContainer.appendChild(feature);
   }
+
+  /* XELI LANDSCAPE */
 
   if (chapter.id === "history-intro") {
     const feature = document.createElement("section");
@@ -1017,13 +1134,18 @@ config.chapters.forEach(chapter => {
         >
         <figcaption>
           <span data-photo-i18n="description"></span>
-          <span class="photo-credit" data-photo-i18n="credit"></span>
+          <span
+            class="photo-credit"
+            data-photo-i18n="credit"
+          ></span>
         </figcaption>
       </figure>
     `;
 
     chaptersContainer.appendChild(feature);
   }
+
+  /* MARIA MPINIARI'S MAP */
 
   if (chapter.id === "chapter-3-Schools") {
     const feature = document.createElement("section");
@@ -1043,14 +1165,28 @@ config.chapters.forEach(chapter => {
             loading="lazy"
           >
         </button>
+
         <figcaption>
           <h2 data-map-i18n="title"></h2>
-          <p class="map-credit" data-map-i18n="credit"></p>
-          <p class="map-caption" data-map-i18n="caption"></p>
-          <p class="map-hint" data-map-i18n="hint"></p>
+          <p
+            class="map-credit"
+            data-map-i18n="credit"
+          ></p>
+          <p
+            class="map-caption"
+            data-map-i18n="caption"
+          ></p>
+          <p
+            class="map-hint"
+            data-map-i18n="hint"
+          ></p>
         </figcaption>
       </figure>
-      <div class="cutaway-fade-out" aria-hidden="true"></div>
+
+      <div
+        class="cutaway-fade-out"
+        aria-hidden="true"
+      ></div>
     `;
 
     chaptersContainer.appendChild(feature);
@@ -1199,6 +1335,8 @@ function setLanguage(lang) {
       translation.description || chapter.description || "";
   });
 
+  /* ARCGIS MAP AND LEGEND TRANSLATIONS */
+
   document.querySelectorAll("[data-geography-i18n]")
     .forEach(element => {
       element.textContent =
@@ -1212,11 +1350,15 @@ function setLanguage(lang) {
     geographyImage.alt = geographyTranslations[lang].alt;
   }
 
+  /* XELI PHOTO TRANSLATIONS */
+
   document.querySelectorAll("[data-photo-i18n]")
     .forEach(element => {
       element.textContent =
         photoTranslations[lang][element.dataset.photoI18n];
     });
+
+  /* MARIA MAP TRANSLATIONS */
 
   document.querySelectorAll("[data-map-i18n]")
     .forEach(element => {
@@ -1236,6 +1378,8 @@ function setLanguage(lang) {
       mapTranslations[lang].open
     );
   }
+
+  /* NAVIGATION TRANSLATIONS */
 
   document.querySelectorAll("[data-nav]")
     .forEach(link => {
