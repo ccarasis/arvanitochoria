@@ -281,14 +281,7 @@ body.viewing-static-map #top-nav {
   border: 0;
 }
 
-/*
-  STATIC MAPS
-
-  The image and caption stay fully opaque.
-
-  A separate transition strip below the caption
-  creates the fade without affecting any text.
-*/
+/* STATIC MAPS */
 
 .geography-map-feature,
 .memory-map-feature {
@@ -305,8 +298,6 @@ body.viewing-static-map #top-nav {
   text-align: center;
 }
 
-/* Fade in only the top edge of the map image */
-
 .geography-map-feature figure,
 .memory-map-feature figure {
   display: block;
@@ -315,6 +306,15 @@ body.viewing-static-map #top-nav {
   margin: 0;
   padding: 0;
   background: transparent;
+}
+
+/* ARCGIS MAP IMAGE */
+
+.geography-image-container {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .geography-image-link,
@@ -329,6 +329,8 @@ body.viewing-static-map #top-nav {
   line-height: 0;
   cursor: zoom-in;
 }
+
+/* Keep the original fade at the top of the ArcGIS map */
 
 .geography-image-link {
   -webkit-mask-image: linear-gradient(
@@ -379,6 +381,58 @@ body.viewing-static-map #top-nav {
   background: #fff;
 }
 
+/* ARCGIS LEGEND OVERLAY — LOWER LEFT */
+
+.geography-legend {
+  position: absolute;
+  z-index: 6;
+  bottom: clamp(18px, 3vw, 42px);
+  left: clamp(16px, 3vw, 42px);
+  width: min(350px, calc(100% - 32px));
+  padding: 16px 18px;
+  background: rgba(255,255,255,.90);
+  color: #403a34;
+  border: 1px solid rgba(80,65,50,.12);
+  border-radius: 4px;
+  box-shadow: 0 3px 16px rgba(0,0,0,.12);
+  text-align: left;
+  pointer-events: none;
+}
+
+.geography-legend-heading {
+  display: block;
+  margin-bottom: 11px;
+  font: 16px/1.4 Georgia, serif;
+  font-weight: 400;
+}
+
+.geography-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin: 8px 0;
+  font: 12px/1.45 Arial, sans-serif;
+}
+
+.geography-legend-swatch {
+  flex: 0 0 30px;
+  width: 30px;
+  height: 20px;
+  border: 1px solid rgba(90,75,60,.12);
+}
+
+.geography-legend-swatch.core {
+  background: #ffd49a;
+}
+
+.geography-legend-swatch.fieldwork {
+  background: #e6ac91;
+}
+
+.geography-legend-swatch.blended {
+  background: #d5c4a7;
+}
+
 /* ARCGIS CAPTION — FULLY READABLE */
 
 .geography-map-feature figcaption {
@@ -403,50 +457,6 @@ body.viewing-static-map #top-nav {
   max-width: 1000px;
   margin: 0 auto;
   font: 11px/1.45 Arial,sans-serif;
-}
-
-/* NEW: ARCGIS LEGEND */
-
-.geography-legend {
-  width: min(620px, 100%);
-  margin: 0 auto 17px;
-  padding: 12px 10px 14px;
-  color: #514b45;
-  text-align: left;
-}
-
-.geography-legend-heading {
-  display: block;
-  margin-bottom: 12px;
-  font: 17px/1.4 Georgia, serif;
-  text-align: center;
-}
-
-.geography-legend-item {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  margin: 9px 0;
-  font: 13px/1.45 Arial, sans-serif;
-}
-
-.geography-legend-swatch {
-  flex: 0 0 34px;
-  width: 34px;
-  height: 23px;
-  border: 1px solid rgba(90,75,60,.12);
-}
-
-.geography-legend-swatch.core {
-  background: #ffd49a;
-}
-
-.geography-legend-swatch.fieldwork {
-  background: #e6ac91;
-}
-
-.geography-legend-swatch.blended {
-  background: #d5c4a7;
 }
 
 /* MARIA'S MAP CAPTION — FULLY READABLE */
@@ -488,12 +498,7 @@ body.viewing-static-map #top-nav {
   font: italic 11px/1.4 Georgia,serif;
 }
 
-/*
-  FADE OUT AFTER THE CAPTION
-
-  This is a small decorative strip, not part of
-  the caption. It cannot obscure the text.
-*/
+/* FADE OUT AFTER THE CAPTION */
 
 .cutaway-fade-out {
   display: block;
@@ -760,16 +765,28 @@ body.viewing-static-map #top-nav {
   }
 
   .geography-legend {
-    padding: 10px 0 12px;
+    left: 10px;
+    bottom: 10px;
+    width: min(255px, calc(100% - 20px));
+    padding: 9px 11px;
+    background: rgba(255,255,255,.93);
   }
 
   .geography-legend-heading {
-    font-size: 15px;
+    font-size: 12px;
+    margin-bottom: 6px;
   }
 
   .geography-legend-item {
-    font-size: 12px;
-    gap: 10px;
+    font-size: 10px;
+    gap: 7px;
+    margin: 5px 0;
+  }
+
+  .geography-legend-swatch {
+    flex-basis: 21px;
+    width: 21px;
+    height: 15px;
   }
 
   .memory-map-feature h2 {
@@ -1036,7 +1053,7 @@ config.chapters.forEach(chapter => {
     paragraph
   });
 
-  /* ARCGIS MAP AND LEGEND */
+  /* ARCGIS MAP WITH LOWER-LEFT OVERLAY LEGEND */
 
   if (chapter.id === "chapter-1") {
     const feature = document.createElement("section");
@@ -1045,25 +1062,29 @@ config.chapters.forEach(chapter => {
 
     feature.innerHTML = `
       <figure>
-        <a
-          class="geography-image-link"
-          href="./assets/arvanite-geography-map.png"
-          target="_blank"
-          rel="noopener"
-          aria-label="Open full-size Arvanite geography map"
-        >
-          <img
-            class="geography-image"
-            src="./assets/arvanite-geography-map.png"
-            alt="Map of Arvanite settlement regions in Southern Greece"
-            loading="lazy"
-          >
-        </a>
-        <figcaption>
 
-          <div class="geography-legend"
-               role="group"
-               aria-label="Ethnolinguistic presence legend">
+        <div class="geography-image-container">
+
+          <a
+            class="geography-image-link"
+            href="./assets/arvanite-geography-map.png"
+            target="_blank"
+            rel="noopener"
+            aria-label="Open full-size Arvanite geography map"
+          >
+            <img
+              class="geography-image"
+              src="./assets/arvanite-geography-map.png"
+              alt="Map of Arvanite settlement regions in Southern Greece"
+              loading="lazy"
+            >
+          </a>
+
+          <div
+            class="geography-legend"
+            role="group"
+            aria-label="Ethnolinguistic presence legend"
+          >
 
             <strong
               class="geography-legend-heading"
@@ -1096,23 +1117,22 @@ config.chapters.forEach(chapter => {
 
           </div>
 
+        </div>
+
+        <figcaption>
           <strong
             class="geography-title"
             data-geography-i18n="title"
           ></strong>
-
           <span
             class="geography-caption"
             data-geography-i18n="caption"
           ></span>
-
         </figcaption>
+
       </figure>
 
-      <div
-        class="cutaway-fade-out"
-        aria-hidden="true"
-      ></div>
+      <div class="cutaway-fade-out" aria-hidden="true"></div>
     `;
 
     chaptersContainer.appendChild(feature);
@@ -1183,10 +1203,7 @@ config.chapters.forEach(chapter => {
         </figcaption>
       </figure>
 
-      <div
-        class="cutaway-fade-out"
-        aria-hidden="true"
-      ></div>
+      <div class="cutaway-fade-out" aria-hidden="true"></div>
     `;
 
     chaptersContainer.appendChild(feature);
@@ -1348,6 +1365,16 @@ function setLanguage(lang) {
 
   if (geographyImage) {
     geographyImage.alt = geographyTranslations[lang].alt;
+  }
+
+  const geographyLegend =
+    document.querySelector(".geography-legend");
+
+  if (geographyLegend) {
+    geographyLegend.setAttribute(
+      "aria-label",
+      geographyTranslations[lang].legendHeading
+    );
   }
 
   /* XELI PHOTO TRANSLATIONS */
