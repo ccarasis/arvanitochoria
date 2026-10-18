@@ -86,7 +86,7 @@ var config = {
             videoId: "vyt6NhjoTzY",
             alignment: 'left',
             title: 'A Brief History of Mt. Arachnaio',
-            description: 'Mt. Arachnaio has a rich history that stretches back to ancient times. These 1945 aerial photographs taken by the Greek military showcase the rural landscape of the mountain’s villages, as well as the networks of pastoral pathways that wove across the land prior to the building of paved roads in the late 1970s.',
+            description: 'Mt. Arachnaio has a rich history stretching back to antiquity. For generations, the mountain's villages were shaped by networks of pastoral pathways, agricultural lands, and traditional land boundaries that defined how communities lived and worked across the landscape. According to local oral histories, paved roads were not introduced to the area until the late 1970s. These memories offer insight into a landscape once navigated by footpath and longstanding local knowledge of the land.',
             location: {
                 center: [22.947, 37.678],
                 zoom: 16,
