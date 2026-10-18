@@ -12,9 +12,7 @@
 <script src="./config.js"></script>
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 html {
   scroll-padding-top: 70px;
@@ -23,10 +21,25 @@ html {
 html, body {
   margin: 0;
   padding: 0;
-  background: transparent;
   color: #fff;
   font-family: Georgia, "Times New Roman", serif;
   -webkit-text-size-adjust: 100%;
+}
+
+/*
+  MAPBOX MUST REMAIN VISIBLE.
+
+  The previous versions faded #map to opacity 0.
+  That exposed the page background as a large white area.
+  This version never changes the map's opacity.
+*/
+
+html {
+  background: #233e43;
+}
+
+body {
+  background: transparent;
 }
 
 #map {
@@ -35,21 +48,22 @@ html, body {
   width: 100%;
   height: 100%;
   z-index: 1;
-  opacity: 1;
+  opacity: 1 !important;
   pointer-events: none;
-  will-change: opacity;
 }
 
 #story {
   position: relative;
   z-index: 2;
-}
-
-#chapters {
   background: transparent;
 }
 
-/* NAVIGATION — 85% OPAQUE */
+#chapters {
+  position: relative;
+  background: transparent;
+}
+
+/* NAVIGATION */
 
 #top-nav {
   position: fixed;
@@ -65,7 +79,7 @@ html, body {
   padding: 9px 14px;
   background: rgba(54,34,24,.85);
   box-shadow: 0 2px 12px rgba(0,0,0,.18);
-  transition: opacity .4s ease;
+  transition: opacity .3s ease;
 }
 
 body.viewing-static-map #top-nav {
@@ -127,7 +141,7 @@ body.viewing-static-map #top-nav {
   display: none;
 }
 
-/* HEADER — 40% WARM OVERLAY, BOTTOM 30% FADE */
+/* HEADER PHOTO */
 
 #header {
   position: relative;
@@ -215,7 +229,7 @@ body.viewing-static-map #top-nav {
   font: 15px/1.5 Arial,sans-serif;
 }
 
-/* CHAPTERS — 70% WARM BROWN */
+/* CHAPTERS */
 
 .step {
   position: relative;
@@ -225,7 +239,7 @@ body.viewing-static-map #top-nav {
   align-items: center;
   padding: 80px 5vw;
   scroll-margin-top: 54px;
-  background: transparent;
+  background: transparent !important;
 }
 
 .step.left {
@@ -257,7 +271,7 @@ body.viewing-static-map #top-nav {
   white-space: pre-line;
 }
 
-/* ORAL HISTORY VIDEOS */
+/* VIDEOS */
 
 .oral-history-video {
   position: relative;
@@ -274,13 +288,20 @@ body.viewing-static-map #top-nav {
   border: 0;
 }
 
-/* STATIC MAPS — WHITE ONLY BEHIND MAP AND CAPTION */
+/*
+  STATIC MAPS
+
+  Only these sections have white backgrounds.
+  No viewport-sized white wrappers.
+  No minimum height.
+  No extra bottom spacing.
+*/
 
 .geography-map-feature,
 .memory-map-feature {
   position: relative;
   z-index: 5;
-  display: flow-root;
+  display: block;
   width: 100%;
   height: auto;
   min-height: 0;
@@ -289,6 +310,7 @@ body.viewing-static-map #top-nav {
   background: #fff;
   color: #302820;
   text-align: center;
+  overflow: visible;
 }
 
 .geography-map-feature figure,
@@ -306,6 +328,7 @@ body.viewing-static-map #top-nav {
 .memory-map-feature .map-open {
   display: block;
   width: 100%;
+  height: auto;
   margin: 0;
   padding: 0;
   border: 0;
@@ -329,12 +352,12 @@ body.viewing-static-map #top-nav {
   max-height: none;
   margin: 0;
   padding: 0;
-  border: none;
+  border: 0;
   object-fit: contain;
   background: #fff;
 }
 
-/* ARCGIS CAPTION — COMPACT */
+/* ARCGIS CAPTION */
 
 .geography-map-feature figcaption {
   display: block;
@@ -350,10 +373,7 @@ body.viewing-static-map #top-nav {
   display: block;
   max-width: 1000px;
   margin: 0 auto 3px;
-  font-family: Georgia, serif;
-  font-size: 13px;
-  line-height: 1.4;
-  font-weight: normal;
+  font: 13px/1.4 Georgia,serif;
 }
 
 .geography-caption {
@@ -363,7 +383,7 @@ body.viewing-static-map #top-nav {
   font: 11px/1.45 Arial,sans-serif;
 }
 
-/* MARIA'S MAP CAPTION — COMPACT */
+/* MARIA'S MAP CAPTION */
 
 .memory-map-feature figcaption {
   display: block;
@@ -378,38 +398,31 @@ body.viewing-static-map #top-nav {
 .memory-map-feature h2 {
   max-width: 1000px;
   margin: 0 auto 3px;
-  font-family: Georgia, serif;
-  font-size: 15px;
-  line-height: 1.4;
-  font-weight: normal;
   color: #302820;
+  font: 15px/1.4 Georgia,serif;
 }
 
 .memory-map-feature .map-credit {
   margin: 0 auto 6px;
-  font-family: Georgia, serif;
-  font-size: 12px;
-  line-height: 1.4;
-  font-style: italic;
   color: #625b54;
+  font: italic 12px/1.4 Georgia,serif;
 }
 
 .memory-map-feature .map-caption {
   max-width: 900px;
   margin: 0 auto;
-  text-align: center;
-  font: 12px/1.55 Arial,sans-serif;
   color: #625b54;
+  font: 12px/1.55 Arial,sans-serif;
   white-space: pre-line;
 }
 
 .memory-map-feature .map-hint {
   margin: 6px 0 0;
-  font: italic 11px/1.4 Georgia,serif;
   color: #77716a;
+  font: italic 11px/1.4 Georgia,serif;
 }
 
-/* XELI PHOTO — SUBTLE TOP AND BOTTOM 10% FADE */
+/* XELI PHOTO — SUBTLE FADE */
 
 .landscape-photo-feature {
   position: relative;
@@ -600,7 +613,6 @@ body.viewing-static-map #top-nav {
 
   #header-content {
     width: 90%;
-    margin-top: 10px;
   }
 
   #title {
@@ -645,7 +657,8 @@ body.viewing-static-map #top-nav {
     font-size: 14px;
   }
 
-  .geography-map-feature figcaption {
+  .geography-map-feature figcaption,
+  .memory-map-feature figcaption {
     padding: 8px 14px 10px;
   }
 
@@ -655,11 +668,6 @@ body.viewing-static-map #top-nav {
 
   .geography-caption {
     font-size: 10px;
-    line-height: 1.45;
-  }
-
-  .memory-map-feature figcaption {
-    padding: 8px 14px 10px;
   }
 
   .memory-map-feature h2 {
@@ -1002,96 +1010,59 @@ config.chapters.forEach(chapter => {
   }
 });
 
-/* MAPBOX FADES — NO WHITE GAP AFTER CAPTIONS */
+/*
+  NAVIGATION HIDES WHILE VIEWING STATIC MAPS.
+
+  Mapbox remains at full opacity.
+  The map images themselves cover it.
+  Once a caption scrolls away, the next chapter
+  reveals Mapbox immediately.
+*/
 
 const staticMapSections = [
   document.getElementById("arvanite-geography-map"),
   document.getElementById("maria-school-map")
 ].filter(Boolean);
 
-const mapboxElement = document.getElementById("map");
+let visibilityUpdatePending = false;
 
-function clamp(value, min, max) {
-  return Math.max(min, Math.min(max, value));
-}
+function updateStaticMapVisibility() {
+  visibilityUpdatePending = false;
 
-let fadeUpdatePending = false;
+  const middle = window.innerHeight * 0.5;
 
-function updateMapboxFade() {
-  fadeUpdatePending = false;
-
-  const viewportHeight = window.innerHeight;
-  let strongestPresence = 0;
-
-  staticMapSections.forEach(section => {
+  const viewingMap = staticMapSections.some(section => {
     const rect = section.getBoundingClientRect();
 
-    /* FADE OUT AS THE STATIC MAP ENTERS */
-    const fadeInDistance = viewportHeight * 0.45;
-
-    const entering = clamp(
-      (viewportHeight - rect.top) / fadeInDistance,
-      0,
-      1
-    );
-
-    /*
-      RETURN MAPBOX AS THE CAPTION REACHES
-      THE BOTTOM OF THE SCREEN.
-      DO NOT WAIT FOR AN EXTRA WHITE AREA.
-    */
-    const caption = section.querySelector("figcaption");
-    const captionRect = caption.getBoundingClientRect();
-
-    const leaving = clamp(
-      (captionRect.bottom - viewportHeight * 0.10) /
-      (viewportHeight * 0.30),
-      0,
-      1
-    );
-
-    const presence = Math.min(entering, leaving);
-
-    strongestPresence = Math.max(
-      strongestPresence,
-      presence
-    );
+    return rect.top <= middle && rect.bottom >= middle;
   });
-
-  mapboxElement.style.opacity =
-    String(1 - strongestPresence);
 
   document.body.classList.toggle(
     "viewing-static-map",
-    strongestPresence > 0.75
+    viewingMap
   );
 }
 
-function requestMapboxFadeUpdate() {
-  if (fadeUpdatePending) return;
+function requestVisibilityUpdate() {
+  if (visibilityUpdatePending) return;
 
-  fadeUpdatePending = true;
-  requestAnimationFrame(updateMapboxFade);
+  visibilityUpdatePending = true;
+
+  requestAnimationFrame(updateStaticMapVisibility);
 }
 
 window.addEventListener(
   "scroll",
-  requestMapboxFadeUpdate,
+  requestVisibilityUpdate,
   { passive: true }
 );
 
 window.addEventListener(
   "resize",
-  requestMapboxFadeUpdate
+  requestVisibilityUpdate
 );
 
-document.querySelectorAll(
-  ".geography-image, .memory-map-feature .map-open img"
-).forEach(image => {
-  image.addEventListener("load", requestMapboxFadeUpdate);
-});
-
-requestMapboxFadeUpdate();
+requestVisibilityUpdate();
 
 /* MARIA MAP ENLARGEMENT */
 
@@ -1250,7 +1221,7 @@ function setLanguage(lang) {
 
   requestAnimationFrame(() => {
     scroller.resize();
-    requestMapboxFadeUpdate();
+    requestVisibilityUpdate();
   });
 }
 
@@ -1316,7 +1287,7 @@ setLanguage(initialLanguage);
 window.addEventListener("resize", () => {
   map.resize();
   scroller.resize();
-  requestMapboxFadeUpdate();
+  requestVisibilityUpdate();
 });
 
 </script>
