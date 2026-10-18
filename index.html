@@ -12,9 +12,13 @@
 <script src="./config.js"></script>
 
 <style>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-html { scroll-padding-top: 70px; }
+html {
+  scroll-padding-top: 70px;
+}
 
 html, body {
   margin: 0;
@@ -25,7 +29,7 @@ html, body {
   -webkit-text-size-adjust: 100%;
 }
 
-/* MAPBOX */
+/* MAPBOX BACKGROUND */
 
 #map {
   position: fixed;
@@ -43,7 +47,7 @@ html, body {
   z-index: 2;
 }
 
-/* NAVIGATION */
+/* NAVIGATION — SOFTER 75% BROWN */
 
 #top-nav {
   position: fixed;
@@ -57,8 +61,8 @@ html, body {
   gap: 14px;
   min-height: 54px;
   padding: 9px 14px;
-  background: rgba(54,34,24,.96);
-  box-shadow: 0 2px 12px rgba(0,0,0,.3);
+  background: rgba(54,34,24,.75);
+  box-shadow: 0 2px 12px rgba(0,0,0,.18);
   transition: opacity .4s ease;
 }
 
@@ -85,8 +89,13 @@ body.viewing-static-map #top-nav {
   cursor: pointer;
 }
 
-.nav-link { text-decoration: none; }
-.nav-link:visited { color: #f7eee5; }
+.nav-link {
+  text-decoration: none;
+}
+
+.nav-link:visited {
+  color: #f7eee5;
+}
 
 .nav-link:hover,
 .language-button:hover {
@@ -112,7 +121,9 @@ body.viewing-static-map #top-nav {
   text-decoration: underline;
 }
 
-#menu-toggle { display: none; }
+#menu-toggle {
+  display: none;
+}
 
 /* HEADER */
 
@@ -135,6 +146,8 @@ body.viewing-static-map #top-nav {
   z-index: -2;
 }
 
+/* LIGHTER GRADIENT OVER HEADER PHOTOGRAPH */
+
 #header::after {
   content: "";
   position: absolute;
@@ -142,16 +155,16 @@ body.viewing-static-map #top-nav {
   z-index: -1;
   background: linear-gradient(
     to bottom,
-    rgba(0,0,0,.25),
-    rgba(0,0,0,.55) 55%,
-    rgba(0,0,0,.85)
+    rgba(0,0,0,.08),
+    rgba(0,0,0,.18) 55%,
+    rgba(0,0,0,.35)
   );
 }
 
 #header-content {
   width: min(1000px,90%);
   margin-top: 40px;
-  text-shadow: 0 3px 8px rgba(0,0,0,.9);
+  text-shadow: 0 3px 8px rgba(0,0,0,.75);
 }
 
 #title {
@@ -172,7 +185,7 @@ body.viewing-static-map #top-nav {
   font: 15px/1.5 Arial,sans-serif;
 }
 
-/* CHAPTERS: 66% TRANSPARENT BROWN */
+/* CHAPTERS — 70% TRANSPARENT BROWN */
 
 .step {
   min-height: 100vh;
@@ -182,15 +195,20 @@ body.viewing-static-map #top-nav {
   scroll-margin-top: 54px;
 }
 
-.step.left { justify-content: flex-start; }
-.step.right { justify-content: flex-end; }
+.step.left {
+  justify-content: flex-start;
+}
+
+.step.right {
+  justify-content: flex-end;
+}
 
 .step-content {
   width: min(590px,88vw);
   padding: 34px 40px;
-  background: rgba(70,43,27,.66);
+  background: rgba(70,43,27,.70);
   border-radius: 4px;
-  box-shadow: 0 5px 25px rgba(0,0,0,.35);
+  box-shadow: 0 5px 20px rgba(0,0,0,.18);
 }
 
 .step-content h2 {
@@ -206,7 +224,7 @@ body.viewing-static-map #top-nav {
   white-space: pre-line;
 }
 
-/* VIDEOS */
+/* ORAL HISTORY VIDEOS */
 
 .oral-history-video {
   position: relative;
@@ -223,14 +241,7 @@ body.viewing-static-map #top-nav {
   border: 0;
 }
 
-/*
- * SHARED STYLE FOR BOTH MAPS
- *
- * No brown background.
- * No frame or dark gradient.
- * Full-width image.
- * Small captions underneath.
- */
+/* FULL-WIDTH ARCGIS AND MARIA MAPS */
 
 .geography-map-feature,
 .memory-map-feature {
@@ -316,12 +327,7 @@ body.viewing-static-map #top-nav {
   font: 11px/1.5 Arial,sans-serif;
 }
 
-/*
- * MARIA MPINIARI MAP CAPTION
- *
- * All text sits below the drawing,
- * matching the ArcGIS presentation.
- */
+/* MARIA MPINIARI MAP CAPTION */
 
 .memory-map-feature figcaption {
   display: block;
@@ -367,7 +373,7 @@ body.viewing-static-map #top-nav {
   color: #77716a;
 }
 
-/* XELI PHOTO: UNCHANGED */
+/* XELI FULL-SCREEN PHOTO */
 
 .landscape-photo-feature {
   position: relative;
@@ -477,7 +483,7 @@ body.viewing-static-map #top-nav {
   font-size: 15px;
 }
 
-/* TABLET NAVIGATION */
+/* TABLET NAVIGATION — 85% MOBILE DROPDOWN */
 
 @media (max-width: 1100px) {
   #top-nav {
@@ -500,13 +506,15 @@ body.viewing-static-map #top-nav {
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    background: rgba(54,34,24,.98);
+    background: rgba(54,34,24,.85);
     padding: 8px 16px 14px;
     max-height: calc(100dvh - 54px);
     overflow-y: auto;
   }
 
-  .nav-links.open { display: flex; }
+  .nav-links.open {
+    display: flex;
+  }
 
   .nav-link {
     display: block;
@@ -518,14 +526,18 @@ body.viewing-static-map #top-nav {
 /* MOBILE */
 
 @media (max-width: 700px) {
-  #header { height: 380px; }
+  #header {
+    height: 380px;
+  }
 
   #header-content {
     width: 90%;
     margin-top: 20px;
   }
 
-  #title { font-size: clamp(36px,11vw,50px); }
+  #title {
+    font-size: clamp(36px,11vw,50px);
+  }
 
   #subtitle {
     margin-top: 14px;
@@ -569,7 +581,9 @@ body.viewing-static-map #top-nav {
     padding: 8px 14px 14px;
   }
 
-  .geography-title { font-size: 12px; }
+  .geography-title {
+    font-size: 12px;
+  }
 
   .geography-caption {
     font-size: 10px;
@@ -580,15 +594,22 @@ body.viewing-static-map #top-nav {
     padding: 12px 18px 20px;
   }
 
-  .memory-map-feature h2 { font-size: 14px; }
-  .memory-map-feature .map-credit { font-size: 11px; }
+  .memory-map-feature h2 {
+    font-size: 14px;
+  }
+
+  .memory-map-feature .map-credit {
+    font-size: 11px;
+  }
 
   .memory-map-feature .map-caption {
     font-size: 11px;
     line-height: 1.55;
   }
 
-  .memory-map-feature .map-hint { font-size: 10px; }
+  .memory-map-feature .map-hint {
+    font-size: 10px;
+  }
 }
 </style>
 </head>
@@ -596,6 +617,8 @@ body.viewing-static-map #top-nav {
 <body>
 
 <div id="map"></div>
+
+<!-- NAVIGATION -->
 
 <nav id="top-nav" aria-label="Main navigation">
   <button
@@ -633,6 +656,8 @@ body.viewing-static-map #top-nav {
     <button type="button" class="language-button" data-lang="el" aria-pressed="false">ΕΛ</button>
   </div>
 </nav>
+
+<!-- STORY -->
 
 <main id="story">
   <header id="header">
@@ -678,7 +703,9 @@ function getResponsiveLocation(location) {
 map.on("style.load", () => {
   const terrain = map.getStyle().terrain;
 
-  if (terrain) map.setTerrain(terrain);
+  if (terrain) {
+    map.setTerrain(terrain);
+  }
 
   const first = config.chapters[0];
 
@@ -706,7 +733,7 @@ const englishTitle = config.title
   .replace(/<br\s*\/?\s*>/gi, "")
   .trim();
 
-/* TRANSLATIONS */
+/* NAVIGATION TRANSLATIONS */
 
 const navLabels = {
   en: {
@@ -717,6 +744,7 @@ const navLabels = {
     archive: "Video Archive",
     menu: "Menu ☰"
   },
+
   el: {
     chapter1: "Κεφάλαιο 1: Τι είναι τα Αρβανιτοχώρια;",
     chapter2: "Κεφάλαιο 2: Μια Σύντομη Ιστορία του Όρους Αραχναίου",
@@ -727,12 +755,15 @@ const navLabels = {
   }
 };
 
+/* ARCGIS MAP TRANSLATIONS */
+
 const geographyTranslations = {
   en: {
     title: "Geographic Distribution of Arvanite Settlement Regions in Southern Greece",
     caption: "Map created by Christina Maria Carasis using ArcGIS, referencing settlement data from Lithoxoou (n.d.) and regional ethnolinguistic boundaries from Philippson (1890) and Tsitsipis (1998).",
     alt: "Map of Arvanite settlement regions in Southern Greece"
   },
+
   el: {
     title: "Γεωγραφική Κατανομή των Περιοχών Αρβανίτικης Εγκατάστασης στη Νότια Ελλάδα",
     caption: "Χάρτης που δημιουργήθηκε από τη Christina Maria Carasis με τη χρήση του ArcGIS, με βάση δεδομένα οικισμών από τον Lithoxoou (χ.χ.) και περιφερειακά εθνογλωσσικά όρια από τους Philippson (1890) και Tsitsipis (1998).",
@@ -740,16 +771,21 @@ const geographyTranslations = {
   }
 };
 
+/* XELI PHOTO TRANSLATIONS */
+
 const photoTranslations = {
   en: {
     description: "Looking down from Xeli toward the valley, with mountain slopes descending into agricultural lands.",
     credit: "Photograph by Christina Maria Carasis."
   },
+
   el: {
     description: "Θέα από το Χέλι προς την κοιλάδα, με τις πλαγιές του βουνού να κατηφορίζουν προς τις καλλιεργήσιμες εκτάσεις.",
     credit: "Φωτογραφία: Christina Maria Carasis."
   }
 };
+
+/* MARIA MPINIARI NARRATIVE */
 
 const mariaNarrative = {
   en: `Drawn from memory by Maria Mpiniari, this map traces the schools, churches, and pathways connecting the Arvanite villages of Mt. Arachnaio.
@@ -765,6 +801,8 @@ Her drawing reveals more than the locations of educational institutions. It offe
 Το σχέδιό της αποκαλύπτει περισσότερα από τις θέσεις των εκπαιδευτικών ιδρυμάτων. Προσφέρει μια προσωπική γεωγραφία της πρόσβασης στην εκπαίδευση, δείχνοντας πώς η απόσταση, οι μετακινήσεις και το φύλο διαμόρφωναν τις ευκαιρίες των νέων που ζούσαν στο βουνό.`
 };
 
+/* MARIA MAP TRANSLATIONS */
+
 const mapTranslations = {
   en: {
     title: "Mapping a Journey to Education",
@@ -773,6 +811,7 @@ const mapTranslations = {
     close: "Close ×",
     open: "Enlarge Maria Mpiniari's hand-drawn map"
   },
+
   el: {
     title: "Χαρτογραφώντας τη Διαδρομή προς την Εκπαίδευση",
     credit: "Χειρόγραφος χάρτης της Μαρίας Μπινιάρη",
@@ -788,9 +827,13 @@ const chaptersContainer = document.getElementById("chapters");
 const chapterElements = new Map();
 
 config.chapters.forEach(chapter => {
-  if (chapter.id === "chapter-0") return;
+
+  if (chapter.id === "chapter-0") {
+    return;
+  }
 
   const section = document.createElement("section");
+
   section.className = `step ${chapter.alignment || "left"}`;
   section.id = chapter.id;
   section.dataset.id = chapter.id;
@@ -800,20 +843,27 @@ config.chapters.forEach(chapter => {
 
   const heading = document.createElement("h2");
   const paragraph = document.createElement("p");
+
   card.append(heading, paragraph);
+
+  /* ORAL HISTORY VIDEOS */
 
   if (chapter.videoId) {
     const video = document.createElement("div");
     video.className = "oral-history-video";
 
     const iframe = document.createElement("iframe");
+
     iframe.src =
       `https://www.youtube-nocookie.com/embed/${encodeURIComponent(chapter.videoId)}?cc_load_policy=1`;
+
     iframe.title = "Oral history video";
     iframe.loading = "lazy";
     iframe.referrerPolicy = "strict-origin-when-cross-origin";
+
     iframe.allow =
       "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+
     iframe.allowFullscreen = true;
 
     video.appendChild(iframe);
@@ -822,31 +872,44 @@ config.chapters.forEach(chapter => {
 
   section.appendChild(card);
   chaptersContainer.appendChild(section);
-  chapterElements.set(chapter.id, { section, heading, paragraph });
 
-  /* ARCGIS MAP */
+  chapterElements.set(chapter.id, {
+    section,
+    heading,
+    paragraph
+  });
+
+  /* ARCGIS MAP AFTER CHAPTER 1 */
 
   if (chapter.id === "chapter-1") {
+
     const feature = document.createElement("section");
+
     feature.className = "geography-map-feature";
     feature.id = "arvanite-geography-map";
 
     feature.innerHTML = `
       <figure>
-        <a class="geography-image-link"
-           href="./assets/arvanite-geography-map.png"
-           target="_blank" rel="noopener"
-           aria-label="Open full-size Arvanite geography map">
-          <img class="geography-image"
-               src="./assets/arvanite-geography-map.png"
-               alt="Map of Arvanite settlement regions in Southern Greece"
-               loading="lazy">
+        <a
+          class="geography-image-link"
+          href="./assets/arvanite-geography-map.png"
+          target="_blank"
+          rel="noopener"
+          aria-label="Open full-size Arvanite geography map"
+        >
+          <img
+            class="geography-image"
+            src="./assets/arvanite-geography-map.png"
+            alt="Map of Arvanite settlement regions in Southern Greece"
+            loading="lazy"
+          >
         </a>
 
         <figcaption>
           <strong class="geography-title" data-geography-i18n="title">
             Geographic Distribution of Arvanite Settlement Regions in Southern Greece
           </strong>
+
           <span class="geography-caption" data-geography-i18n="caption">
             Map created by Christina Maria Carasis using ArcGIS, referencing settlement data from Lithoxoou (n.d.) and regional ethnolinguistic boundaries from Philippson (1890) and Tsitsipis (1998).
           </span>
@@ -860,19 +923,25 @@ config.chapters.forEach(chapter => {
   /* XELI PHOTO */
 
   if (chapter.id === "history-intro") {
+
     const feature = document.createElement("section");
+
     feature.className = "landscape-photo-feature";
     feature.id = "xeli-landscape-photo";
 
     feature.innerHTML = `
       <figure>
-        <img src="./assets/IMG_2357.jpeg"
-             alt="View from Xeli across mountain slopes and the valley"
-             loading="lazy">
+        <img
+          src="./assets/IMG_2357.jpeg"
+          alt="View from Xeli across mountain slopes and the valley"
+          loading="lazy"
+        >
+
         <figcaption>
           <span data-photo-i18n="description">
             Looking down from Xeli toward the valley, with mountain slopes descending into agricultural lands.
           </span>
+
           <span class="photo-credit" data-photo-i18n="credit">
             Photograph by Christina Maria Carasis.
           </span>
@@ -883,32 +952,40 @@ config.chapters.forEach(chapter => {
     chaptersContainer.appendChild(feature);
   }
 
-  /*
-   * MARIA'S MAP
-   * FULL WIDTH, WHITE BACKGROUND,
-   * SMALL CAPTION UNDERNEATH
-   */
+  /* MARIA'S MAP */
 
   if (chapter.id === "chapter-3-Schools") {
+
     const feature = document.createElement("section");
+
     feature.className = "memory-map-feature";
     feature.id = "maria-school-map";
 
     feature.innerHTML = `
       <figure>
-        <button type="button" class="map-open"
-                aria-label="Enlarge Maria Mpiniari's hand-drawn map">
-          <img src="./assets/maria-mpiniari-school-map.png"
-               alt="Hand-drawn map by Maria Mpiniari"
-               loading="lazy">
+        <button
+          type="button"
+          class="map-open"
+          aria-label="Enlarge Maria Mpiniari's hand-drawn map"
+        >
+          <img
+            src="./assets/maria-mpiniari-school-map.png"
+            alt="Hand-drawn map by Maria Mpiniari"
+            loading="lazy"
+          >
         </button>
 
         <figcaption>
-          <h2 data-map-i18n="title">Mapping a Journey to Education</h2>
+          <h2 data-map-i18n="title">
+            Mapping a Journey to Education
+          </h2>
+
           <p class="map-credit" data-map-i18n="credit">
             Hand-drawn by Maria Mpiniari
           </p>
+
           <p class="map-caption" data-map-i18n="caption"></p>
+
           <p class="map-hint" data-map-i18n="hint">
             Click or tap the map to enlarge
           </p>
@@ -920,13 +997,7 @@ config.chapters.forEach(chapter => {
   }
 });
 
-/*
- * SMOOTH MAPBOX FADE FOR BOTH MAPS
- *
- * Mapbox fades out approaching either
- * the ArcGIS map or Maria's map.
- * It fades back in when leaving.
- */
+/* SMOOTH MAPBOX FADE FOR BOTH MAPS */
 
 const staticMapSections = [
   document.getElementById("arvanite-geography-map"),
@@ -1017,8 +1088,10 @@ mapDialog.className = "memory-map-dialog";
 
 mapDialog.innerHTML = `
   <button type="button" class="close-map">Close ×</button>
-  <img src="./assets/maria-mpiniari-school-map.png"
-       alt="Enlarged hand-drawn map by Maria Mpiniari">
+  <img
+    src="./assets/maria-mpiniari-school-map.png"
+    alt="Enlarged hand-drawn map by Maria Mpiniari"
+  >
 `;
 
 document.body.appendChild(mapDialog);
@@ -1053,7 +1126,8 @@ function moveMapToChapter(chapter) {
   });
 }
 
-scroller.setup({ step: ".step", offset: 0.5 })
+scroller
+  .setup({ step: ".step", offset: 0.5 })
   .onStepEnter(response => {
     const chapter = config.chapters.find(
       item => item.id === response.element.dataset.id
@@ -1088,6 +1162,8 @@ function setLanguage(lang) {
       ? (site.byline || config.byline)
       : config.byline;
 
+  /* CHAPTER TRANSLATIONS */
+
   config.chapters.forEach(chapter => {
     const elements = chapterElements.get(chapter.id);
     if (!elements) return;
@@ -1103,6 +1179,8 @@ function setLanguage(lang) {
       translation.description || chapter.description || "";
   });
 
+  /* ARCGIS TRANSLATIONS */
+
   document.querySelectorAll("[data-geography-i18n]")
     .forEach(element => {
       element.textContent =
@@ -1116,11 +1194,15 @@ function setLanguage(lang) {
     geographyImage.alt = geographyTranslations[lang].alt;
   }
 
+  /* XELI PHOTO TRANSLATIONS */
+
   document.querySelectorAll("[data-photo-i18n]")
     .forEach(element => {
       element.textContent =
         photoTranslations[lang][element.dataset.photoI18n];
     });
+
+  /* MARIA MAP TRANSLATIONS */
 
   document.querySelectorAll("[data-map-i18n]")
     .forEach(element => {
@@ -1140,6 +1222,8 @@ function setLanguage(lang) {
       mapTranslations[lang].open
     );
   }
+
+  /* NAVIGATION TRANSLATIONS */
 
   document.querySelectorAll("[data-nav]")
     .forEach(link => {
