@@ -96,6 +96,36 @@ window.archiveClips = [
         ],
 
         type: 'clip'
-    }
+    },
+    
+{
+    id: 'berbati-name-change',
+
+    youtubeId: '9eZdczb-0s4',
+
+    title: {
+        en: 'Berbati or Prosymna? The Persistence of a Village Name',
+        el: 'Μπερμπάτι ή Πρόσυμνα; Η Διατήρηση του Ονόματος ενός Χωριού'
+    },
+
+    description: {
+        en: 'Mrs. Marina Papadima describes how the locals still call their village by its Arvanite name',
+        el: 'Η κυρία Μαρίνα Παπαδήμα περιγράφει πώς οι ντόπιοι αποκαλούν ακόμα το χωριό τους με το αρβανίτικο όνομά του.'
+    },
+
+    village: 'Berbati',
+
+    categories: ['language', 'history'],
+
+    tags: [
+        'Place Names',
+        'Village Renaming',
+        'Cultural Identity',
+        'Collective Memory'
+    ],
+
+    type: 'clip'
+}
+
 
 ];
