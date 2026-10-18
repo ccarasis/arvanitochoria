@@ -238,6 +238,50 @@
       border: 0;
     }
 
+    /* ARVANITE GEOGRAPHY PDF */
+
+    .geography-map-feature {
+      position: relative;
+      z-index: 4;
+      min-height: 100vh;
+      padding: 85px 5vw 65px;
+      background: #362218;
+      color: #f7eee5;
+      text-align: center;
+      scroll-margin-top: 54px;
+    }
+
+    .geography-map-feature h2 {
+      margin: 0 0 14px;
+      font-size: clamp(28px, 3vw, 42px);
+      font-weight: 400;
+    }
+
+    .geography-map-feature p {
+      max-width: 900px;
+      margin: 0 auto 20px;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    .geography-map-feature iframe {
+      display: block;
+      width: min(100%, 1100px);
+      height: min(78vh, 800px);
+      margin: 0 auto 18px;
+      border: 1px solid #bda992;
+      background: #fff;
+    }
+
+    .geography-map-feature .pdf-link {
+      color: #f7eee5;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+    }
+
     /* FULL-SCREEN XELI LANDSCAPE PHOTO */
 
     .landscape-photo-feature {
@@ -527,6 +571,14 @@
         font-size: 15px;
         line-height: 1.7;
       }
+
+      .geography-map-feature {
+        padding: 85px 18px 45px;
+      }
+
+      .geography-map-feature iframe {
+        height: 65dvh;
+      }
     }
   </style>
 </head>
@@ -706,7 +758,6 @@
 
     /*
      * MARIA'S FULL NARRATIVE
-     * Preserved as originally agreed.
      */
 
     const mariaNarrative = {
@@ -784,8 +835,45 @@ Her drawing reveals more than the locations of educational institutions. It offe
       });
 
       /*
+       * ARVANITE GEOGRAPHY MAP AFTER CHAPTER 1
+       */
+
+      if (chapter.id === "chapter-1") {
+
+        const feature = document.createElement("section");
+
+        feature.className = "geography-map-feature";
+        feature.id = "arvanite-geography-map";
+
+        feature.innerHTML = `
+          <h2 data-geography-i18n="title">
+            Geographic Distribution of Arvanite Settlement Regions in Southern Greece
+          </h2>
+
+          <p data-geography-i18n="caption">
+            Map created by Christina Maria Carasis using ArcGIS, referencing settlement data from Lithoxoou (n.d.) and regional ethnolinguistic boundaries from Philippson (1890) and Tsitsipis (1998).
+          </p>
+
+          <iframe
+            src="./assets/ARCGis%20Map.pdf#view=FitH"
+            title="Geographic distribution of Arvanite settlement regions in Southern Greece"
+            loading="lazy"
+          ></iframe>
+
+          <a
+            class="pdf-link"
+            href="./assets/ARCGis%20Map.pdf"
+            target="_blank"
+            rel="noopener"
+            data-geography-i18n="open"
+          >Open full map (PDF)</a>
+        `;
+
+        chaptersContainer.appendChild(feature);
+      }
+
+      /*
        * XELI LANDSCAPE PHOTO BREAK
-       * Immediately after the history chapter and video.
        */
 
       if (chapter.id === "history-intro") {
@@ -971,6 +1059,26 @@ Her drawing reveals more than the locations of educational institutions. It offe
     };
 
     /*
+     * GEOGRAPHY MAP TRANSLATIONS
+     */
+
+    const geographyTranslations = {
+      en: {
+        title: "Geographic Distribution of Arvanite Settlement Regions in Southern Greece",
+        caption:
+          "Map created by Christina Maria Carasis using ArcGIS, referencing settlement data from Lithoxoou (n.d.) and regional ethnolinguistic boundaries from Philippson (1890) and Tsitsipis (1998).",
+        open: "Open full map (PDF)"
+      },
+
+      el: {
+        title: "Γεωγραφική Κατανομή των Περιοχών Αρβανίτικης Εγκατάστασης στη Νότια Ελλάδα",
+        caption:
+          "Χάρτης που δημιουργήθηκε από τη Christina Maria Carasis με τη χρήση του ArcGIS, με βάση δεδομένα οικισμών από τον Lithoxoou (χ.χ.) και περιφερειακά εθνογλωσσικά όρια από τους Philippson (1890) και Tsitsipis (1998).",
+        open: "Άνοιγμα πλήρους χάρτη (PDF)"
+      }
+    };
+
+    /*
      * SCROLLAMA
      */
 
@@ -1056,6 +1164,19 @@ Her drawing reveals more than the locations of educational institutions. It offe
       });
 
       /*
+       * TRANSLATE GEOGRAPHY MAP
+       */
+
+      document.querySelectorAll("[data-geography-i18n]")
+        .forEach((element) => {
+
+          const key = element.dataset.geographyI18n;
+
+          element.textContent =
+            geographyTranslations[lang][key];
+        });
+
+      /*
        * TRANSLATE MARIA'S MAP FEATURE
        */
 
@@ -1083,7 +1204,6 @@ Her drawing reveals more than the locations of educational institutions. It offe
 
       /*
        * TRANSLATE XELI PHOTO
-       * Separate elements ensure a real line break.
        */
 
       document.querySelectorAll("[data-photo-i18n]")
