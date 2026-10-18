@@ -47,7 +47,7 @@ html, body {
   z-index: 2;
 }
 
-/* NAVIGATION — SOFTER 75% BROWN */
+/* NAVIGATION — 85% OPAQUE BROWN */
 
 #top-nav {
   position: fixed;
@@ -61,7 +61,7 @@ html, body {
   gap: 14px;
   min-height: 54px;
   padding: 9px 14px;
-  background: rgba(54,34,24,.75);
+  background: rgba(54,34,24,.85);
   box-shadow: 0 2px 12px rgba(0,0,0,.18);
   transition: opacity .4s ease;
 }
@@ -146,19 +146,14 @@ body.viewing-static-map #top-nav {
   z-index: -2;
 }
 
-/* LIGHTER GRADIENT OVER HEADER PHOTOGRAPH */
+/* WARM BROWN OVERLAY TO SOFTEN HEADER PHOTO */
 
 #header::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,.08),
-    rgba(0,0,0,.18) 55%,
-    rgba(0,0,0,.35)
-  );
+  background: rgba(54,34,24,.30);
 }
 
 #header-content {
@@ -483,7 +478,7 @@ body.viewing-static-map #top-nav {
   font-size: 15px;
 }
 
-/* TABLET NAVIGATION — 85% MOBILE DROPDOWN */
+/* TABLET NAVIGATION */
 
 @media (max-width: 1100px) {
   #top-nav {
