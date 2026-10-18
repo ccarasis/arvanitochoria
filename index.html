@@ -23,7 +23,7 @@ html {
 html, body {
   margin: 0;
   padding: 0;
-  background: #000;
+  background: #fff;
   color: #fff;
   font-family: Georgia, "Times New Roman", serif;
   -webkit-text-size-adjust: 100%;
@@ -37,27 +37,14 @@ html, body {
   width: 100%;
   height: 100%;
   z-index: 1;
+  opacity: 1;
+  pointer-events: none;
+  will-change: opacity;
 }
 
 #story {
   position: relative;
   z-index: 2;
-}
-
-/*
- * HIDE MAPBOX AND NAVIGATION
- * WHILE THE ARCGIS MAP IS IN VIEW
- */
-
-#map,
-#top-nav {
-  transition: opacity 0.25s ease;
-}
-
-body.viewing-arcgis #map,
-body.viewing-arcgis #top-nav {
-  opacity: 0;
-  pointer-events: none;
 }
 
 /* NAVIGATION */
@@ -76,6 +63,12 @@ body.viewing-arcgis #top-nav {
   padding: 9px 14px;
   background: rgba(54,34,24,.96);
   box-shadow: 0 2px 12px rgba(0,0,0,.3);
+  transition: opacity .4s ease;
+}
+
+body.viewing-arcgis #top-nav {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .nav-links {
@@ -246,14 +239,7 @@ body.viewing-arcgis #top-nav {
   border: 0;
 }
 
-/*
- * ARCGIS MAP
- *
- * White background.
- * Original image proportions.
- * No border, cropping, gradient, or overlay.
- * Mapbox disappears while this section is visible.
- */
+/* ARCGIS MAP */
 
 .geography-map-feature {
   position: relative;
@@ -296,16 +282,16 @@ body.viewing-arcgis #top-nav {
   background: #fff;
 }
 
-/* ACADEMIC CAPTION BELOW THE MAP */
+/* SMALL, DISCREET RESEARCH CAPTION */
 
 .geography-map-feature figcaption {
   position: static;
   display: block;
   width: 100%;
   margin: 0;
-  padding: 20px 6vw 26px;
+  padding: 10px 5vw 16px;
   background: #fff;
-  color: #302820;
+  color: #625b54;
   text-align: center;
   text-shadow: none;
 }
@@ -313,9 +299,9 @@ body.viewing-arcgis #top-nav {
 .geography-map-feature .geography-title {
   display: block;
   max-width: 1000px;
-  margin: 0 auto 8px;
+  margin: 0 auto 4px;
   font-family: Georgia, serif;
-  font-size: clamp(17px,2vw,23px);
+  font-size: 13px;
   line-height: 1.4;
   font-weight: normal;
 }
@@ -324,7 +310,7 @@ body.viewing-arcgis #top-nav {
   display: block;
   max-width: 1000px;
   margin: 0 auto;
-  font: 14px/1.6 Arial,sans-serif;
+  font: 11px/1.5 Arial,sans-serif;
 }
 
 /* XELI FULL-SCREEN PHOTO */
@@ -540,7 +526,7 @@ body.viewing-arcgis #top-nav {
   }
 }
 
-/* MOBILE LAYOUT */
+/* MOBILE */
 
 @media (max-width: 700px) {
   #header {
@@ -607,16 +593,16 @@ body.viewing-arcgis #top-nav {
   }
 
   .geography-map-feature figcaption {
-    padding: 16px 18px 22px;
+    padding: 8px 14px 14px;
   }
 
   .geography-map-feature .geography-title {
-    font-size: 17px;
+    font-size: 12px;
   }
 
   .geography-map-feature .geography-caption {
-    font-size: 12px;
-    line-height: 1.5;
+    font-size: 10px;
+    line-height: 1.45;
   }
 }
 </style>
@@ -893,12 +879,7 @@ config.chapters.forEach(chapter => {
     paragraph
   });
 
-  /*
-   * ARCGIS MAP AFTER CHAPTER 1
-   *
-   * Full width, original proportions,
-   * no background map or overlay.
-   */
+  /* ARCGIS MAP AFTER CHAPTER 1 */
 
   if (chapter.id === "chapter-1") {
 
@@ -1031,44 +1012,128 @@ config.chapters.forEach(chapter => {
 });
 
 /*
- * HIDE MAPBOX WHILE ARCGIS MAP IS VISIBLE
+ * SCROLL-CONTROLLED MAPBOX FADE
  *
- * Mapbox returns automatically when the
- * visitor scrolls away from this section.
+ * As the ArcGIS map approaches, Mapbox
+ * fades gradually to white.
+ *
+ * While the ArcGIS map is in view,
+ * Mapbox remains invisible.
+ *
+ * As the ArcGIS map leaves, Mapbox
+ * gradually fades back in.
  */
 
 const geographySection =
   document.getElementById("arvanite-geography-map");
 
-if (geographySection) {
+const mapboxElement =
+  document.getElementById("map");
 
-  function updateArcGISVisibility() {
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
 
-    const bounds = geographySection.getBoundingClientRect();
+let fadeUpdatePending = false;
 
-    const isVisible =
-      bounds.top < window.innerHeight &&
-      bounds.bottom > 0;
+function updateMapboxFade() {
 
-    document.body.classList.toggle(
-      "viewing-arcgis",
-      isVisible
-    );
+  fadeUpdatePending = false;
+
+  if (!geographySection) {
+    mapboxElement.style.opacity = "1";
+    return;
   }
 
-  window.addEventListener(
-    "scroll",
-    updateArcGISVisibility,
-    { passive: true }
+  const rect = geographySection.getBoundingClientRect();
+  const viewportHeight = window.innerHeight;
+
+  /*
+   * Fade distance: 65% of screen height.
+   * The fade follows scrolling rather than
+   * abruptly switching between maps.
+   */
+
+  const fadeDistance = viewportHeight * 0.65;
+
+  /*
+   * Entering ArcGIS from above:
+   * Mapbox fades from 1 to 0.
+   */
+
+  const entering = clamp(
+    (viewportHeight - rect.top) / fadeDistance,
+    0,
+    1
   );
 
-  window.addEventListener(
-    "resize",
-    updateArcGISVisibility
+  /*
+   * Leaving ArcGIS:
+   * Mapbox fades from 0 to 1.
+   */
+
+  const leaving = clamp(
+    rect.bottom / fadeDistance,
+    0,
+    1
   );
 
-  updateArcGISVisibility();
+  /*
+   * Amount of ArcGIS presence on screen.
+   */
+
+  const arcgisPresence = Math.min(entering, leaving);
+
+  /*
+   * Mapbox opacity:
+   * 1 = fully visible
+   * 0 = fully invisible
+   */
+
+  mapboxElement.style.opacity =
+    String(1 - arcgisPresence);
+
+  /*
+   * Keep navigation out of the way
+   * when the ArcGIS map is the focus.
+   */
+
+  document.body.classList.toggle(
+    "viewing-arcgis",
+    arcgisPresence > 0.75
+  );
 }
+
+function requestMapboxFadeUpdate() {
+  if (fadeUpdatePending) return;
+
+  fadeUpdatePending = true;
+
+  requestAnimationFrame(updateMapboxFade);
+}
+
+window.addEventListener(
+  "scroll",
+  requestMapboxFadeUpdate,
+  { passive: true }
+);
+
+window.addEventListener(
+  "resize",
+  requestMapboxFadeUpdate
+);
+
+const geographyImage =
+  document.querySelector(".geography-image");
+
+if (geographyImage) {
+  geographyImage.addEventListener(
+    "load",
+    requestMapboxFadeUpdate
+  );
+}
+
+requestMapboxFadeUpdate();
 
 /* MARIA MAP DIALOG */
 
@@ -1199,11 +1264,11 @@ function setLanguage(lang) {
         geographyTranslations[lang][key];
     });
 
-  const geographyImage =
+  const geographyMapImage =
     document.querySelector(".geography-image");
 
-  if (geographyImage) {
-    geographyImage.alt = geographyTranslations[lang].alt;
+  if (geographyMapImage) {
+    geographyMapImage.alt = geographyTranslations[lang].alt;
   }
 
   /* TRANSLATE XELI PHOTO */
@@ -1268,6 +1333,7 @@ function setLanguage(lang) {
 
   requestAnimationFrame(() => {
     scroller.resize();
+    requestMapboxFadeUpdate();
   });
 }
 
@@ -1354,6 +1420,7 @@ setLanguage(initialLanguage);
 window.addEventListener("resize", () => {
   map.resize();
   scroller.resize();
+  requestMapboxFadeUpdate();
 });
 
 </script>
