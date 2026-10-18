@@ -175,7 +175,7 @@ Because instruction was conducted exclusively in Greek, the schoolyard often bec
         },
           {
           id: 'Ch-4-Citrus-Shift',
-            alignment: 'Right',
+              alignment: 'right',
             title: 'Oranges at the Market',
             description: 'Over time, orange groves took over the valley below, and the local market for mountain crops dried up. Almost every family still tends their olives today, but the move toward growing citrus for the global market down in the plain changed mountain life forever, spurring population loss and shifting families away from collective labor. ',
             location: {
