@@ -12,9 +12,7 @@
 <script src="./config.js"></script>
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 html {
   scroll-padding-top: 70px;
@@ -29,11 +27,9 @@ html, body {
   -webkit-text-size-adjust: 100%;
 }
 
-body {
-  background: transparent;
-}
+body { background: transparent; }
 
-/* MAPBOX REMAINS VISIBLE BEHIND THE PAGE */
+/* MAPBOX */
 
 #map {
   position: fixed;
@@ -41,7 +37,6 @@ body {
   width: 100%;
   height: 100%;
   z-index: 1;
-  opacity: 1;
   pointer-events: none;
 }
 
@@ -98,13 +93,8 @@ body.viewing-static-map #top-nav {
   cursor: pointer;
 }
 
-.nav-link {
-  text-decoration: none;
-}
-
-.nav-link:visited {
-  color: #f7eee5;
-}
+.nav-link { text-decoration: none; }
+.nav-link:visited { color: #f7eee5; }
 
 .nav-link:hover,
 .language-button:hover {
@@ -130,9 +120,7 @@ body.viewing-static-map #top-nav {
   text-decoration: underline;
 }
 
-#menu-toggle {
-  display: none;
-}
+#menu-toggle { display: none; }
 
 /* HEADER */
 
@@ -157,19 +145,11 @@ body.viewing-static-map #top-nav {
   height: 100%;
   object-fit: cover;
   object-position: center;
-
   -webkit-mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 70%,
-    transparent 100%
+    to bottom, #000 0%, #000 70%, transparent 100%
   );
-
   mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 70%,
-    transparent 100%
+    to bottom, #000 0%, #000 70%, transparent 100%
   );
 }
 
@@ -180,19 +160,11 @@ body.viewing-static-map #top-nav {
   z-index: 1;
   pointer-events: none;
   background: rgba(54,34,24,.40);
-
   -webkit-mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 70%,
-    transparent 100%
+    to bottom, #000 0%, #000 70%, transparent 100%
   );
-
   mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 70%,
-    transparent 100%
+    to bottom, #000 0%, #000 70%, transparent 100%
   );
 }
 
@@ -235,13 +207,8 @@ body.viewing-static-map #top-nav {
   background: transparent;
 }
 
-.step.left {
-  justify-content: flex-start;
-}
-
-.step.right {
-  justify-content: flex-end;
-}
+.step.left { justify-content: flex-start; }
+.step.right { justify-content: flex-end; }
 
 .step-content {
   width: min(590px,88vw);
@@ -308,8 +275,6 @@ body.viewing-static-map #top-nav {
   background: transparent;
 }
 
-/* ARCGIS MAP IMAGE */
-
 .geography-image-container {
   position: relative;
   width: 100%;
@@ -330,40 +295,23 @@ body.viewing-static-map #top-nav {
   cursor: zoom-in;
 }
 
-/* Keep the original fade at the top of the ArcGIS map */
-
 .geography-image-link {
   -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    #000 10%,
-    #000 100%
+    to bottom, transparent 0%, #000 10%, #000 100%
   );
-
   mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    #000 10%,
-    #000 100%
+    to bottom, transparent 0%, #000 10%, #000 100%
   );
 }
 
 .memory-map-feature .map-open {
   appearance: none;
   -webkit-appearance: none;
-
   -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    #000 10%,
-    #000 100%
+    to bottom, transparent 0%, #000 10%, #000 100%
   );
-
   mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    #000 10%,
-    #000 100%
+    to bottom, transparent 0%, #000 10%, #000 100%
   );
 }
 
@@ -381,16 +329,17 @@ body.viewing-static-map #top-nav {
   background: #fff;
 }
 
-/* ARCGIS LEGEND OVERLAY — LOWER LEFT */
+/* ARCGIS LEGEND — LOWER LEFT OVER THE MAP */
 
 .geography-legend {
   position: absolute;
   z-index: 6;
-  bottom: clamp(18px, 3vw, 42px);
-  left: clamp(16px, 3vw, 42px);
-  width: min(350px, calc(100% - 32px));
-  padding: 16px 18px;
-  background: rgba(255,255,255,.90);
+  bottom: clamp(14px,2.5vw,35px);
+  left: clamp(12px,2.5vw,35px);
+  width: min(380px,calc(100% - 24px));
+  margin: 0;
+  padding: 14px 16px;
+  background: rgba(255,255,255,.93);
   color: #403a34;
   border: 1px solid rgba(80,65,50,.12);
   border-radius: 4px;
@@ -401,23 +350,23 @@ body.viewing-static-map #top-nav {
 
 .geography-legend-heading {
   display: block;
-  margin-bottom: 11px;
-  font: 16px/1.4 Georgia, serif;
-  font-weight: 400;
+  margin-bottom: 12px;
+  font: 17px/1.4 Georgia,serif;
+  text-align: center;
 }
 
 .geography-legend-item {
   display: flex;
   align-items: center;
-  gap: 11px;
-  margin: 8px 0;
-  font: 12px/1.45 Arial, sans-serif;
+  gap: 13px;
+  margin: 9px 0;
+  font: 13px/1.45 Arial,sans-serif;
 }
 
 .geography-legend-swatch {
-  flex: 0 0 30px;
-  width: 30px;
-  height: 20px;
+  flex: 0 0 34px;
+  width: 34px;
+  height: 23px;
   border: 1px solid rgba(90,75,60,.12);
 }
 
@@ -433,7 +382,7 @@ body.viewing-static-map #top-nav {
   background: #d5c4a7;
 }
 
-/* ARCGIS CAPTION — FULLY READABLE */
+/* ARCGIS CAPTION AND METHODOLOGICAL NOTE */
 
 .geography-map-feature figcaption {
   display: block;
@@ -459,7 +408,15 @@ body.viewing-static-map #top-nav {
   font: 11px/1.45 Arial,sans-serif;
 }
 
-/* MARIA'S MAP CAPTION — FULLY READABLE */
+.geography-method-note {
+  display: block;
+  max-width: 900px;
+  margin: 9px auto 0;
+  color: #625b54;
+  font: italic 11px/1.55 Arial,sans-serif;
+}
+
+/* MARIA'S MAP */
 
 .memory-map-feature figcaption {
   display: block;
@@ -498,7 +455,7 @@ body.viewing-static-map #top-nav {
   font: italic 11px/1.4 Georgia,serif;
 }
 
-/* FADE OUT AFTER THE CAPTION */
+/* FADE OUT BELOW STATIC MAP CAPTIONS */
 
 .cutaway-fade-out {
   display: block;
@@ -516,7 +473,7 @@ body.viewing-static-map #top-nav {
   );
 }
 
-/* XELI PHOTO — ORIGINAL GENTLE FADE */
+/* XELI LANDSCAPE PHOTO */
 
 .landscape-photo-feature {
   position: relative;
@@ -544,7 +501,6 @@ body.viewing-static-map #top-nav {
   height: 100%;
   object-fit: cover;
   object-position: center;
-
   -webkit-mask-image: linear-gradient(
     to bottom,
     transparent 0%,
@@ -552,7 +508,6 @@ body.viewing-static-map #top-nav {
     #000 90%,
     transparent 100%
   );
-
   mask-image: linear-gradient(
     to bottom,
     transparent 0%,
@@ -573,7 +528,6 @@ body.viewing-static-map #top-nav {
     rgba(0,0,0,.2) 75%,
     rgba(0,0,0,.85)
   );
-
   -webkit-mask-image: linear-gradient(
     to bottom,
     transparent 0%,
@@ -581,7 +535,6 @@ body.viewing-static-map #top-nav {
     #000 90%,
     transparent 100%
   );
-
   mask-image: linear-gradient(
     to bottom,
     transparent 0%,
@@ -687,9 +640,7 @@ body.viewing-static-map #top-nav {
     overflow-y: auto;
   }
 
-  .nav-links.open {
-    display: flex;
-  }
+  .nav-links.open { display: flex; }
 
   .nav-link {
     display: block;
@@ -701,13 +652,8 @@ body.viewing-static-map #top-nav {
 /* MOBILE */
 
 @media (max-width: 700px) {
-  #header {
-    height: 380px;
-  }
-
-  #header-content {
-    width: 90%;
-  }
+  #header { height: 380px; }
+  #header-content { width: 90%; }
 
   #title {
     font-size: clamp(36px,11vw,50px);
@@ -756,25 +702,20 @@ body.viewing-static-map #top-nav {
     padding: 8px 14px 10px;
   }
 
-  .geography-title {
-    font-size: 12px;
-  }
-
-  .geography-caption {
-    font-size: 10px;
-  }
+  .geography-title { font-size: 12px; }
+  .geography-caption { font-size: 10px; }
+  .geography-method-note { font-size: 10px; }
 
   .geography-legend {
-    left: 10px;
-    bottom: 10px;
-    width: min(255px, calc(100% - 20px));
-    padding: 9px 11px;
-    background: rgba(255,255,255,.93);
+    left: 9px;
+    bottom: 9px;
+    width: min(270px,calc(100% - 18px));
+    padding: 8px 10px;
   }
 
   .geography-legend-heading {
     font-size: 12px;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
   }
 
   .geography-legend-item {
@@ -784,27 +725,20 @@ body.viewing-static-map #top-nav {
   }
 
   .geography-legend-swatch {
-    flex-basis: 21px;
-    width: 21px;
+    flex-basis: 22px;
+    width: 22px;
     height: 15px;
   }
 
-  .memory-map-feature h2 {
-    font-size: 14px;
-  }
-
-  .memory-map-feature .map-credit {
-    font-size: 11px;
-  }
+  .memory-map-feature h2 { font-size: 14px; }
+  .memory-map-feature .map-credit { font-size: 11px; }
 
   .memory-map-feature .map-caption {
     font-size: 11px;
     line-height: 1.45;
   }
 
-  .memory-map-feature .map-hint {
-    font-size: 10px;
-  }
+  .memory-map-feature .map-hint { font-size: 10px; }
 }
 </style>
 </head>
@@ -941,24 +875,43 @@ const navLabels = {
   }
 };
 
+/* UPDATED ARCGIS LEGEND AND METHODOLOGY */
+
 const geographyTranslations = {
   en: {
     title: "Geographic Distribution of Arvanite Settlement Regions in Southern Greece",
+
     caption: "Map created by Christina Maria Carasis using ArcGIS, referencing settlement data from Lithoxoou (n.d.) and regional ethnolinguistic boundaries from Philippson (1890) and Tsitsipis (1998).",
-    alt: "Map of Arvanite settlement regions in Southern Greece",
-    legendHeading: "Ethnolinguistic Presence",
-    core: "Core Arvanite Regions",
+
+    alt: "Map of reported historical Arvanite settlement and presence in Southern Greece",
+
+    legendHeading: "Historical Arvanite Settlement and Presence",
+
+    core: "Regions Traditionally Associated with Arvanite Settlement",
+
     fieldwork: "Fieldwork Area: Mt. Arachnaio & Argolida/Corinthia",
-    blended: "Blended & Low Population Areas"
+
+    blended: "Predominantly Greek-Speaking Areas with Reported Limited Arvanite Presence",
+
+    methodNote: "Shaded regions reflect historical accounts, local traditions, and scholarly interpretations of Arvanite settlement. They are approximate and do not represent exclusive ethnic territories, official population classifications, or fixed linguistic boundaries."
   },
+
   el: {
     title: "Γεωγραφική Κατανομή των Περιοχών Αρβανίτικης Εγκατάστασης στη Νότια Ελλάδα",
+
     caption: "Χάρτης που δημιουργήθηκε από τη Christina Maria Carasis με τη χρήση του ArcGIS, με βάση δεδομένα οικισμών από τον Lithoxoou (χ.χ.) και περιφερειακά εθνογλωσσικά όρια από τους Philippson (1890) και Tsitsipis (1998).",
-    alt: "Χάρτης περιοχών αρβανίτικης εγκατάστασης στη Νότια Ελλάδα",
-    legendHeading: "Εθνογλωσσική Παρουσία",
-    core: "Κύριες Αρβανίτικες Περιοχές",
+
+    alt: "Χάρτης αναφερόμενης ιστορικής αρβανίτικης εγκατάστασης και παρουσίας στη Νότια Ελλάδα",
+
+    legendHeading: "Ιστορική Αρβανίτικη Εγκατάσταση και Παρουσία",
+
+    core: "Περιοχές που Παραδοσιακά Συνδέονται με Αρβανίτικη Εγκατάσταση",
+
     fieldwork: "Περιοχή Επιτόπιας Έρευνας: Όρος Αραχναίο και Αργολίδα/Κορινθία",
-    blended: "Περιοχές Μικτού και Αραιού Πληθυσμού"
+
+    blended: "Κυρίως Ελληνόφωνες Περιοχές με Αναφερόμενη Περιορισμένη Αρβανίτικη Παρουσία",
+
+    methodNote: "Οι σκιασμένες περιοχές βασίζονται σε ιστορικές μαρτυρίες, τοπικές παραδόσεις και επιστημονικές ερμηνείες της αρβανίτικης εγκατάστασης. Τα όριά τους είναι κατά προσέγγιση και δεν δηλώνουν αποκλειστικές εθνοτικές επικράτειες, επίσημες πληθυσμιακές ταξινομήσεις ή σταθερά γλωσσικά όρια."
   }
 };
 
@@ -1053,7 +1006,7 @@ config.chapters.forEach(chapter => {
     paragraph
   });
 
-  /* ARCGIS MAP WITH LOWER-LEFT OVERLAY LEGEND */
+  /* ARCGIS MAP WITH UPDATED LOWER-LEFT LEGEND */
 
   if (chapter.id === "chapter-1") {
     const feature = document.createElement("section");
@@ -1075,7 +1028,7 @@ config.chapters.forEach(chapter => {
             <img
               class="geography-image"
               src="./assets/arvanite-geography-map.png"
-              alt="Map of Arvanite settlement regions in Southern Greece"
+              alt="Map of historical Arvanite settlement in Southern Greece"
               loading="lazy"
             >
           </a>
@@ -1083,7 +1036,7 @@ config.chapters.forEach(chapter => {
           <div
             class="geography-legend"
             role="group"
-            aria-label="Ethnolinguistic presence legend"
+            aria-label="Historical Arvanite settlement and presence legend"
           >
 
             <strong
@@ -1116,7 +1069,6 @@ config.chapters.forEach(chapter => {
             </div>
 
           </div>
-
         </div>
 
         <figcaption>
@@ -1124,15 +1076,24 @@ config.chapters.forEach(chapter => {
             class="geography-title"
             data-geography-i18n="title"
           ></strong>
+
           <span
             class="geography-caption"
             data-geography-i18n="caption"
+          ></span>
+
+          <span
+            class="geography-method-note"
+            data-geography-i18n="methodNote"
           ></span>
         </figcaption>
 
       </figure>
 
-      <div class="cutaway-fade-out" aria-hidden="true"></div>
+      <div
+        class="cutaway-fade-out"
+        aria-hidden="true"
+      ></div>
     `;
 
     chaptersContainer.appendChild(feature);
@@ -1203,7 +1164,10 @@ config.chapters.forEach(chapter => {
         </figcaption>
       </figure>
 
-      <div class="cutaway-fade-out" aria-hidden="true"></div>
+      <div
+        class="cutaway-fade-out"
+        aria-hidden="true"
+      ></div>
     `;
 
     chaptersContainer.appendChild(feature);
@@ -1352,7 +1316,7 @@ function setLanguage(lang) {
       translation.description || chapter.description || "";
   });
 
-  /* ARCGIS MAP AND LEGEND TRANSLATIONS */
+  /* ARCGIS LEGEND AND METHODOLOGICAL NOTE */
 
   document.querySelectorAll("[data-geography-i18n]")
     .forEach(element => {
@@ -1377,7 +1341,7 @@ function setLanguage(lang) {
     );
   }
 
-  /* XELI PHOTO TRANSLATIONS */
+  /* XELI PHOTO */
 
   document.querySelectorAll("[data-photo-i18n]")
     .forEach(element => {
@@ -1385,7 +1349,7 @@ function setLanguage(lang) {
         photoTranslations[lang][element.dataset.photoI18n];
     });
 
-  /* MARIA MAP TRANSLATIONS */
+  /* MARIA MAP */
 
   document.querySelectorAll("[data-map-i18n]")
     .forEach(element => {
@@ -1406,7 +1370,7 @@ function setLanguage(lang) {
     );
   }
 
-  /* NAVIGATION TRANSLATIONS */
+  /* NAVIGATION */
 
   document.querySelectorAll("[data-nav]")
     .forEach(link => {
@@ -1435,7 +1399,7 @@ function setLanguage(lang) {
   });
 }
 
-/* NAVIGATION */
+/* NAVIGATION LINKS */
 
 document.querySelectorAll('.nav-link[href^="#"]')
   .forEach(link => {
