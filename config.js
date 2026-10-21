@@ -97,7 +97,7 @@ var config = {
 },
 
         {
-            id: 'chapter-2-geography-acient',
+            id: 'chapter-2-geography-ancient',
             alignment: 'right',
             title: 'Ancient Ruins',
             description: 'Mt. Arachnaio has been inhabited since the Bronze Age. Ruins spanning the Mycenaean, Ancient Greek, Roman, and Byzantine eras are still found across the landscape, while the earliest recorded Arvanite settlements on the mountain date back to the 1420s.',
