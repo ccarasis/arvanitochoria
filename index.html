@@ -214,6 +214,18 @@ body.viewing-static-map #top-nav {
   white-space:pre-line;
 }
 
+/* NEW: OPEN MAP PAUSE BEFORE ROOTED TOGETHER */
+
+.map-breathing-space {
+  position:relative;
+  z-index:2;
+  width:100%;
+  height:80vh;
+  height:80dvh;
+  background:transparent;
+  pointer-events:none;
+}
+
 /* VIDEOS */
 
 .oral-history-video {
@@ -560,8 +572,6 @@ body.viewing-static-map #top-nav {
   font-size:15px;
 }
 
-/* ABOUT THE PROJECT */
-
 /* ABOUT THE PROJECT — SOFT CLOSING SECTION */
 
 .about-project {
@@ -671,6 +681,11 @@ body.viewing-static-map #top-nav {
     line-height:1.6;
   }
 
+  .map-breathing-space {
+    height:65vh;
+    height:65dvh;
+  }
+
   .landscape-photo-feature figcaption {
     bottom:9%;
     width:88%;
@@ -722,19 +737,19 @@ body.viewing-static-map #top-nav {
   .memory-map-feature .map-credit { font-size:11px; }
   .memory-map-feature .map-caption { font-size:11px; }
   .memory-map-feature .map-hint { font-size:10px; }
-  
-.about-project {
-  padding:65px 22px 45px;
-}
 
-.about-project h2 {
-  font-size:21px;
-}
+  .about-project {
+    padding:65px 22px 45px;
+  }
 
-.about-project p {
-  font-size:14px;
-  line-height:1.7;
-}
+  .about-project h2 {
+    font-size:21px;
+  }
+
+  .about-project p {
+    font-size:14px;
+    line-height:1.7;
+  }
 }
 </style>
 </head>
@@ -1023,6 +1038,18 @@ const chapterElements = new Map();
 config.chapters.forEach(chapter => {
 
   if(chapter.id === "chapter-0") return;
+
+  /* NEW: PAUSE AFTER THE EIGHT VILLAGES,
+     IMMEDIATELY BEFORE ROOTED TOGETHER */
+
+  if(chapter.id === "chapter-1-rooted") {
+    const pause = document.createElement("div");
+    pause.className = "map-breathing-space";
+    pause.id = "eight-villages-map-pause";
+    pause.setAttribute("aria-hidden","true");
+
+    chaptersContainer.appendChild(pause);
+  }
 
   const section = document.createElement("section");
   section.className = `step ${chapter.alignment || "left"}`;
