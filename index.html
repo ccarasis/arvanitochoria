@@ -677,29 +677,39 @@ body.viewing-static-map #top-nav {
     font-size:10px;
   }
 
-  .geography-legend {
-    left:9px;
-    bottom:9px;
-    width:min(270px,calc(100% - 18px));
-    padding:8px 10px;
-  }
+ 
+/* COMPACT GIS MAP LEGEND — MOBILE ONLY */
 
-  .geography-legend-heading {
-    font-size:12px;
-    margin-bottom:5px;
-  }
+.geography-legend {
+  left:6px;
+  bottom:6px;
+  width:175px;
+  max-width:48%;
+  padding:6px 7px;
+  border-radius:3px;
+  background:rgba(255,255,255,.90);
+  box-shadow:0 2px 6px rgba(0,0,0,.10);
+}
 
-  .geography-legend-item {
-    font-size:10px;
-    gap:7px;
-    margin:5px 0;
-  }
+.geography-legend-heading {
+  font-size:9px;
+  line-height:1.15;
+  margin-bottom:5px;
+}
 
-  .geography-legend-swatch {
-    flex-basis:22px;
-    width:22px;
-    height:15px;
-  }
+.geography-legend-item {
+  font-size:8px;
+  line-height:1.2;
+  gap:5px;
+  margin:4px 0;
+}
+
+.geography-legend-swatch {
+  flex:0 0 13px;
+  width:13px;
+  height:11px;
+}
+
 
   .memory-map-feature h2 {
     font-size:14px;
