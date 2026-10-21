@@ -9,8 +9,6 @@ var config = {
 
     subtitle: 'Arvanite Cartographies of Mt. Arachnaio',
 
-    byline: 'By Christina Maria Carasis <br> University of California, Berkeley <br> Department of Geography',
-
     chapters: [
 
         {
@@ -28,7 +26,7 @@ var config = {
 
         {
             id: 'chapter-1',
-            alignment: 'left',
+            alignment: 'right',
             videoId: 'ew1XbJb6TAk',
             title: 'What are the Arvanitochoria?',
             description: 'Arvanitochoria (literally "Arvanite villages") refers to the clusters of rural settlements across Southern Greece historically populated by Arvanites. Descended from medieval migrants, these communities preserved their distinct language (Arvanitika - a now critically endangered, Albanian-derived dialect) and cultural practices for centuries. Shaping the human geography of the region, Arvanites fought prominently in the 1821 Revolution to establish the modern state. They maintain an identity that remains both distinctly Arvanite and steadfastly Greek to this day.',
@@ -42,7 +40,7 @@ var config = {
 
         {
             id: 'chapter-1-arvanitika',
-            alignment: 'right',
+            alignment: 'left',
             videoId: '70Z0PLAcaOU',
             title: 'Arvanitika',
             description: 'Arvanitika is an oral language, spoken across Arvanitochoria of Southern Greece. Largely unwritten, modern transcripts have used both the Latin and Greek alphabets. UNESCO classifies Arvanitika as critically endangered, with an estimated 50,000 speakers remaining across 300 villages (Moseley, 2010). Sociolinguist Lukas Tsitsipis (1998) coined the term “terminal speaker” in relation to Arvanitika, marking the final generation with native knowledge of the language.',
