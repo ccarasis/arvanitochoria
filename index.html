@@ -29,8 +29,6 @@ html,body {
 
 body { background:transparent; }
 
-/* MAPBOX */
-
 #map {
   position:fixed;
   inset:0;
@@ -179,11 +177,6 @@ body.viewing-static-map #top-nav {
   line-height:1.2;
 }
 
-#byline {
-  margin-top:30px;
-  font:15px/1.5 Arial,sans-serif;
-}
-
 /* CHAPTERS */
 
 .step {
@@ -304,7 +297,7 @@ body.viewing-static-map #top-nav {
   background:white;
 }
 
-/* ARCGIS LEGEND */
+/* GIS LEGEND */
 
 .geography-legend {
   position:absolute;
@@ -567,7 +560,34 @@ body.viewing-static-map #top-nav {
   font-size:15px;
 }
 
-/* TABLET */
+/* ABOUT THE PROJECT */
+
+.about-project {
+  position:relative;
+  z-index:5;
+  padding:90px 22px 105px;
+  background:rgba(54,34,24,.94);
+  color:#f7eee5;
+  scroll-margin-top:54px;
+}
+
+.about-project-content {
+  max-width:720px;
+  margin:0 auto;
+  text-align:center;
+}
+
+.about-project h2 {
+  margin:0 0 18px;
+  font:normal 24px/1.3 Georgia,serif;
+}
+
+.about-project p {
+  margin:0;
+  font:16px/1.8 Georgia,serif;
+}
+
+/* TABLET NAVIGATION */
 
 @media(max-width:1100px) {
   #top-nav {
@@ -596,9 +616,7 @@ body.viewing-static-map #top-nav {
     overflow-y:auto;
   }
 
-  .nav-links.open {
-    display:flex;
-  }
+  .nav-links.open { display:flex; }
 
   .nav-link {
     display:block;
@@ -610,13 +628,9 @@ body.viewing-static-map #top-nav {
 /* MOBILE */
 
 @media(max-width:700px) {
-  #header {
-    height:380px;
-  }
+  #header { height:380px; }
 
-  #header-content {
-    width:90%;
-  }
+  #header-content { width:90%; }
 
   #title {
     font-size:clamp(36px,11vw,50px);
@@ -625,11 +639,6 @@ body.viewing-static-map #top-nav {
   #subtitle {
     margin-top:14px;
     font-size:22px;
-  }
-
-  #byline {
-    margin-top:20px;
-    font-size:14px;
   }
 
   .step {
@@ -665,66 +674,56 @@ body.viewing-static-map #top-nav {
     padding:8px 14px 10px;
   }
 
-  .geography-title {
-    font-size:12px;
+  .geography-title { font-size:12px; }
+  .geography-caption { font-size:10px; }
+  .geography-method-note { font-size:10px; }
+
+  /* SMALL MOBILE-ONLY GIS LEGEND */
+
+  .geography-legend {
+    left:6px;
+    bottom:6px;
+    width:175px;
+    max-width:48%;
+    padding:6px 7px;
+    border-radius:3px;
+    background:rgba(255,255,255,.90);
+    box-shadow:0 2px 6px rgba(0,0,0,.10);
   }
 
-  .geography-caption {
-    font-size:10px;
+  .geography-legend-heading {
+    font-size:9px;
+    line-height:1.15;
+    margin-bottom:5px;
   }
 
-  .geography-method-note {
-    font-size:10px;
+  .geography-legend-item {
+    font-size:8px;
+    line-height:1.2;
+    gap:5px;
+    margin:4px 0;
   }
 
- 
-/* COMPACT GIS MAP LEGEND — MOBILE ONLY */
-
-.geography-legend {
-  left:6px;
-  bottom:6px;
-  width:175px;
-  max-width:48%;
-  padding:6px 7px;
-  border-radius:3px;
-  background:rgba(255,255,255,.90);
-  box-shadow:0 2px 6px rgba(0,0,0,.10);
-}
-
-.geography-legend-heading {
-  font-size:9px;
-  line-height:1.15;
-  margin-bottom:5px;
-}
-
-.geography-legend-item {
-  font-size:8px;
-  line-height:1.2;
-  gap:5px;
-  margin:4px 0;
-}
-
-.geography-legend-swatch {
-  flex:0 0 13px;
-  width:13px;
-  height:11px;
-}
-
-
-  .memory-map-feature h2 {
-    font-size:14px;
+  .geography-legend-swatch {
+    flex:0 0 13px;
+    width:13px;
+    height:11px;
   }
 
-  .memory-map-feature .map-credit {
-    font-size:11px;
+  .memory-map-feature h2 { font-size:14px; }
+  .memory-map-feature .map-credit { font-size:11px; }
+  .memory-map-feature .map-caption { font-size:11px; }
+  .memory-map-feature .map-hint { font-size:10px; }
+
+  .about-project {
+    padding:65px 24px 75px;
   }
 
-  .memory-map-feature .map-caption {
-    font-size:11px;
-  }
+  .about-project h2 { font-size:21px; }
 
-  .memory-map-feature .map-hint {
-    font-size:10px;
+  .about-project p {
+    font-size:15px;
+    line-height:1.75;
   }
 }
 </style>
@@ -762,6 +761,10 @@ body.viewing-static-map #top-nav {
     <a class="nav-link" href="./archive.html" data-nav="archive">
       Video Archive
     </a>
+
+    <a class="nav-link" href="#about-project" data-nav="about">
+      About the Project
+    </a>
   </div>
 
   <div class="language-switch" role="group" aria-label="Website language">
@@ -778,7 +781,6 @@ body.viewing-static-map #top-nav {
     <div id="header-content">
       <h1 id="title"></h1>
       <div id="subtitle"></div>
-      <div id="byline"></div>
     </div>
   </header>
 
@@ -856,6 +858,7 @@ const navLabels = {
     chapter3:"Chapter 3: Life on the Mountain",
     chapter4:"Chapter 4: Agriculture & Pastoral Life",
     archive:"Video Archive",
+    about:"About the Project",
     menu:"Menu ☰"
   },
 
@@ -865,6 +868,7 @@ const navLabels = {
     chapter3:"Κεφάλαιο 3: Η Ζωή στο Βουνό",
     chapter4:"Κεφάλαιο 4: Γεωργία και Κτηνοτροφία",
     archive:"Αρχείο Βίντεο",
+    about:"Σχετικά με το Έργο",
     menu:"Μενού ☰"
   }
 };
@@ -948,6 +952,22 @@ const bridgesPhotoTranslations = {
   el:{
     description:"Δύο γέφυρες λίγο έξω από το Μπερμπάτι αποτυπώνουν τις αλλαγές στις υποδομές μετακίνησης με την πάροδο του χρόνου. Μια πέτρινη πεζογέφυρα της οθωμανικής περιόδου στέκεται δίπλα σε μια σύγχρονη οδική γέφυρα, που κατασκευάστηκε στα τέλη του 20ού αιώνα.",
     credit:"Φωτογραφία: Χριστίνα Μαρία Καράση."
+  }
+};
+
+/* ABOUT THE PROJECT */
+
+const aboutTranslations = {
+  en:{
+    heading:"About the Project",
+
+    text:"Arvanitochoria is an ongoing digital mapping and oral history project developed by Christina Maria Carasis, an Arvanitissa and Geography student at the University of California, Berkeley. Rooted in both personal heritage and academic research, the project draws on the knowledge, memories, and contributions of residents of the villages of Mt. Arachnaio."
+  },
+
+  el:{
+    heading:"Σχετικά με το Έργο",
+
+    text:"Το Arvanitochoria είναι ένα συνεχιζόμενο εγχείρημα ψηφιακής χαρτογράφησης και προφορικής ιστορίας που αναπτύχθηκε από τη Χριστίνα Μαρία Καράση, Αρβανίτισσα και φοιτήτρια Γεωγραφίας στο Πανεπιστήμιο της Καλιφόρνιας στο Μπέρκλεϊ. Με αφετηρία τόσο την προσωπική πολιτισμική κληρονομιά όσο και την ακαδημαϊκή έρευνα, το έργο βασίζεται στις γνώσεις, τις μνήμες και τις συνεισφορές των κατοίκων των χωριών του Όρους Αραχναίου."
   }
 };
 
@@ -1242,6 +1262,21 @@ config.chapters.forEach(chapter => {
   }
 });
 
+/* ABOUT THE PROJECT — AFTER FINAL CHAPTER */
+
+const aboutSection = document.createElement("section");
+aboutSection.id = "about-project";
+aboutSection.className = "about-project";
+
+aboutSection.innerHTML = `
+  <div class="about-project-content">
+    <h2 data-about-i18n="heading"></h2>
+    <p data-about-i18n="text"></p>
+  </div>
+`;
+
+chaptersContainer.appendChild(aboutSection);
+
 /* HIDE NAVIGATION OVER STATIC MAPS */
 
 const staticMapSections = [
@@ -1377,11 +1412,6 @@ function setLanguage(lang) {
       ? localizeAuthorName(site.subtitle || config.subtitle)
       : config.subtitle;
 
-  document.getElementById("byline").innerHTML =
-    lang === "el"
-      ? localizeAuthorName(site.byline || config.byline)
-      : config.byline;
-
   config.chapters.forEach(chapter => {
     const elements = chapterElements.get(chapter.id);
 
@@ -1417,16 +1447,6 @@ function setLanguage(lang) {
     geographyImage.alt = geographyTranslations[lang].alt;
   }
 
-  const geographyLegend =
-    document.querySelector(".geography-legend");
-
-  if(geographyLegend) {
-    geographyLegend.setAttribute(
-      "aria-label",
-      geographyTranslations[lang].legendHeading
-    );
-  }
-
   /* XELI PHOTOGRAPH */
 
   document.querySelectorAll("[data-photo-i18n]")
@@ -1449,6 +1469,14 @@ function setLanguage(lang) {
     .forEach(element => {
       element.textContent =
         bridgesPhotoTranslations[lang][element.dataset.bridgesPhotoI18n];
+    });
+
+  /* ABOUT THE PROJECT */
+
+  document.querySelectorAll("[data-about-i18n]")
+    .forEach(element => {
+      element.textContent =
+        aboutTranslations[lang][element.dataset.aboutI18n];
     });
 
   /* MARIA'S MAP */
