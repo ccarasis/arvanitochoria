@@ -73,7 +73,7 @@ var config = {
             videoId: 'MKvCcXowodU',
             description: 'Though today split between the modern municipalities of Argos and Corinth, they have long been bound together by extended kinship networks, shared religious celebrations, seasonal agricultural and pastoral relationships, and a deep connection to the land. These relational geographies, connecting both people and landscape, have played a vital role in sustaining their Arvanite culture and language.',
             location: {
-                center: [22.88, 37.71],
+                center: [22.849, 37.679],
                 zoom: 13,
                 pitch: 55,
                 bearing: 0
