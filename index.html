@@ -562,29 +562,37 @@ body.viewing-static-map #top-nav {
 
 /* ABOUT THE PROJECT */
 
+/* ABOUT THE PROJECT — SOFT CLOSING SECTION */
+
 .about-project {
   position:relative;
   z-index:5;
-  padding:90px 22px 105px;
-  background:rgba(54,34,24,.94);
+  padding:75px 30px 55px;
+  background:linear-gradient(
+    to bottom,
+    rgba(54,34,24,0) 0%,
+    rgba(54,34,24,.55) 28%,
+    rgba(54,34,24,.78) 65%,
+    rgba(54,34,24,.85) 100%
+  );
   color:#f7eee5;
   scroll-margin-top:54px;
 }
 
 .about-project-content {
-  max-width:720px;
+  max-width:950px;
   margin:0 auto;
   text-align:center;
 }
 
 .about-project h2 {
-  margin:0 0 18px;
-  font:normal 24px/1.3 Georgia,serif;
+  margin:0 0 14px;
+  font:normal 23px/1.3 Georgia,serif;
 }
 
 .about-project p {
   margin:0;
-  font:16px/1.8 Georgia,serif;
+  font:15px/1.7 Georgia,serif;
 }
 
 /* TABLET NAVIGATION */
@@ -714,17 +722,19 @@ body.viewing-static-map #top-nav {
   .memory-map-feature .map-credit { font-size:11px; }
   .memory-map-feature .map-caption { font-size:11px; }
   .memory-map-feature .map-hint { font-size:10px; }
+  
+.about-project {
+  padding:65px 22px 45px;
+}
 
-  .about-project {
-    padding:65px 24px 75px;
-  }
+.about-project h2 {
+  font-size:21px;
+}
 
-  .about-project h2 { font-size:21px; }
-
-  .about-project p {
-    font-size:15px;
-    line-height:1.75;
-  }
+.about-project p {
+  font-size:14px;
+  line-height:1.7;
+}
 }
 </style>
 </head>
