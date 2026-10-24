@@ -13,245 +13,129 @@
 
 <style>
 *{box-sizing:border-box}
-
-html{
-  scroll-padding-top:70px;
-  background:#233e43;
-}
-
+html{scroll-padding-top:70px;background:#233e43}
 html,body{
-  margin:0;
-  padding:0;
-  color:white;
+  margin:0;padding:0;color:white;
   font-family:Georgia,"Times New Roman",serif;
   -webkit-text-size-adjust:100%;
 }
-
 body{background:transparent}
-
 #map{
-  position:fixed;
-  inset:0;
-  width:100%;
-  height:100%;
-  z-index:1;
-  pointer-events:none;
+  position:fixed;inset:0;width:100%;height:100%;
+  z-index:1;pointer-events:none;
 }
-
 #story,#chapters{
-  position:relative;
-  z-index:2;
-  background:transparent;
+  position:relative;z-index:2;background:transparent;
 }
 
-/* COMPACT DROPDOWN NAVIGATION */
+/* NAVIGATION */
 
 #top-nav{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  z-index:20;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  min-height:54px;
+  position:fixed;top:0;left:0;right:0;z-index:20;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;min-height:54px;
   padding:9px clamp(14px,3vw,32px);
   background:rgba(54,34,24,.85);
   box-shadow:0 2px 12px rgba(0,0,0,.18);
   transition:opacity .35s ease;
 }
-
 body.viewing-static-map #top-nav{
-  opacity:0;
-  pointer-events:none;
+  opacity:0;pointer-events:none;
 }
-
 #nav-brand{
-  color:#f7eee5;
-  font:17px Georgia,serif;
-  text-decoration:none;
-  white-space:nowrap;
+  color:#f7eee5;font:17px Georgia,serif;
+  text-decoration:none;white-space:nowrap;
 }
-
 .nav-actions{
-  display:flex;
-  align-items:center;
-  gap:15px;
+  display:flex;align-items:center;gap:15px;
 }
-
 .language-switch{
-  display:flex;
-  align-items:center;
-  gap:5px;
-  white-space:nowrap;
+  display:flex;align-items:center;gap:5px;white-space:nowrap;
 }
-
 .language-button,#menu-toggle{
-  color:#f7eee5;
-  background:transparent;
-  border:0;
-  font:13px Georgia,serif;
-  cursor:pointer;
+  color:#f7eee5;background:transparent;border:0;
+  font:13px Georgia,serif;cursor:pointer;
 }
-
-.language-button{
-  padding:4px;
-  opacity:.6;
-}
-
+.language-button{padding:4px;opacity:.6}
 .language-button[aria-pressed="true"]{
-  opacity:1;
-  font-weight:bold;
-  text-decoration:underline;
+  opacity:1;font-weight:bold;text-decoration:underline;
 }
-
 #menu-toggle{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:5px 8px;
-  font-size:14px;
-  white-space:nowrap;
+  display:flex;align-items:center;gap:8px;
+  padding:5px 8px;font-size:14px;white-space:nowrap;
 }
-
-.menu-icon{
-  font-size:18px;
-  line-height:1;
-}
-
+.menu-icon{font-size:18px;line-height:1}
 .nav-links{
-  display:none;
-  position:absolute;
-  top:100%;
-  right:0;
-  width:min(430px,100vw);
-  max-height:calc(100dvh - 54px);
-  overflow-y:auto;
-  flex-direction:column;
-  align-items:stretch;
-  gap:0;
-  padding:14px 18px 20px;
+  display:none;position:absolute;top:100%;right:0;
+  width:min(430px,100vw);max-height:calc(100dvh - 54px);
+  overflow-y:auto;flex-direction:column;align-items:stretch;
+  gap:0;padding:14px 18px 20px;
   background:rgba(54,34,24,.97);
   box-shadow:0 12px 20px rgba(0,0,0,.28);
   border-radius:0 0 0 5px;
 }
-
 .nav-links.open{display:flex}
-
 .nav-link{
-  display:block;
-  padding:11px 8px;
-  color:#f7eee5;
+  display:block;padding:11px 8px;color:#f7eee5;
   font:14px/1.4 Georgia,serif;
-  text-decoration:none;
-  text-align:left;
+  text-decoration:none;text-align:left;
 }
-
 .nav-link:visited{color:#f7eee5}
-
-.nav-link:hover,
-.language-button:hover,
-#menu-toggle:hover{
-  text-decoration:underline;
-  text-underline-offset:4px;
+.nav-link:hover,.language-button:hover,#menu-toggle:hover{
+  text-decoration:underline;text-underline-offset:4px;
 }
-
 .nav-link.nav-secondary{
   border-top:1px solid rgba(247,238,229,.18);
-  margin-top:8px;
-  padding-top:16px;
+  margin-top:8px;padding-top:16px;
 }
-
 .nav-link[hidden]{display:none!important}
 
-/* HEADER — LEFT-ALIGNED TITLE AND SOFT GRADIENT */
+/* HEADER */
 
 #header{
-  position:relative;
-  isolation:isolate;
-  height:400px;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
+  position:relative;isolation:isolate;height:400px;
+  overflow:hidden;display:flex;align-items:center;
+  justify-content:center;text-align:center;
 }
-
 #header-image{
-  position:absolute;
-  inset:0;
-  z-index:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
+  position:absolute;inset:0;z-index:0;
+  width:100%;height:100%;object-fit:cover;
   object-position:center;
-
   -webkit-mask-image:linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 70%,
-    transparent 100%
+    to bottom,#000 0%,#000 70%,transparent 100%
   );
-
   mask-image:linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 70%,
-    transparent 100%
+    to bottom,#000 0%,#000 70%,transparent 100%
   );
 }
-
 #header::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:1;
+  content:"";position:absolute;inset:0;z-index:1;
   pointer-events:none;
-
   background:linear-gradient(
     to right,
     rgba(35,24,18,.65) 0%,
     rgba(35,24,18,.35) 45%,
     rgba(35,24,18,.05) 85%
   );
-
   -webkit-mask-image:linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 70%,
-    transparent 100%
+    to bottom,#000 0%,#000 70%,transparent 100%
   );
-
   mask-image:linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 70%,
-    transparent 100%
+    to bottom,#000 0%,#000 70%,transparent 100%
   );
 }
-
 #header-content{
-  position:relative;
-  z-index:2;
-  width:min(1100px,90%);
-  margin:10px auto 0;
-  padding-left:2%;
-  text-align:left;
+  position:relative;z-index:2;
+  width:min(1100px,90%);margin:10px auto 0;
+  padding-left:2%;text-align:left;
   text-shadow:0 3px 8px rgba(0,0,0,.75);
 }
-
 #title{
-  margin:0;
-  font-size:clamp(44px,6vw,88px);
-  line-height:1.05;
-  font-weight:400;
+  margin:0;font-size:clamp(44px,6vw,88px);
+  line-height:1.05;font-weight:400;
 }
-
 #subtitle{
-  margin-top:18px;
-  max-width:650px;
+  margin-top:18px;max-width:650px;
   font-size:clamp(22px,2.5vw,34px);
   line-height:1.25;
 }
@@ -259,148 +143,81 @@ body.viewing-static-map #top-nav{
 /* CHAPTERS */
 
 .step{
-  position:relative;
-  z-index:2;
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  padding:80px 5vw;
-  scroll-margin-top:54px;
+  position:relative;z-index:2;min-height:100vh;
+  display:flex;align-items:center;
+  padding:80px 5vw;scroll-margin-top:54px;
   background:transparent;
 }
-
 .step.left{justify-content:flex-start}
 .step.right{justify-content:flex-end}
-
 .step-content{
-  width:min(590px,88vw);
-  padding:34px 40px;
-  background:rgba(70,43,27,.70);
-  border-radius:4px;
+  width:min(590px,88vw);padding:34px 40px;
+  background:rgba(70,43,27,.70);border-radius:4px;
   box-shadow:0 5px 20px rgba(0,0,0,.18);
 }
-
 .step-content h2{
-  margin:0 0 22px;
-  font-size:30px;
-  line-height:1.15;
-  font-weight:400;
+  margin:0 0 22px;font-size:30px;
+  line-height:1.15;font-weight:400;
 }
-
 .step-content p{
-  margin:0;
-  font:18px/1.65 Arial,sans-serif;
+  margin:0;font:18px/1.65 Arial,sans-serif;
   white-space:pre-line;
 }
 
-/* OPEN MAP PAUSE BEFORE ROOTED TOGETHER */
+/* EIGHT-VILLAGE MAP PAUSE */
 
 .map-breathing-space{
-  position:relative;
-  z-index:2;
-  width:100%;
-  height:80vh;
-  height:80dvh;
-  background:transparent;
-  pointer-events:none;
+  position:relative;z-index:2;width:100%;
+  height:80vh;height:80dvh;
+  background:transparent;pointer-events:none;
 }
 
 /* VIDEOS */
 
 .oral-history-video{
-  position:relative;
-  width:100%;
-  aspect-ratio:16/9;
+  position:relative;width:100%;aspect-ratio:16/9;
   margin-top:24px;
 }
-
 .oral-history-video iframe{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  border:0;
+  position:absolute;inset:0;width:100%;height:100%;border:0;
 }
 
 /* STATIC MAPS */
 
-.geography-map-feature,
-.memory-map-feature{
-  position:relative;
-  z-index:5;
-  display:flow-root;
-  width:100%;
-  margin:0;
-  padding:0;
-  background:transparent;
-  color:#302820;
-  text-align:center;
+.geography-map-feature,.memory-map-feature{
+  position:relative;z-index:5;display:flow-root;
+  width:100%;margin:0;padding:0;
+  background:transparent;color:#302820;text-align:center;
 }
-
-.geography-map-feature figure,
-.memory-map-feature figure{
-  display:block;
-  width:100%;
-  margin:0;
-  padding:0;
+.geography-map-feature figure,.memory-map-feature figure{
+  display:block;width:100%;margin:0;padding:0;
 }
-
-.geography-image-container{
-  position:relative;
-  width:100%;
-}
-
-.geography-image-link,
-.memory-map-feature .map-open{
-  display:block;
-  width:100%;
-  margin:0;
-  padding:0;
-  border:0;
-  border-radius:0;
-  background:white;
-  line-height:0;
-  cursor:zoom-in;
-
+.geography-image-container{position:relative;width:100%}
+.geography-image-link,.memory-map-feature .map-open{
+  display:block;width:100%;margin:0;padding:0;
+  border:0;border-radius:0;background:white;
+  line-height:0;cursor:zoom-in;
   -webkit-mask-image:linear-gradient(
-    to bottom,
-    transparent 0%,
-    #000 10%,
-    #000 100%
+    to bottom,transparent 0%,#000 10%,#000 100%
   );
-
   mask-image:linear-gradient(
-    to bottom,
-    transparent 0%,
-    #000 10%,
-    #000 100%
+    to bottom,transparent 0%,#000 10%,#000 100%
   );
 }
-
 .memory-map-feature .map-open{
-  appearance:none;
-  -webkit-appearance:none;
+  appearance:none;-webkit-appearance:none;
 }
-
-.geography-image,
-.memory-map-feature .map-open img{
-  display:block;
-  width:100%;
-  height:auto;
-  max-width:none;
-  max-height:none;
-  margin:0;
-  padding:0;
-  border:0;
-  object-fit:contain;
-  background:white;
+.geography-image,.memory-map-feature .map-open img{
+  display:block;width:100%;height:auto;
+  max-width:none;max-height:none;
+  margin:0;padding:0;border:0;
+  object-fit:contain;background:white;
 }
 
 /* GIS LEGEND */
 
 .geography-legend{
-  position:absolute;
-  z-index:6;
+  position:absolute;z-index:6;
   bottom:clamp(14px,2.5vw,35px);
   left:clamp(12px,2.5vw,35px);
   width:min(380px,calc(100% - 24px));
@@ -410,32 +227,20 @@ body.viewing-static-map #top-nav{
   border:1px solid rgba(80,65,50,.12);
   border-radius:4px;
   box-shadow:0 3px 16px rgba(0,0,0,.12);
-  text-align:left;
-  pointer-events:none;
+  text-align:left;pointer-events:none;
 }
-
 .geography-legend-heading{
-  display:block;
-  margin-bottom:12px;
-  font:17px/1.4 Georgia,serif;
-  text-align:center;
+  display:block;margin-bottom:12px;
+  font:17px/1.4 Georgia,serif;text-align:center;
 }
-
 .geography-legend-item{
-  display:flex;
-  align-items:center;
-  gap:13px;
-  margin:9px 0;
-  font:13px/1.45 Arial,sans-serif;
+  display:flex;align-items:center;gap:13px;
+  margin:9px 0;font:13px/1.45 Arial,sans-serif;
 }
-
 .geography-legend-swatch{
-  flex:0 0 34px;
-  width:34px;
-  height:23px;
+  flex:0 0 34px;width:34px;height:23px;
   border:1px solid rgba(90,75,60,.12);
 }
-
 .geography-legend-swatch.core{background:#ffd49a}
 .geography-legend-swatch.fieldwork{background:#e6ac91}
 .geography-legend-swatch.blended{background:#d5c4a7}
@@ -444,64 +249,40 @@ body.viewing-static-map #top-nav{
 
 .geography-map-feature figcaption,
 .memory-map-feature figcaption{
-  display:block;
-  width:100%;
-  margin:0;
-  padding:8px 5vw 10px;
-  background:white;
-  color:#625b54;
-  text-align:center;
+  display:block;width:100%;margin:0;
+  padding:8px 5vw 10px;background:white;
+  color:#625b54;text-align:center;
 }
-
 .geography-title{
-  display:block;
-  max-width:1000px;
-  margin:0 auto 3px;
+  display:block;max-width:1000px;margin:0 auto 3px;
   font:13px/1.4 Georgia,serif;
 }
-
 .geography-caption{
-  display:block;
-  max-width:1000px;
-  margin:0 auto;
+  display:block;max-width:1000px;margin:0 auto;
   font:11px/1.45 Arial,sans-serif;
 }
-
 .geography-method-note{
-  display:block;
-  max-width:900px;
-  margin:9px auto 0;
+  display:block;max-width:900px;margin:9px auto 0;
   font:italic 11px/1.55 Arial,sans-serif;
 }
-
 .memory-map-feature h2{
-  max-width:1000px;
-  margin:0 auto 3px;
-  color:#302820;
-  font:15px/1.4 Georgia,serif;
+  max-width:1000px;margin:0 auto 3px;
+  color:#302820;font:15px/1.4 Georgia,serif;
 }
-
 .memory-map-feature .map-credit{
-  margin:0 auto 6px;
-  font:italic 12px/1.4 Georgia,serif;
+  margin:0 auto 6px;font:italic 12px/1.4 Georgia,serif;
 }
-
 .memory-map-feature .map-caption{
-  max-width:900px;
-  margin:0 auto;
+  max-width:900px;margin:0 auto;
   font:12px/1.55 Arial,sans-serif;
   white-space:pre-line;
 }
-
 .memory-map-feature .map-hint{
-  margin:6px 0 0;
-  color:#77716a;
+  margin:6px 0 0;color:#77716a;
   font:italic 11px/1.4 Georgia,serif;
 }
-
 .cutaway-fade-out{
-  display:block;
-  width:100%;
+  display:block;width:100%;
   height:clamp(45px,7vw,100px);
   pointer-events:none;
   background:linear-gradient(
@@ -516,148 +297,85 @@ body.viewing-static-map #top-nav{
 /* FULL-SCREEN PHOTOGRAPHS */
 
 .landscape-photo-feature{
-  position:relative;
-  z-index:4;
-  width:100%;
-  height:100vh;
-  height:100dvh;
-  margin:0;
-  padding:0;
-  overflow:hidden;
+  position:relative;z-index:4;width:100%;
+  height:100vh;height:100dvh;
+  margin:0;padding:0;overflow:hidden;
   background:transparent;
 }
-
 .landscape-photo-feature figure{
-  position:relative;
-  width:100%;
-  height:100%;
-  margin:0;
-  padding:0;
+  position:relative;width:100%;height:100%;
+  margin:0;padding:0;
 }
-
 .landscape-photo-feature img{
-  display:block;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center;
-
+  display:block;width:100%;height:100%;
+  object-fit:cover;object-position:center;
   -webkit-mask-image:linear-gradient(
     to bottom,
-    transparent 0%,
-    #000 10%,
-    #000 90%,
-    transparent 100%
+    transparent 0%,#000 10%,#000 90%,transparent 100%
   );
-
   mask-image:linear-gradient(
     to bottom,
-    transparent 0%,
-    #000 10%,
-    #000 90%,
-    transparent 100%
+    transparent 0%,#000 10%,#000 90%,transparent 100%
   );
 }
-
 .landscape-photo-feature figure::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
+  content:"";position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(
     to bottom,
     transparent 60%,
     rgba(0,0,0,.2) 75%,
     rgba(0,0,0,.85)
   );
-
   -webkit-mask-image:linear-gradient(
     to bottom,
-    transparent 0%,
-    #000 10%,
-    #000 90%,
-    transparent 100%
+    transparent 0%,#000 10%,#000 90%,transparent 100%
   );
-
   mask-image:linear-gradient(
     to bottom,
-    transparent 0%,
-    #000 10%,
-    #000 90%,
-    transparent 100%
+    transparent 0%,#000 10%,#000 90%,transparent 100%
   );
 }
-
 .landscape-photo-feature figcaption{
-  position:absolute;
-  z-index:2;
-  bottom:6%;
-  left:50%;
-  transform:translateX(-50%);
-  width:min(1100px,90%);
-  color:white;
+  position:absolute;z-index:2;bottom:6%;
+  left:50%;transform:translateX(-50%);
+  width:min(1100px,90%);color:white;
   font:italic clamp(14px,1.2vw,17px)/1.6 Georgia,serif;
-  text-align:center;
-  text-shadow:0 2px 8px rgba(0,0,0,.9);
+  text-align:center;text-shadow:0 2px 8px rgba(0,0,0,.9);
 }
-
 .photo-credit{
-  display:block;
-  margin-top:6px;
-  font-size:.88em;
-  font-style:normal;
+  display:block;margin-top:6px;
+  font-size:.88em;font-style:normal;
 }
 
 /* MARIA MAP ENLARGEMENT */
 
 .memory-map-dialog{
-  position:fixed;
-  inset:0;
-  z-index:50;
-  width:100%;
-  height:100%;
-  max-width:none;
-  max-height:none;
-  margin:0;
-  padding:55px 15px 15px;
-  border:0;
-  background:rgba(15,10,7,.97);
-  color:white;
+  position:fixed;inset:0;z-index:50;
+  width:100%;height:100%;
+  max-width:none;max-height:none;
+  margin:0;padding:55px 15px 15px;
+  border:0;background:rgba(15,10,7,.97);color:white;
 }
-
 .memory-map-dialog:not([open]){display:none}
-
 .memory-map-dialog[open]{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
 }
-
 .memory-map-dialog img{
-  max-width:100%;
-  max-height:calc(100dvh - 90px);
+  max-width:100%;max-height:calc(100dvh - 90px);
   object-fit:contain;
 }
-
 .close-map{
-  position:absolute;
-  top:10px;
-  right:16px;
-  color:white;
-  background:transparent;
-  border:1px solid white;
-  border-radius:4px;
-  padding:7px 12px;
-  cursor:pointer;
-  font-size:15px;
+  position:absolute;top:10px;right:16px;
+  color:white;background:transparent;
+  border:1px solid white;border-radius:4px;
+  padding:7px 12px;cursor:pointer;font-size:15px;
 }
 
-/* SOFT ABOUT THE PROJECT SECTION */
+/* ABOUT THE PROJECT */
 
 .about-project{
-  position:relative;
-  z-index:5;
+  position:relative;z-index:5;
   padding:75px 30px 55px;
   background:linear-gradient(
     to bottom,
@@ -666,30 +384,22 @@ body.viewing-static-map #top-nav{
     rgba(54,34,24,.78) 65%,
     rgba(54,34,24,.85) 100%
   );
-  color:#f7eee5;
-  scroll-margin-top:54px;
+  color:#f7eee5;scroll-margin-top:54px;
 }
-
 .about-project-content{
-  max-width:950px;
-  margin:0 auto;
-  text-align:center;
+  max-width:950px;margin:0 auto;text-align:center;
 }
-
 .about-project h2{
   margin:0 0 14px;
   font:normal 23px/1.3 Georgia,serif;
 }
-
 .about-project p{
-  margin:0;
-  font:15px/1.7 Georgia,serif;
+  margin:0;font:15px/1.7 Georgia,serif;
 }
 
 /* MOBILE */
 
 @media(max-width:700px){
-
   #nav-brand{font-size:15px}
   .nav-actions{gap:7px}
   #menu-toggle{font-size:13px;gap:5px}
@@ -697,20 +407,12 @@ body.viewing-static-map #top-nav{
   .nav-link{font-size:14px}
 
   #header{height:380px}
-
   #header-content{
-    width:90%;
-    padding-left:0;
-    text-align:center;
+    width:90%;padding-left:0;text-align:center;
   }
-
-  #title{
-    font-size:clamp(36px,11vw,50px);
-  }
-
+  #title{font-size:clamp(36px,11vw,50px)}
   #subtitle{
-    margin:14px auto 0;
-    font-size:22px;
+    margin:14px auto 0;font-size:22px;
   }
 
   .step{
@@ -718,39 +420,59 @@ body.viewing-static-map #top-nav{
     padding:65px 5vw 50px;
     justify-content:center!important;
   }
-
   .step-content{
-    width:90vw;
-    max-width:90vw;
-    padding:25px 24px;
+    width:90vw;max-width:90vw;padding:25px 24px;
   }
-
   .step-content h2{
-    margin-bottom:16px;
-    font-size:28px;
+    margin-bottom:16px;font-size:28px;
   }
-
   .step-content p{
-    font-size:17px;
-    line-height:1.6;
+    font-size:17px;line-height:1.6;
   }
 
   .map-breathing-space{
-    height:65vh;
-    height:65dvh;
+    height:65vh;height:65dvh;
   }
 
   .landscape-photo-feature figcaption{
-    bottom:9%;
-    width:88%;
-    font-size:14px;
+    bottom:9%;width:88%;font-size:14px;
+  }
+
+  /* BOTH BERBATI BRIDGES VISIBLE ON MOBILE */
+
+  #berbati-bridges-photo{
+    height:auto;min-height:0;
+  }
+  #berbati-bridges-photo figure{
+    height:auto;
+  }
+  #berbati-bridges-photo img{
+    display:block;width:100%;height:auto;
+    object-fit:contain;object-position:center;
+    -webkit-mask-image:linear-gradient(
+      to bottom,
+      transparent 0%,#000 10%,#000 90%,transparent 100%
+    );
+    mask-image:linear-gradient(
+      to bottom,
+      transparent 0%,#000 10%,#000 90%,transparent 100%
+    );
+  }
+  #berbati-bridges-photo figcaption{
+    position:relative;bottom:auto;left:auto;
+    transform:none;width:100%;
+    padding:12px 20px 18px;
+    background:rgba(54,34,24,.80);
+    font-size:13px;line-height:1.5;
+  }
+  #berbati-bridges-photo figure::after{
+    display:none;
   }
 
   .geography-map-feature figcaption,
   .memory-map-feature figcaption{
     padding:8px 14px 10px;
   }
-
   .geography-title{font-size:12px}
   .geography-caption{font-size:10px}
   .geography-method-note{font-size:10px}
@@ -758,33 +480,21 @@ body.viewing-static-map #top-nav{
   /* COMPACT MOBILE GIS LEGEND */
 
   .geography-legend{
-    left:6px;
-    bottom:6px;
-    width:175px;
-    max-width:48%;
-    padding:6px 7px;
-    border-radius:3px;
+    left:6px;bottom:6px;
+    width:175px;max-width:48%;
+    padding:6px 7px;border-radius:3px;
     background:rgba(255,255,255,.90);
     box-shadow:0 2px 6px rgba(0,0,0,.10);
   }
-
   .geography-legend-heading{
-    font-size:9px;
-    line-height:1.15;
-    margin-bottom:5px;
+    font-size:9px;line-height:1.15;margin-bottom:5px;
   }
-
   .geography-legend-item{
-    font-size:8px;
-    line-height:1.2;
-    gap:5px;
-    margin:4px 0;
+    font-size:8px;line-height:1.2;
+    gap:5px;margin:4px 0;
   }
-
   .geography-legend-swatch{
-    flex:0 0 13px;
-    width:13px;
-    height:11px;
+    flex:0 0 13px;width:13px;height:11px;
   }
 
   .memory-map-feature h2{font-size:14px}
@@ -804,57 +514,70 @@ body.viewing-static-map #top-nav{
 <div id="map"></div>
 
 <nav id="top-nav" aria-label="Main navigation">
-
   <a id="nav-brand" href="#header">Arvanitochoria</a>
 
   <div class="nav-actions">
-
-    <div class="language-switch" role="group" aria-label="Website language">
-      <button type="button" class="language-button"
-        data-lang="en" aria-pressed="true">EN</button>
+    <div class="language-switch"
+         role="group"
+         aria-label="Website language">
+      <button type="button"
+              class="language-button"
+              data-lang="en"
+              aria-pressed="true">EN</button>
       <span aria-hidden="true">|</span>
-      <button type="button" class="language-button"
-        data-lang="el" aria-pressed="false">ΕΛ</button>
+      <button type="button"
+              class="language-button"
+              data-lang="el"
+              aria-pressed="false">ΕΛ</button>
     </div>
 
-    <button id="menu-toggle" type="button"
-      aria-expanded="false" aria-controls="nav-links">
+    <button id="menu-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="nav-links">
       <span id="menu-label">Menu</span>
       <span class="menu-icon" aria-hidden="true">☰</span>
     </button>
-
   </div>
 
   <div class="nav-links" id="nav-links">
-    <a class="nav-link" href="#chapter-1"
-      data-nav="chapter1">Chapter 1</a>
+    <a class="nav-link"
+       href="#chapter-1"
+       data-nav="chapter1">Chapter 1</a>
 
-    <a class="nav-link" href="#history-intro"
-      data-nav="chapter2">Chapter 2</a>
+    <a class="nav-link"
+       href="#history-intro"
+       data-nav="chapter2">Chapter 2</a>
 
-    <a class="nav-link" href="#rural-intro"
-      data-nav="chapter3">Chapter 3</a>
+    <a class="nav-link"
+       href="#rural-intro"
+       data-nav="chapter3">Chapter 3</a>
 
-    <a class="nav-link" href="#Ag-intro"
-      data-nav="chapter4">Chapter 4</a>
+    <a class="nav-link"
+       href="#Ag-intro"
+       data-nav="chapter4">Chapter 4</a>
 
-    <a class="nav-link" href="#folk-traditions"
-      data-nav="chapter5" hidden>Chapter 5</a>
+    <a class="nav-link"
+       href="#folk-traditions"
+       data-nav="chapter5"
+       hidden>Chapter 5</a>
 
-    <a class="nav-link" href="#the-future"
-      data-nav="chapter6" hidden>Chapter 6</a>
+    <a class="nav-link"
+       href="#the-future"
+       data-nav="chapter6"
+       hidden>Chapter 6</a>
 
-    <a class="nav-link nav-secondary" href="./archive.html"
-      data-nav="archive">Video Archive</a>
+    <a class="nav-link nav-secondary"
+       href="./archive.html"
+       data-nav="archive">Video Archive</a>
 
-    <a class="nav-link" href="#about-project"
-      data-nav="about">About the Project</a>
+    <a class="nav-link"
+       href="#about-project"
+       data-nav="about">About the Project</a>
   </div>
-
 </nav>
 
 <main id="story">
-
   <header id="header">
     <div id="header-content">
       <h1 id="title"></h1>
@@ -863,7 +586,6 @@ body.viewing-static-map #top-nav{
   </header>
 
   <section id="chapters"></section>
-
 </main>
 
 <script>
@@ -941,7 +663,6 @@ const navLabels={
     archive:"Video Archive",
     about:"About the Project"
   },
-
   el:{
     chapter1:"Κεφάλαιο 1: Τι είναι τα Αρβανιτοχώρια;",
     chapter2:"Κεφάλαιο 2: Μια Σύντομη Ιστορία του Όρους Αραχναίου",
@@ -967,7 +688,6 @@ const geographyTranslations={
     blended:"Predominantly Greek-Speaking Areas with Reported Limited Arvanite Presence",
     methodNote:"Shaded regions reflect historical accounts, local traditions, and scholarly interpretations of Arvanite settlement. They are approximate and do not represent exclusive ethnic territories, official population classifications, or fixed linguistic boundaries."
   },
-
   el:{
     title:"Γεωγραφική Κατανομή των Περιοχών Αρβανίτικης Εγκατάστασης στη Νότια Ελλάδα",
     caption:"Χάρτης που δημιουργήθηκε από τη Χριστίνα Μαρία Καράση με τη χρήση του ArcGIS, με βάση δεδομένα οικισμών από τον Lithoxoou (χ.χ.) και περιφερειακά εθνογλωσσικά όρια από τους Philippson (1890) και Tsitsipis (1998).",
@@ -987,7 +707,6 @@ const photoTranslations={
     description:"Looking down from Xeli toward the valley, with mountain slopes descending into agricultural lands.",
     credit:"Photograph by Christina Maria Carasis."
   },
-
   el:{
     description:"Θέα από το Χέλι προς την κοιλάδα, με τις πλαγιές του βουνού να κατηφορίζουν προς τις καλλιεργήσιμες εκτάσεις.",
     credit:"Φωτογραφία: Χριστίνα Μαρία Καράση."
@@ -1001,7 +720,6 @@ const ruinsPhotoTranslations={
     description:"Remains of Roman baths in Berbati, Argolida, Greece.",
     credit:"Photograph by Christina Maria Carasis."
   },
-
   el:{
     description:"Ερείπια ρωμαϊκών λουτρών στο Μπερμπάτι, Αργολίδα.",
     credit:"Φωτογραφία: Χριστίνα Μαρία Καράση."
@@ -1015,7 +733,6 @@ const bridgesPhotoTranslations={
     description:"Two bridges just outside Berbati illustrate changes in transportation infrastructure over time. An Ottoman-era stone footbridge stands alongside a modern road bridge constructed in the late twentieth century.",
     credit:"Photograph by Christina Maria Carasis."
   },
-
   el:{
     description:"Δύο γέφυρες λίγο έξω από το Μπερμπάτι αποτυπώνουν τις αλλαγές στις υποδομές μετακίνησης με την πάροδο του χρόνου. Μια πέτρινη πεζογέφυρα της οθωμανικής περιόδου στέκεται δίπλα σε μια σύγχρονη οδική γέφυρα, που κατασκευάστηκε στα τέλη του 20ού αιώνα.",
     credit:"Φωτογραφία: Χριστίνα Μαρία Καράση."
@@ -1029,7 +746,6 @@ const aboutTranslations={
     heading:"About the Project",
     text:"Arvanitochoria is an ongoing digital mapping and oral history project developed by Christina Maria Carasis, an Arvanitissa and Geography student at the University of California, Berkeley. Rooted in both personal heritage and academic research, the project draws on the knowledge, memories, and contributions of residents of the villages of Mt. Arachnaio."
   },
-
   el:{
     heading:"Σχετικά με το Έργο",
     text:"Το Arvanitochoria είναι ένα συνεχιζόμενο εγχείρημα ψηφιακής χαρτογράφησης και προφορικής ιστορίας που αναπτύχθηκε από τη Χριστίνα Μαρία Καράση, Αρβανίτισσα και φοιτήτρια Γεωγραφίας στο Πανεπιστήμιο της Καλιφόρνιας στο Μπέρκλεϊ. Με αφετηρία τόσο την προσωπική πολιτισμική κληρονομιά όσο και την ακαδημαϊκή έρευνα, το έργο βασίζεται στις γνώσεις, τις μνήμες και τις συνεισφορές των κατοίκων των χωριών του Όρους Αραχναίου."
@@ -1060,7 +776,6 @@ const mapTranslations={
     close:"Close ×",
     open:"Enlarge Maria Mpiniari's hand-drawn map"
   },
-
   el:{
     title:"Χαρτογραφώντας τη Διαδρομή προς την Εκπαίδευση",
     credit:"Χειρόγραφος χάρτης της Μαρίας Μπινιάρη",
@@ -1085,7 +800,11 @@ config.chapters.forEach(chapter=>{
     const pause=document.createElement("div");
     pause.className="map-breathing-space";
     pause.id="eight-villages-map-pause";
-    pause.setAttribute("aria-hidden","true");
+    pause.dataset.id="eight-villages-map-pause";
+    pause.setAttribute(
+      "aria-label",
+      "View of the eight Arvanite villages"
+    );
     chaptersContainer.appendChild(pause);
   }
 
@@ -1107,11 +826,13 @@ config.chapters.forEach(chapter=>{
     video.className="oral-history-video";
 
     const iframe=document.createElement("iframe");
-    iframe.src=`https://www.youtube-nocookie.com/embed/${encodeURIComponent(chapter.videoId)}?cc_load_policy=1`;
+    iframe.src=
+      `https://www.youtube-nocookie.com/embed/${encodeURIComponent(chapter.videoId)}?cc_load_policy=1`;
     iframe.title="Oral history video";
     iframe.loading="lazy";
     iframe.referrerPolicy="strict-origin-when-cross-origin";
-    iframe.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    iframe.allow=
+      "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
     iframe.allowFullscreen=true;
 
     video.appendChild(iframe);
@@ -1122,9 +843,7 @@ config.chapters.forEach(chapter=>{
   chaptersContainer.appendChild(section);
 
   chapterElements.set(chapter.id,{
-    section,
-    heading,
-    paragraph
+    section,heading,paragraph
   });
 
   /* ARCGIS GEOGRAPHY MAP */
@@ -1137,13 +856,11 @@ config.chapters.forEach(chapter=>{
     feature.innerHTML=`
       <figure>
         <div class="geography-image-container">
-
           <a class="geography-image-link"
              href="./assets/arvanite-geography-map.png"
              target="_blank"
              rel="noopener"
              aria-label="Open full-size Arvanite geography map">
-
             <img class="geography-image"
                  src="./assets/arvanite-geography-map.png"
                  alt="Historical Arvanite settlement map"
@@ -1151,7 +868,6 @@ config.chapters.forEach(chapter=>{
           </a>
 
           <div class="geography-legend" role="group">
-
             <strong class="geography-legend-heading"
                     data-geography-i18n="legendHeading"></strong>
 
@@ -1172,23 +888,20 @@ config.chapters.forEach(chapter=>{
                     aria-hidden="true"></span>
               <span data-geography-i18n="blended"></span>
             </div>
-
           </div>
         </div>
 
         <figcaption>
           <strong class="geography-title"
                   data-geography-i18n="title"></strong>
-
           <span class="geography-caption"
                 data-geography-i18n="caption"></span>
-
           <span class="geography-method-note"
                 data-geography-i18n="methodNote"></span>
         </figcaption>
       </figure>
-
-      <div class="cutaway-fade-out" aria-hidden="true"></div>
+      <div class="cutaway-fade-out"
+           aria-hidden="true"></div>
     `;
 
     chaptersContainer.appendChild(feature);
@@ -1206,7 +919,6 @@ config.chapters.forEach(chapter=>{
         <img src="./assets/IMG_2357.jpeg"
              alt="View from Xeli across the mountain slopes and valley"
              loading="lazy">
-
         <figcaption>
           <span data-photo-i18n="description"></span>
           <span class="photo-credit"
@@ -1230,7 +942,6 @@ config.chapters.forEach(chapter=>{
         <img src="./assets/IMG_0569.jpeg"
              alt="Remains of Roman baths in Berbati, Argolida"
              loading="lazy">
-
         <figcaption>
           <span data-ruins-photo-i18n="description"></span>
           <span class="photo-credit"
@@ -1254,7 +965,6 @@ config.chapters.forEach(chapter=>{
         <img src="./assets/IMG_0578.jpeg"
              alt="Ottoman-era stone footbridge beside a modern road bridge just outside Berbati"
              loading="lazy">
-
         <figcaption>
           <span data-bridges-photo-i18n="description"></span>
           <span class="photo-credit"
@@ -1278,12 +988,10 @@ config.chapters.forEach(chapter=>{
         <button type="button"
                 class="map-open"
                 aria-label="Enlarge Maria Mpiniari's hand-drawn map">
-
           <img src="./assets/maria-mpiniari-school-map.png"
                alt="Hand-drawn map by Maria Mpiniari"
                loading="lazy">
         </button>
-
         <figcaption>
           <h2 data-map-i18n="title"></h2>
           <p class="map-credit"
@@ -1294,8 +1002,8 @@ config.chapters.forEach(chapter=>{
              data-map-i18n="hint"></p>
         </figcaption>
       </figure>
-
-      <div class="cutaway-fade-out" aria-hidden="true"></div>
+      <div class="cutaway-fade-out"
+           aria-hidden="true"></div>
     `;
 
     chaptersContainer.appendChild(feature);
@@ -1408,8 +1116,32 @@ function moveMapToChapter(chapter){
 }
 
 scroller
-  .setup({step:".step",offset:.5})
+  .setup({
+    step:".step, .map-breathing-space",
+    offset:.5
+  })
   .onStepEnter(response=>{
+
+    /* EIGHT-VILLAGE OVERVIEW PAUSE */
+
+    if(
+      response.element.dataset.id===
+      "eight-villages-map-pause"
+    ){
+      const mobile=window.innerWidth<=700;
+
+      map.flyTo({
+        center:[22.925,37.685],
+        zoom:mobile?9.8:11.8,
+        pitch:mobile?40:55,
+        bearing:0,
+        duration:1800,
+        essential:true
+      });
+
+      return;
+    }
+
     const chapter=config.chapters.find(
       item=>item.id===response.element.dataset.id
     );
@@ -1475,7 +1207,9 @@ function setLanguage(lang){
   document.querySelectorAll("[data-geography-i18n]")
     .forEach(element=>{
       element.textContent=
-        geographyTranslations[lang][element.dataset.geographyI18n];
+        geographyTranslations[lang][
+          element.dataset.geographyI18n
+        ];
     });
 
   const geographyImage=
@@ -1490,7 +1224,9 @@ function setLanguage(lang){
   document.querySelectorAll("[data-photo-i18n]")
     .forEach(element=>{
       element.textContent=
-        photoTranslations[lang][element.dataset.photoI18n];
+        photoTranslations[lang][
+          element.dataset.photoI18n
+        ];
     });
 
   /* ROMAN BATHS */
@@ -1498,7 +1234,9 @@ function setLanguage(lang){
   document.querySelectorAll("[data-ruins-photo-i18n]")
     .forEach(element=>{
       element.textContent=
-        ruinsPhotoTranslations[lang][element.dataset.ruinsPhotoI18n];
+        ruinsPhotoTranslations[lang][
+          element.dataset.ruinsPhotoI18n
+        ];
     });
 
   /* BRIDGES */
@@ -1506,7 +1244,9 @@ function setLanguage(lang){
   document.querySelectorAll("[data-bridges-photo-i18n]")
     .forEach(element=>{
       element.textContent=
-        bridgesPhotoTranslations[lang][element.dataset.bridgesPhotoI18n];
+        bridgesPhotoTranslations[lang][
+          element.dataset.bridgesPhotoI18n
+        ];
     });
 
   /* ABOUT */
@@ -1514,7 +1254,9 @@ function setLanguage(lang){
   document.querySelectorAll("[data-about-i18n]")
     .forEach(element=>{
       element.textContent=
-        aboutTranslations[lang][element.dataset.aboutI18n];
+        aboutTranslations[lang][
+          element.dataset.aboutI18n
+        ];
     });
 
   /* MARIA'S MAP */
@@ -1616,6 +1358,7 @@ function closeMenu(){
 
 menuToggle.addEventListener("click",()=>{
   const open=navLinks.classList.toggle("open");
+
   menuToggle.setAttribute(
     "aria-expanded",
     String(open)
