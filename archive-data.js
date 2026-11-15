@@ -125,7 +125,62 @@ window.archiveClips = [
     ],
 
     type: 'clip'
-}
+},
+    {
+    id: 'wedding_song',
 
+    youtubeId: 'hydYm8Ps9s8',
+
+    title: {
+        en: 'A Wedding Song',
+        el: 'Ένα γαμήλιο τραγούδι'
+    },
+
+    description: {
+        en: 'Neighbors in Gerbesi reminisce and sing a traditional Arvanitika wedding song together',
+        el: 'Γείτονες στο Γκέρμπεσι αναπολούν και τραγουδούν μαζί ένα παραδοσιακό αρβανίτικο γαμήλιο τραγούδι.'
+    },
+
+    village: 'Gerbesi',
+
+    categories: ['language', 'history','community'],
+
+    tags: [
+        'Arvanitika',
+        'Folk Songs',
+        'Tradition',
+        'Collective Memory'
+    ],
+
+    type: 'clip'
+},
+ {
+    id: 'Youth_Perspective',
+
+    youtubeId: '_cakmKzlZEo',
+
+    title: {
+        en: 'Youth Perspective',
+        el: 'Η οπτική των νέων'
+    },
+
+    description: {
+        en: 'Two young men from Gerbesi talk about their perspectives on traditional farming.',
+        el: 'Δύο νέοι από το Γκερμπέσι μιλούν για τις απόψεις τους σχετικά με την παραδοσιακή γεωργία.'
+    },
+
+    village: 'Gerbesi',
+
+    categories: [ 'history','land'],
+
+    tags: [
+        'Rural Life',
+        'Land',
+        'Agriculture',
+        'Youth'
+    ],
+
+    type: 'clip'
+}
 
 ];
