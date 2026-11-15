@@ -81,7 +81,7 @@ window.archiveClips = [
         },
 
         description: {
-            en: 'Zafirios Georgios describes how land boundaries were established in Xeli. Initially, villagers’ grandfathers marked property boundaries using stones. Later, the military and the municipality installed official boundary markers, reflecting a transition from locally established boundaries to formal land demarcation.',
+            en: 'A  villager in Xeli describes how land boundaries were established. Initially, villagers’ grandfathers marked property boundaries using stones. Later, the military and the municipality installed official boundary markers, reflecting a transition from locally established boundaries to formal land demarcation.',
             el: ''
         },
 
